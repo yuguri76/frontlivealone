@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import MainPage from './pages/MainPage';
+import LoginPage from './pages/LoginPage';
+import BroadcastHistoryPage from './pages/BroadcastHistoryPage';
+import CompletePaymentPage from './pages/CompletePaymentPage';
+import DeliveryHistoryPage from './pages/DeliveryHistoryPage';
+import MypagePage from './pages/MypagePage';
+import PaymentHistoryPage from './pages/PaymentHistoryPage';
+import PaymentPage from './pages/PaymentPage';
+import StreamerPage from './pages/StreamerPage';
+import StreamingPage from './pages/StreamingPage';
+import Header from './components/Header';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <Router>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/main" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/broadcasthistory" element={<BroadcastHistoryPage />}/>
+            <Route path="/completepayment" element={<CompletePaymentPage />}/>
+            <Route path="/deliveryhistory" element={<DeliveryHistoryPage />}/>
+            <Route path="/mypage" element={<MypagePage />}/>
+            <Route path="/paymenthistory" element={<PaymentHistoryPage />}/>
+            <Route path="/payment" element={<PaymentPage />}/>
+            <Route path="/streamer" element={<StreamerPage />}/>
+            <Route path="/streaming" element={<StreamingPage />}/>
+          </Routes>
+        </div>
+      </Router>
+    </DndProvider>
   );
 }
 
