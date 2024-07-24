@@ -1,0 +1,106 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.siteIntro {
+  background-color: #ADD8E6;
+  padding: 20px;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sections {
+  display: flex;
+  justify-content: space-between;
+  height: 400px;
+}
+
+.streamerPage {
+  background-color: #FFDAB9;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.streamerText {
+  font-size: 36px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-80%);
+}
+
+.streamButton {
+  background-color: #FFA500;
+  border: none;
+  padding: 20px 40px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 15px;
+  position: absolute;
+  bottom: 100px;
+}
+
+.onAir {
+  background-color: #FFB6C1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.onAirText {
+  font-size: 36px;
+  font-weight: bold;
+  color: red;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.discountText {
+  font-size: 36px;
+  margin-bottom: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-80%);
+}
+
+.watchButton {
+  background-color: #FF4500;
+
+  border: none;
+  padding: 20px 40px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 15px;
+  position: absolute;
+  bottom: 100px;
+}
+
+.ad {
+  background-color: #FFFFFF;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
