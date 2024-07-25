@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/BroadcastHistory.module.css';
+import styles from '../styles/History.module.css';
 
 const BroadcastHistory = () => {
   return (

@@ -44,7 +44,7 @@
   font-weight: 700;
 }
 
-.historyContent .historyContentTitle {
+.historyContent .historyContentTitle, .historyContentName {
   font-weight: 900;
 }
 
