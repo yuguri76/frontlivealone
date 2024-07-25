@@ -1,7 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import BroadcastHistoryPage from './pages/BroadcastHistoryPage';
@@ -15,27 +15,27 @@ import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
 
 function App() {
-  return (
-    <DndProvider backend={HTML5Backend}>
-      <Router>
-        <div className="App">
-          <Header />
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/broadcasthistory" element={<BroadcastHistoryPage />} />
-            <Route path="/completepayment" element={<CompletePaymentPage />} />
-            <Route path="/deliveryhistory" element={<DeliveryHistoryPage />} />
-            <Route path="/myinfo" element={<MyInfoPage />} />
-            <Route path="/paymenthistory" element={<PaymentHistoryPage />} />
-            <Route path="/payment" element={<PaymentPage />} />
-            <Route path="/streamer" element={<StreamerPage />} />
-            <Route path="/streaming" element={<StreamingPage />} />
-          </Routes>
-        </div>
-      </Router>
-    </DndProvider>
-  );
+    return (
+        <DndProvider backend={HTML5Backend}>
+            <Router>
+                <div className="App">
+                    <Header/>
+                    <Routes>
+                        <Route path="/" element={<MainPage/>}/>
+                        <Route path="/login" element={<LoginPage/>}/>
+                        <Route path="/broadcasthistory" element={<BroadcastHistoryPage/>}/>
+                        <Route path="/completepayment" element={<CompletePaymentPage/>}/>
+                        <Route path="/deliveryhistory" element={<DeliveryHistoryPage/>}/>
+                        <Route path="/myinfo" element={<MyInfoPage/>}/>
+                        <Route path="/paymenthistory" element={<PaymentHistoryPage/>}/>
+                        <Route path="/payment" element={<PaymentPage/>}/>
+                        <Route path="/streamer" element={<StreamerPage/>}/>
+                        <Route path="/streaming" element={<StreamingPage/>}/>
+                    </Routes>
+                </div>
+            </Router>
+        </DndProvider>
+    );
 }
 
 export default App;
