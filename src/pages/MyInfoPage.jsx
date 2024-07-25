@@ -1,10 +1,12 @@
 import React from 'react';
+import MyInfo from '../components/MyInfo'
 
-function MypagePage() {
+function MyInfoPage() {
     return (
-      <div className="mypage-page">
+      <div className="myinfo-page">
+        <MyInfo />
       </div>
     );
   }
   
-  export default MypagePage;
+  export default MyInfoPage;
