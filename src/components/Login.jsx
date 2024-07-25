@@ -1,0 +1,125 @@
+import React from 'react';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import kakaoLogo from '../assets/images/kakao_login.png';
+import naverLogo from '../assets/images/naver_login.png';
+import googleLogo from '../assets/images/google_login.png';
+
+const Login = () => {
+
+  const handleLogin = () => {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
+  };
+
+  return (
+      <button onClick={handleLogin}
+              style={{border: 'none', background: 'none'}}>
+        <img src={kakaoLogo} alt="Kakao Login"
+             style={{width: '200px', margin: '10px'}}/>
+      </button>
+  );
+
+};
+
+//새로 수정해야합니다.
+// const Login = () => {
+//   React.useEffect(() => {
+//     // Load Kakao SDK script dynamically
+//     const kakaoScript = document.createElement('script');
+//     kakaoScript.src = 'https://developers.kakao.com/sdk/js/kakao.min.js';
+//     kakaoScript.async = true;
+//     kakaoScript.onload = () => {
+//       // Initialize Kakao SDK after it is loaded
+//       if (window.Kakao) {
+//         window.Kakao.init(process.env.REACT_APP_KAKAO_APP_KEY);
+//         console.log("Kakao SDK initialized:", window.Kakao.isInitialized());
+//       }
+//     };
+//     document.body.appendChild(kakaoScript);
+//
+//     // Load Naver SDK script dynamically only if not already loaded
+//     // if (!window.naver || !window.naver.LoginWithNaverId) {
+//       const naverScript = document.createElement('script');
+//       naverScript.src = 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2-nopolyfill.js';
+//       naverScript.async = true;
+//       naverScript.onload = () => {
+//         console.log("Naver SDK loaded");
+//       };
+//       document.body.appendChild(naverScript);
+//     // }
+//
+//     return () => {
+//       // Cleanup: remove scripts if needed
+//       document.body.removeChild(kakaoScript);
+//       if(naverScript) {
+//         document.body.removeChild(naverScript);
+//       }
+//     };
+//   }, []);
+//
+//   const handleKakaoLogin = () => {
+//     window.Kakao.Auth.authorize({
+//       redirectUri: process.env.REACT_APP_KAKAO_CALLBACK_URL,
+//     });
+//   };
+//
+//   const handleNaverLogin = () => {
+//     if (window.naver && window.naver.LoginWithNaverId) {
+//       const naverLogin = new window.naver.LoginWithNaverId({
+//         clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
+//         callbackUrl: process.env.REACT_APP_NAVER_CALLBACK_URL,
+//         isPopup: true,
+//         loginButton: { color: 'green', type: 3, height: 58 },
+//         callbackHandle: true,
+//       });
+//       naverLogin.init();
+//
+//       // Trigger Naver login
+//       naverLogin.getLoginStatus((status) => {
+//         if (status) {
+//           console.log("Naver User:", naverLogin.user);
+//           // Handle successful login here
+//         } else {
+//           console.error("Naver login failed");
+//         }
+//       });
+//     } else {
+//       console.error("Naver SDK not initialized.");
+//     }
+//   };
+//
+//   const handleGoogleLogin = (credentialResponse) => {
+//     console.log("Google Auth Success:", credentialResponse);
+//     // Handle successful login here
+//   };
+//
+//   return (
+//       <div style={{ textAlign: 'center', marginTop: '50px' }}>
+//         <h1>Login Page</h1>
+//         <div>
+//           <button onClick={handleKakaoLogin} style={{ border: 'none', background: 'none' }}>
+//             <img src={kakaoLogo} alt="Kakao Login" style={{ width: '200px', margin: '10px' }} />
+//           </button>
+//           <button onClick={handleNaverLogin} style={{ border: 'none', background: 'none' }}>
+//             <img src={naverLogo} alt="Naver Login" style={{ width: '200px', margin: '10px' }} />
+//           </button>
+//           <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+//             <GoogleLogin
+//                 onSuccess={handleGoogleLogin}
+//                 onError={() => console.error('Google login failed')}
+//                 render={(renderProps) => (
+//                     <button
+//                         onClick={renderProps.onClick}
+//                         disabled={renderProps.disabled}
+//                         style={{ border: 'none', background: 'none' }}
+//                     >
+//                       <img src={googleLogo} alt="Google Login" style={{ width: '200px', margin: '10px' }} />
+//                     </button>
+//                 )}
+//             />
+//           </GoogleOAuthProvider>
+//         </div>
+//       </div>
+//   );
+// };
+
+export default Login;
