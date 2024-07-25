@@ -10,8 +10,6 @@ button:hover {
 
 body {
   background-color: #F5FBFF;
-  display: flex;
-  justify-content: center;
 }
 
 .myinfoContainer {
@@ -20,6 +18,7 @@ body {
   gap: 50px;
   padding: 100px;
   width: 1300px;
+  margin: 0 auto;
 }
 
 .infoContainer {
