@@ -62,7 +62,7 @@ const MyInfo = () => {
         </div>
         <div className={styles.actBox}>
           <div className={styles.actName}>
-            <span>배송 내역</span>
+            <span>배송 정보</span>
             <button>더보기</button>
           </div>
           <div className={styles.deliveryContentContainer}>

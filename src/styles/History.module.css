@@ -64,3 +64,8 @@
 .pageSelect {
   font-weight: 900;
 }
+
+.historyDeliveryState {
+  color: green;
+  font-weight: 800;
+}
