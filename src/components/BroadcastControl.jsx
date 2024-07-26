@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
+import axiosInstance from '../axiosInstance';
 import styles from '../styles/BroadcastControl.module.css';
 
 const BroadcastControl = ({ isSettingCompleted }) => {
     const [isBroadcastStart, setBroadcastStart] = useState(false);
 
-    const handleBroadcastStart = () => {
+    const handleBroadcastStart = async () => {
         // 방송 시작 api 연결
+        try {
+            const response = await axiosInstance.post(`/broadcast`, {
+                "title" : "맛있는 선산곱창 90% 할인",
+                "code" : "1234123412341234",
+                "product_id" : 1
+            }, {
+                headers: {
+                    Authorization: localStorage.getItem('accessToken')
+                }
+            });
 
+        } catch (error) {
+            if(error.response.data.message) {
+                alert(`${error.response.data.message}`);
+            }
+        }
+        
         setBroadcastStart(true);
     };
 
