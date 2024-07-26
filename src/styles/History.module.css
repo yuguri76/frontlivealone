@@ -60,6 +60,10 @@
   color: dodgerblue;
 }
 
+.pageContainer span:hover {
+  cursor: pointer;
+}
+
 .pageSelect {
   font-weight: 900;
 }
