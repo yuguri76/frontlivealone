@@ -44,11 +44,11 @@ const BroadcastHistory = () => {
 
     try {
       const response = await axios.get(`http://localhost:8080/user/broadcast?page=${page}`);
+      console.log(response.data);
       setBroadcasts(response.data.data);
-    } catch(e) {
-
+    } catch(error) {
+      console.error('Error fetching deliverys:', error);
     }
-
   }
 
   return (
