@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import setupInterceptors from './setupInterceptors';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -17,11 +16,6 @@ import Header from './components/Header';
 import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    setupInterceptors({ navigate });
-  }, [navigate]);
 
   return (
     <DndProvider backend={HTML5Backend}>
