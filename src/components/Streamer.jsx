@@ -4,13 +4,20 @@ import LiveScreen from './LiveScreen';
 import BroadcastControl from './BroadcastControl';
 import ChatBox from './chat/ChatBox';
 import ProductionInfoInput from './ProductionInfoInput';
+import ProductionInfo from './ProductionInfo';
 
 const Streamer = () => {
     const [isSettingCompleted, setSettingCompleted] = useState(false);
+    const [productInfo, setProductInfo] = useState({
+        name: '',
+        price: '',
+        quantity: '',
+        introduction: ''
+    });
 
-    const onSettingComplete = () => {
+    const onSettingComplete = (productId, info) => {
+        setProductInfo(info);
         setSettingCompleted(true);
-        // ProductionInfo 대신 완료 된 걸로 렌더링
     };
 
     return (
@@ -24,9 +31,18 @@ const Streamer = () => {
                         />
                     </section>
                     <section className={styles.productionInfoSection}>
-                        <ProductionInfoInput
-                            onSettingComplete={onSettingComplete}
-                        />
+                        {isSettingCompleted ? (
+                            <ProductionInfo
+                                name={productInfo.name}
+                                price={productInfo.price}
+                                quantity={productInfo.quantity}
+                                introduction={productInfo.introduction}
+                            />
+                        ) : (
+                            <ProductionInfoInput
+                                onSettingComplete={onSettingComplete}
+                            />
+                        )}
                     </section>
                 </div>
                 <ChatBox />
