@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import base64 from 'base-64';
+import { setNickname } from "../store/store";
+import {useDispatch, useSelector} from "react-redux";
 
 const OAuth2RedirectHandler = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -21,11 +24,11 @@ const OAuth2RedirectHandler = () => {
 
       const parsedPayload = JSON.parse(jsonPayload);
 
-      localStorage.setItem('nickName',parsedPayload.nickname);
+      dispatch(setNickname(parsedPayload.nickname));
 
       navigate('/');
     }
-  }, [navigate]);
+  }, [navigate, dispatch]);
 
   return <div>Loading...</div>;
 };
