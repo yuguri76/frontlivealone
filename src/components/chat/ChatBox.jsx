@@ -37,7 +37,9 @@ function ChatContainer() {
   }, []);
 
   useEffect(() => {
-    chatWindowRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
   }, [messages]); // messages 상태가 업데이트될 때마다 실행
 
 
@@ -81,7 +83,7 @@ function ChatList({messages}){
     <List
       height={800}
       itemCount={messages.length}
-      itemSize={35}
+      itemSize={35} // 이 친구를 동적으로 해야 하는데 나중에 하겠습니다...
       width={400}
     >
       {({ index, style }) => (
