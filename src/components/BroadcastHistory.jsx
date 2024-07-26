@@ -1,7 +1,56 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import styles from '../styles/History.module.css';
+import classNames from "classnames";
 
 const BroadcastHistory = () => {
+  const [broadcasts, setBroadcasts] = useState([]);
+
+  const [selectPageOne, setSelectPageOne] = useState(true);
+  const [selectPageTwo, setSelectPageTwo] = useState(false);
+  const [selectPageThree, setSelectPageThree] = useState(false);
+  const [selectPageFour, setSelectPageFour] = useState(false);
+  const [selectPageFive, setSelectPageFive] = useState(false);
+
+  useEffect(() => {
+    const getBroadcasts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/user/broadcast');
+        setBroadcasts(response.data.data);
+      } catch (error) {
+        console.error('Error fetching broadcasts:', error);
+      }
+    };
+
+    getBroadcasts();
+  }, []);
+
+  const handlePageClick = async (event) => {
+    let page = parseInt(event.target.textContent);
+
+    setSelectPageOne(false);
+    setSelectPageTwo(false);
+    setSelectPageThree(false);
+    setSelectPageFour(false);
+    setSelectPageFive(false);
+
+    switch (page) {
+      case 1: setSelectPageOne(true); break;
+      case 2: setSelectPageTwo(true); break;
+      case 3: setSelectPageThree(true); break;
+      case 4: setSelectPageFour(true); break;
+      case 5: setSelectPageFive(true); break;
+    }
+
+    try {
+      const response = await axios.get(`http://localhost:8080/user/broadcast?page=${page}`);
+      setBroadcasts(response.data.data);
+    } catch(e) {
+
+    }
+
+  }
+
   return (
       <div className={styles.historyContainer}>
         <div className={styles.historyNameContainer}>
@@ -9,43 +58,25 @@ const BroadcastHistory = () => {
         </div>
         <div className={styles.line}></div>
         <div className={styles.historyContentContainer}>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentState}>Close</span>
-            <span className={styles.historyContentTitle}>맛있는 선산곱창90% 할인</span>
-            <span>상품명: 선산곱창</span>
-            <span className={styles.historyContentTime}>2024/06/23 18:00</span>
-          </div>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentState}>Close</span>
-            <span className={styles.historyContentTitle}>맛있는 선산곱창90% 할인</span>
-            <span>상품명: 선산곱창</span>
-            <span className={styles.historyContentTime}>2024/06/23 18:00</span>
-          </div>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentState}>Close</span>
-            <span className={styles.historyContentTitle}>맛있는 선산곱창90% 할인</span>
-            <span>상품명: 선산곱창</span>
-            <span className={styles.historyContentTime}>2024/06/23 18:00</span>
-          </div>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentState}>Close</span>
-            <span className={styles.historyContentTitle}>맛있는 선산곱창90% 할인</span>
-            <span>상품명: 선산곱창</span>
-            <span className={styles.historyContentTime}>2024/06/23 18:00</span>
-          </div>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentState}>Close</span>
-            <span className={styles.historyContentTitle}>맛있는 선산곱창90% 할인</span>
-            <span>상품명: 선산곱창</span>
-            <span className={styles.historyContentTime}>2024/06/23 18:00</span>
-          </div>
+          {
+            broadcasts.map((content, index) => (
+                <div className={styles.historyContent} key={index}>
+                  <span className={styles.historyContentState}>{content.status}</span>
+                  <span
+                      className={styles.historyContentTitle}>{content.title}</span>
+                  <span>상품명: {content.product_name}</span>
+                  <span
+                      className={styles.historyContentTime}>{content.air_time.replace('T', ' ')}</span>
+                </div>
+            ))
+          }
         </div>
         <div className={styles.pageContainer}>
-          <span className={styles.pageSelect}>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
+          <span className={classNames({[styles.pageSelect]: selectPageOne})} onClick={handlePageClick}>1</span>
+          <span className={classNames({[styles.pageSelect]: selectPageTwo})} onClick={handlePageClick}>2</span>
+          <span className={classNames({[styles.pageSelect]: selectPageThree})} onClick={handlePageClick}>3</span>
+          <span className={classNames({[styles.pageSelect]: selectPageFour})} onClick={handlePageClick}>4</span>
+          <span className={classNames({[styles.pageSelect]: selectPageFive})} onClick={handlePageClick}>5</span>
         </div>
       </div>
   );

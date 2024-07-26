@@ -25,7 +25,6 @@ const MyInfo = () => {
     const getBroadcasts = async () => {
       try {
         const response = await axios.get('http://localhost:8080/user/broadcast');
-        console.log(response.data);
         setBroadcasts(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
@@ -38,20 +37,18 @@ const MyInfo = () => {
     const getPayments = async () => {
       try {
         const response = await axios.get('http://localhost:8080/user/1/payment');
-        console.log(response.data);
         setPayments(response.data.data);
       } catch (error) {
-        console.error('Error fetching broadcasts:', error);
+        console.error('Error fetching payments:', error);
       }
     };
 
     const getDelivery = async () => {
       try {
         const response = await axios.get('http://localhost:8080/user/delivery');
-        console.log(response.data);
         setDeliverys(response.data.data);
       } catch (error) {
-        console.error('Error fetching broadcasts:', error);
+        console.error('Error fetching deliverys:', error);
       }
     };
 
@@ -80,13 +77,11 @@ const MyInfo = () => {
         birth_day,
         address
       });
-      console.log("Server Response: ", response.data);
       setHideSubmitButton(true);
       setHideEditButton(false);
       setHideInputValue(false);
       setHideInput(true);
 
-      console.log(response.data.data);
 
       setNickname(response.data.data.nick_name);
       setName(response.data.data.name);
