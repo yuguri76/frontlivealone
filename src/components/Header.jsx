@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import styles from '../styles/Header.module.css';
 
@@ -7,6 +8,7 @@ function Header() {
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const nickName = useSelector((state) => { return state.user.nickName })
 
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('accessToken') !== null;
@@ -43,7 +45,7 @@ function Header() {
         <img src={logo} alt="나혼자산다 로고" className={styles.logo} onClick={handleLogoClick} />
         {isLoggedIn ? (
           <>
-            <div className={styles.welcomeMessage}>○○○님 환영합니다!</div>
+            <div className={styles.welcomeMessage}>{nickName}님 환영합니다!</div>
             <div className={styles.buttons}>
               <button className={styles.button} onClick={handleMyInfoClick}>마이페이지</button>
               <button className={styles.button} onClick={handleLogoutClick}>로그아웃</button>
