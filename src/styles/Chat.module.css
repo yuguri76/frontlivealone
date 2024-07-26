@@ -1,81 +1,81 @@
 .chatBox {
-    width: 400px;
-    margin: 0 auto;
-    background-color: #1c1c1c;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    height: 800px;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .chatHeader {
-    padding: 10px;
-    background-color: #333;
-    text-align: center;
-  }
-  
-  .chatBody {
-    flex: 1;
-    padding: 10px;
-    overflow-y: scroll; /* 스크롤바를 위한 설정 */
-    display: flex;
-    flex-direction: column;
-    
-  }
-  
-  .chatWindow {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  .message {
-    margin-bottom: 10px; 
-    
-  }
-  
-  .nickname {
-    font-weight: bold;
-    margin-right: 5px;
-  }
-  
-  .texts {
-    word-break: break-word;
-  }
-  
-  .chatFooter {
-    padding: 10px;
-    background-color: #333;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-  }
-  
-  .chatFooter input {
-    flex: 1;
-    padding: 8px;
-    border: none;
-    border-radius: 4px;
-    margin-right: 10px;
-    box-sizing: border-box;
-  }
-  
-  .chatFooter button {
-    padding: 8px 15px;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    color: white;
-    box-sizing: border-box;
-  }
-  
-  .chatFooter button:hover {
-    background-color: #45a049;
-  }
-  
+  width: 400px;
+  margin: 0 auto;
+  background-color: #1c1c1c;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 800px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chatHeader {
+  padding: 10px;
+  background-color: #333;
+  text-align: center;
+}
+
+.chatBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0; /* Padding 제거 */
+  overflow: hidden; /* overflow 속성을 숨김으로 설정 */
+}
+
+.chatWindow {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.message {
+  margin-bottom: 10px;
+
+}
+
+.nickname {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.texts {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.chatFooter {
+  padding: 10px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}
+
+.chatFooter input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+.chatFooter button {
+  padding: 8px 15px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  box-sizing: border-box;
+}
+
+.chatFooter button:hover {
+  background-color: #45a049;
+}
