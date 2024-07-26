@@ -1,0 +1,41 @@
+.completeContainer {
+    background-color: #f0f8ff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messageContainer {
+    background-color: #b7defa;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 60%;
+    max-width: 1200px;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+img {
+    width: 500px;
+    height: auto;
+    margin: 20px 0;
+}
+
+.returnButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.returnButton:hover {
+    background-color: #0056b3;
+}

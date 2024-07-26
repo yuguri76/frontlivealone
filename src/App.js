@@ -13,6 +13,7 @@ import PaymentPage from './pages/PaymentPage';
 import StreamerPage from './pages/StreamerPage';
 import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
+import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/streamer" element={<StreamerPage />} />
             <Route path="/streaming" element={<StreamingPage />} />
+            <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
           </Routes>
         </div>
       </Router>
