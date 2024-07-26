@@ -1,7 +1,12 @@
 import React from 'react';
-import styles from '../styles/ProductionInfo.module.css';
+import styles from '../styles/ProductionInfoInput.module.css';
 
-const ProductionInfo = () => {
+const ProductionInfoInput = ({onSettingComplete}) => {
+  const handleSettingComplete = () => {
+    // 서버 연결 전이라 더미 입니다. 이후 변경
+    const productId = 1;
+    onSettingComplete(productId);
+  };
 
   return (
     <div className={styles.productionInfo}>
@@ -12,9 +17,9 @@ const ProductionInfo = () => {
         <input type="text" placeholder="재고 수량" />
         <input type="text" placeholder="광고 문구" />
       </div>
-      <button className={styles.submitButton}>설정 완료</button>
+      <button className={styles.submitButton} onClick={handleSettingComplete}>설정 완료</button>
     </div>
   );
 };
 
-export default ProductionInfo;
+export default ProductionInfoInput;
