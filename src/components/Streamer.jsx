@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/Streamer.module.css';
 import LiveScreen from './LiveScreen';
 import BroadcastControl from './BroadcastControl';
-import ChatBox from './ChatBox';
+import ChatBox from './chat/ChatBox';
 import ProductionInfoInput from './ProductionInfoInput';
 
 const Streamer = () => {
