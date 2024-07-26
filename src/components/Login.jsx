@@ -1,26 +1,54 @@
 import React from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+// import {GoogleLogin, GoogleOAuthProvider} from '@react-oauth/google';
 import kakaoLogo from '../assets/images/kakao_login.png';
 import naverLogo from '../assets/images/naver_login.png';
 import googleLogo from '../assets/images/google_login.png';
+import loginLogo from '../assets/images/login_logo.png'
 
 const Login = () => {
 
-  const handleLogin = () => {
+  const handleKakaoLogin = () => {
     window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
   };
 
+  const handleNaverLogin = () => {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
+  };
+
   return (
-      <button onClick={handleLogin}
-              style={{border: 'none', background: 'none'}}>
-        <img src={kakaoLogo} alt="Kakao Login"
-             style={{width: '200px', margin: '10px'}}/>
-      </button>
+      <div style={{textAlign: 'center', marginTop: '50px'}}>
+        <h1>Login</h1>
+        <div>
+          <img src={loginLogo} alt="Kakao Login"
+               style={{width: '300px', margin: '10px'}}/>
+        </div>
+        <div>
+          <button onClick={handleKakaoLogin}
+                  style={{border: 'none', background: 'none'}}>
+            <img src={kakaoLogo} alt="Kakao Login"
+                 style={{width: '200px', margin: '10px'}}/>
+          </button>
+          <button onClick={handleNaverLogin}
+                  style={{border: 'none', background: 'none'}}>
+            <img src={naverLogo} alt="Naver Login"
+                 style={{width: '200px', margin: '10px'}}/>
+          </button>
+          <button onClick={handleGoogleLogin}
+                  style={{border: 'none', background: 'none'}}>
+            <img src={googleLogo} alt="Google Login"
+                 style={{width: '200px', margin: '10px'}}/>
+          </button>
+        </div>
+      </div>
   );
 
 };
 
-//새로 수정해야합니다.
+//새로 수정해야합니다. 시간 남으면 부활할 코드
 // const Login = () => {
 //   React.useEffect(() => {
 //     // Load Kakao SDK script dynamically
