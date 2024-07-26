@@ -9,9 +9,9 @@ function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // 로그인 연동한 뒤 현재 로그인 상태인지 알아내는 로직 추가합니다.
-    // setIsLoggedIn(loggedInStatus);
-  }, []);
+    const loggedInStatus = localStorage.getItem('accessToken') !== null;
+    setIsLoggedIn(loggedInStatus);
+  });
 
   const handleLogoClick = () => {
     navigate('/');
@@ -29,7 +29,7 @@ function Header() {
     try {
       // 로그아웃 api 연동 예정
 
-      // localStorage.setItem('accessToken', null);
+      localStorage.removeItem('accessToken');
       setIsLoggedIn(false);
 
     } catch (error) {
