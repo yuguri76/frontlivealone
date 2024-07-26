@@ -18,10 +18,10 @@
 
 .chatBody {
   flex: 1;
-  padding: 10px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
+  padding: 0; /* Padding 제거 */
+  overflow: hidden; /* overflow 속성을 숨김으로 설정 */
 }
 
 .chatWindow {
@@ -32,9 +32,7 @@
 
 .message {
   margin-bottom: 10px;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  white-space: normal;
+
 }
 
 .nickname {

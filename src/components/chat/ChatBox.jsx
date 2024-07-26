@@ -37,13 +37,9 @@ function ChatContainer() {
   }, []);
 
   useEffect(() => {
-    if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
-    }
-    if(messages.length>20){
-      
-    }
+    chatWindowRef.current.scrollIntoView({ behavior: 'smooth' });
   }, [messages]); // messages 상태가 업데이트될 때마다 실행
+
 
   const sendMessage = () => {
     const messageInput = document.getElementById('messageInput');
@@ -86,7 +82,7 @@ function ChatList({messages}){
       height={800}
       itemCount={messages.length}
       itemSize={35}
-      width={380}
+      width={400}
     >
       {({ index, style }) => (
         <div style={style}>
