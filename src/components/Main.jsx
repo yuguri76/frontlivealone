@@ -7,7 +7,10 @@ const Main = () => {
 
 
   const handleStreamerClick = () => {
-    navigate('/streamer');
+    if(localStorage.getItem('accessToken') !== null)
+      navigate('/streamer');
+    else
+      navigate('/login');
   };
 
   const handleStreamingClick = () => {
