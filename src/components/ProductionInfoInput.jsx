@@ -1,18 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../axiosInstance';
 import styles from '../styles/ProductionInfoInput.module.css';
 
 const ProductionInfoInput = ({ onSettingComplete }) => {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [introduction, setIntroduction] = useState('');
+  const [name, setName] = useState(localStorage.getItem('name') || '');
+  const [price, setPrice] = useState(localStorage.getItem('price') || '');
+  const [quantity, setQuantity] = useState(localStorage.getItem('quantity') || '');
+  const [introduction, setIntroduction] = useState(localStorage.getItem('introduction') || '');
 
-  const handleSettingComplete = () => {
-    // 서버 연결 전이라 더미 입니다. 이후 변경
-    const productId = 1;
+  useEffect(() => {
+    localStorage.setItem('name', name);
+    localStorage.setItem('price', price);
+    localStorage.setItem('quantity', quantity);
+    localStorage.setItem('introduction', introduction);
+  }, [name, price, quantity, introduction]);
 
-    const productInfo = { name, price, quantity, introduction };
-    onSettingComplete(productId, productInfo);
+  const handleSettingComplete = async () => {
+    if (isNaN(price) || isNaN(quantity)) {
+      alert('상품 가격과 재고 수량은 숫자여야 합니다.');
+      return;
+    }
+
+    try {
+      const response = await axiosInstance.post(`/product`, {
+        "name": name,
+        "price": price,
+        "quantity": quantity,
+        "introduction": introduction
+      }, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }
+      });
+
+      onSettingComplete(response.data.data);
+    } catch (error) {
+      if (error.response.data.message) {
+        alert(`${error.response.data.message}`);
+      }
+    }
   };
 
   return (

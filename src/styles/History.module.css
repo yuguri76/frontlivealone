@@ -1,7 +1,6 @@
 .historyContainer {
   background-color: white;
-  margin-top: 150px;
-  margin: 150px 100px 0 100px;
+  margin: 20px 100px 0 100px;
   padding: 50px;
   border-radius: 20px;
 }
@@ -59,6 +58,10 @@
   margin-top: 50px;
   justify-content: center;
   color: dodgerblue;
+}
+
+.pageContainer span:hover {
+  cursor: pointer;
 }
 
 .pageSelect {
