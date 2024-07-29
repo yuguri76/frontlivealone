@@ -16,7 +16,11 @@ const PaymentHistory = () => {
   useEffect(() => {
     const getPayments = async () => {
       try {
-        const response = await axiosInstance.get('/user/{userId}/payment');
+        const response = await axiosInstance.get('/user/{userId}/payment', {
+          headers: {
+            Authorization: localStorage.getItem('accessToken')
+          }});
+
         setPayments(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
@@ -44,8 +48,11 @@ const PaymentHistory = () => {
     }
 
     try {
-      const response = await axiosInstance.get(`/user/{userId}/payments?page=${page}`);
-      console.log(response.data);
+      const response = await axiosInstance.get(`/user/{userId}/payments?page=${page}`, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }});
+
       setPayments(response.data.data);
     } catch(error) {
       console.error('Error fetching deliverys:', error);

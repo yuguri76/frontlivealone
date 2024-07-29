@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import base64 from 'base-64';
 import { setNickname } from "../store/store";
 import {useDispatch, useSelector} from "react-redux";
+import { jwtDecode } from 'jwt-decode';
 
 const OAuth2RedirectHandler = () => {
   const navigate = useNavigate();
@@ -14,6 +15,15 @@ const OAuth2RedirectHandler = () => {
 
     if (token) {
       localStorage.setItem('accessToken', token);
+
+      const decoded = jwtDecode(token);
+      const userState = {
+        id: decoded.id,
+        username: decoded.username,
+        nickName: decoded.nickname,
+        email: decoded.sub,
+      };
+      localStorage.setItem('user', JSON.stringify(userState));
 
       const payload = token.split('.')[1];
       const decodedPayload = base64.decode(payload);

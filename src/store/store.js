@@ -1,25 +1,16 @@
-import { configureStore, createSlice } from '@reduxjs/toolkit'
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
+// 로컬 스토리지에서 상태를 불러오는 함수
 const loadState = () => {
     try {
-        const serializedState = localStorage.getItem('userState');
+        const serializedState = localStorage.getItem('user');
         if (serializedState === null) {
-            return { nickName: 'anonymous' }; // 기본 상태 반환
+            return { id: -1, username: '', nickName: 'anonymous', email: '' };
         }
         return JSON.parse(serializedState);
     } catch (err) {
-        return { nickName: 'anonymous' };
-    }
-
-};
-
-// 로컬 스토리지에 상태를 저장하는 함수
-const saveState = (state) => {
-    try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem('userState', serializedState);
-    } catch (err) {
-        console.error('Fail setItem: ' + state);
+        console.error('Failed to load state:', err);
+        return { id: -1, username: '', nickName: 'anonymous', email: '' };
     }
 };
 
@@ -32,22 +23,25 @@ const userSlice = createSlice({
     reducers: {
         setNickname(state, action) {
             state.nickName = action.payload;
-        }
+        },
+        setUsername(state, action) {
+            state.username = action.payload;
+        },
+        setId(state, action) {
+            state.id = action.payload;
+        },
+        setEmail(state, action) {
+            state.email= action.payload;
+        },
     }
 });
 
-export const { setNickname } = userSlice.actions;
-
+export const { setNickname, setUsername, setId, setEmail } = userSlice.actions;
 
 const store = configureStore({
     reducer: {
         user: userSlice.reducer
     },
-});
-
-// 상태가 변경될 때마다 로컬 스토리지에 저장
-store.subscribe(() => {
-    saveState(store.getState().user);
 });
 
 export default store;
