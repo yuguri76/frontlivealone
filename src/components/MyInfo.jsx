@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {link, useNavigate} from "react-router-dom";
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
 
 const MyInfo = () => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState('홍길동');
+  const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
   const [birth_day, setBirthday] = useState('');
   const [address, setAddress] = useState('');
@@ -19,24 +19,37 @@ const MyInfo = () => {
   const [hideSubmitButton, setHideSubmitButton] = useState(true);
   const [hideEditButton, setHideEditButton] = useState(false);
   const [hideInput, setHideInput] = useState(true);
-  const [hideInputValue, setHideInputValue] = useState(true);
+  const [hideInputValue, setHideInputValue] = useState(false);
 
   useEffect(() => {
+
+    const getProfile = async () => {
+      try {
+        const response = await axiosInstance.get('/user');
+
+        setNickname(response.data.data.nick_name);
+        setName(response.data.data.name);
+        setBirthday(response.data.data.birth_day);
+        setAddress(response.data.data.address);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      }
+    };
+
     const getBroadcasts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/broadcast');
+        const response = await axiosInstance.get('/user/broadcast');
         setBroadcasts(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
       }
     };
 
-    // login 붙이고 다시 수정 예정.
-    // 현재는 구동하면 에러가 나는 것이 당연하니 놀라지 마시길.
-    // 수정 예정일: 24.7.29 이전까지
+    // 결제 완료 후 수정 예정
+    // 수정 예정일: 24.7.30 이전까지
     const getPayments = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/1/payment');
+        const response = await axiosInstance.get('/user/1/payment');
         setPayments(response.data.data);
       } catch (error) {
         console.error('Error fetching payments:', error);
@@ -45,13 +58,14 @@ const MyInfo = () => {
 
     const getDelivery = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/delivery');
+        const response = await axiosInstance.get('/user/delivery');
         setDeliverys(response.data.data);
       } catch (error) {
         console.error('Error fetching deliverys:', error);
       }
     };
 
+    getProfile();
     getBroadcasts();
     getPayments();
     getDelivery();
@@ -72,7 +86,7 @@ const MyInfo = () => {
 
   const sendProfileInfo = async () => {
     try {
-      const response = await axios.put('http://localhost:8080/user', {
+      const response = await axiosInstance.put('/user', {
         nickname,
         birth_day,
         address
