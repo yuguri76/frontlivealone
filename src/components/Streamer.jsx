@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Streamer.module.css';
 import LiveScreen from './LiveScreen';
 import BroadcastControl from './BroadcastControl';
@@ -7,17 +7,28 @@ import ProductionInfoInput from './ProductionInfoInput';
 import ProductionInfo from './ProductionInfo';
 
 const Streamer = () => {
-    const [isSettingCompleted, setSettingCompleted] = useState(false);
-    const [productInfo, setProductInfo] = useState({
-        name: '',
-        price: '',
-        quantity: '',
-        introduction: ''
-    });
+    const initialIsSettingCompleted = JSON.parse(localStorage.getItem('isSettingCompleted')) || false;
+    const initialProduct = JSON.parse(localStorage.getItem('product')) || {};
 
-    const onSettingComplete = (productId, info) => {
-        setProductInfo(info);
+    const [isSettingCompleted, setSettingCompleted] = useState(initialIsSettingCompleted);
+    const [product, setProduct] = useState(initialProduct);
+
+    useEffect(() => {
+        localStorage.setItem('isSettingCompleted', JSON.stringify(isSettingCompleted));
+    }, [isSettingCompleted]);
+
+    useEffect(() => {
+        localStorage.setItem('product', JSON.stringify(product));
+    }, [product]);
+
+
+    const onSettingComplete = (product) => {
+        setProduct(product);
         setSettingCompleted(true);
+    };
+
+    const onBroadcastClose = () => {
+        setSettingCompleted(false);
     };
 
     return (
@@ -26,17 +37,16 @@ const Streamer = () => {
                 <div className={styles.leftSection}>
                     <section className={styles.streamSection}>
                         <LiveScreen />
-                        <BroadcastControl 
+                        <BroadcastControl
+                            product={product}
                             isSettingCompleted={isSettingCompleted}
+                            onBroadcastClose={onBroadcastClose}
                         />
                     </section>
                     <section className={styles.productionInfoSection}>
                         {isSettingCompleted ? (
                             <ProductionInfo
-                                name={productInfo.name}
-                                price={productInfo.price}
-                                quantity={productInfo.quantity}
-                                introduction={productInfo.introduction}
+                                product={product}
                             />
                         ) : (
                             <ProductionInfoInput
