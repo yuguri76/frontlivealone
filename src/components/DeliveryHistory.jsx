@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../styles/History.module.css';
-import axios from "axios";
+import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
 
 const DeliveryHistory = () => {
@@ -16,7 +16,7 @@ const DeliveryHistory = () => {
   useEffect(() => {
     const getDeliverys = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/delivery');
+        const response = await axiosInstance.get('/user/delivery');
         console.log(response.data);
         setDeliverys(response.data.data);
       } catch (error) {
@@ -45,7 +45,7 @@ const DeliveryHistory = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/user/delivery?page=${page}`);
+      const response = await axiosInstance.get(`/user/delivery?page=${page}`);
       console.log(response.data);
       setDeliverys(response.data.data);
     } catch(error) {
