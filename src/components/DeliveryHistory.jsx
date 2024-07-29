@@ -16,8 +16,11 @@ const DeliveryHistory = () => {
   useEffect(() => {
     const getDeliverys = async () => {
       try {
-        const response = await axiosInstance.get('/user/delivery');
-        console.log(response.data);
+        const response = await axiosInstance.get('/user/delivery', {
+          headers: {
+            Authorization: localStorage.getItem('accessToken')
+          }});
+
         setDeliverys(response.data.data);
       } catch (error) {
         console.error('Error fetching deliverys:', error);
@@ -45,8 +48,11 @@ const DeliveryHistory = () => {
     }
 
     try {
-      const response = await axiosInstance.get(`/user/delivery?page=${page}`);
-      console.log(response.data);
+      const response = await axiosInstance.get(`/user/delivery?page=${page}`, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }});
+
       setDeliverys(response.data.data);
     } catch(error) {
       console.error('Error fetching deliverys:', error);
