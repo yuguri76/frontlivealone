@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState,useReducer } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import styles from '../../styles/Chat.module.css';
 
@@ -8,7 +8,9 @@ function ChatContainer() {
   const [messages, setMessages] = useState([]);
   const [token,setToken] = useState('')
   const [senderName,setSenderName] = useState('');
+  const [isAvailableChat,setAvailableChat] = useState(false);
   const MAX_MESSAGES = 100;
+  
 
 
   useEffect(()=>{
@@ -34,20 +36,17 @@ function ChatContainer() {
 
     ws.onmessage = (e) => {
       const data = JSON.parse(e.data);
-      
+      console.log(data);
       const {type,message} = data;
 
       if(data.type==='AUTH'){
-        console.log('유저의 이름 : ',message);
+
         setSenderName(message);
-        
+        setAvailableChat(true);
       }
 
       if (data.type === 'MESSAGE') {
-
-
         setMessages((prevMessages) => {
-          console.log(senderName);
           const updatedMessages = [...prevMessages, { nickname: senderName, text: message }];
           if (updatedMessages.length > MAX_MESSAGES) {
             updatedMessages.shift(); // 배열의 첫 번째 요소 제거
@@ -55,6 +54,13 @@ function ChatContainer() {
           return updatedMessages;
         });
       }
+
+      if(data.type==='FAILED'){
+        const messageInput = document.getElementById('messageInput');
+        messageInput.placeholder='채팅 입력 불가';
+        setAvailableChat(false);
+      }
+
     };
 
     return () => {
@@ -68,18 +74,15 @@ function ChatContainer() {
     }
   }, [messages,senderName]); // messages 상태가 업데이트될 때마다 실행
 
-  useEffect(()=>{
-    if(senderName){
-      console.log('현재 접속자 :',senderName);
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
     }
-  },[senderName]);
+  };
 
-
-  const sendMessage = () => {
-    
+  const sendMessage = () => { 
     const messageInput = document.getElementById('messageInput');
-    if (messageInput.value && socket.current) {
-      console.log(messageInput.value);
+    if (messageInput.value && socket.current && isAvailableChat) {
       const sendMessage = JSON.stringify({type:'MESSAGE',message:messageInput.value});
       socket.current.send(sendMessage);
       messageInput.value=''; // 메시지 전송후 입력칸 비우기
@@ -95,8 +98,15 @@ function ChatContainer() {
         <ChatList messages={messages}/>
       </div>
       <footer className={styles.chatFooter}>
-        <input id="messageInput" type="text" placeholder="채팅을 입력해주세요" />
-        <button onClick={sendMessage}>전송</button>
+        <input id="messageInput" 
+        type="text"  
+        placeholder={token ? "채팅을 입력해주세요" : "로그인 해야 입력가능"}  
+        disabled={!isAvailableChat}
+        onKeyDown={handleKeyDown}/>
+        <button onClick={sendMessage}
+        disabled={!isAvailableChat}>
+          전송
+        </button>
       </footer>
     </div>
   );
