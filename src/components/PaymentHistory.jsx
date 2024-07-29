@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styles from '../styles/History.module.css';
-import axios from "axios";
+import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
 
 const PaymentHistory = () => {
@@ -16,7 +16,7 @@ const PaymentHistory = () => {
   useEffect(() => {
     const getPayments = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/{userId}/payment');
+        const response = await axiosInstance.get('/user/{userId}/payment');
         setPayments(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
@@ -44,7 +44,7 @@ const PaymentHistory = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/user/{userId}/payments?page=${page}`);
+      const response = await axiosInstance.get(`/user/{userId}/payments?page=${page}`);
       console.log(response.data);
       setPayments(response.data.data);
     } catch(error) {

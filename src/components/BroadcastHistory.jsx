@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 import styles from '../styles/History.module.css';
 import classNames from "classnames";
 
@@ -15,7 +15,7 @@ const BroadcastHistory = () => {
   useEffect(() => {
     const getBroadcasts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/user/broadcast');
+        const response = await axiosInstance.get('/user/broadcast');
         setBroadcasts(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
@@ -43,7 +43,7 @@ const BroadcastHistory = () => {
     }
 
     try {
-      const response = await axios.get(`http://localhost:8080/user/broadcast?page=${page}`);
+      const response = await axiosInstance.get(`/user/broadcast?page=${page}`);
       console.log(response.data);
       setBroadcasts(response.data.data);
     } catch(error) {
