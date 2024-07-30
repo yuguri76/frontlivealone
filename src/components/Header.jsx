@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axiosInstance from '../axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
@@ -13,7 +14,7 @@ function Header() {
   useEffect(() => {
     const loggedInStatus = localStorage.getItem('accessToken') !== null;
     setIsLoggedIn(loggedInStatus);
-  });
+  }, [localStorage.getItem('accessToken')]);
 
   const handleLogoClick = () => {
     navigate('/');
@@ -29,13 +30,18 @@ function Header() {
 
   const handleLogoutClick = async () => {
     try {
-      // 로그아웃 api 연동 예정
+      const response = await axiosInstance.patch(`/auth/logout`, {}, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }
+      });
 
       localStorage.clear();
       setIsLoggedIn(false);
-
     } catch (error) {
-      alert(`${error.response.data.msg}`);
+      if (error.response.data.message) {
+        alert(`${error.response.data.message}`);
+      }
     }
   };
 
