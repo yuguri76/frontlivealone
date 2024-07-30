@@ -45,7 +45,7 @@ const HLSPlayer = ({ src, width = 720 }) => {
 
     return (
         <div>
-            <h1>HLS Player</h1>
+            <h1></h1>
             <video
                 ref={videoRef} // 비디오 요소에 대한 참조 연결
                 className="video-js vjs-default-skin"
