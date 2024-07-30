@@ -15,7 +15,11 @@ const BroadcastHistory = () => {
   useEffect(() => {
     const getBroadcasts = async () => {
       try {
-        const response = await axiosInstance.get('/user/broadcast');
+        const response = await axiosInstance.get('/user/broadcast', {
+          headers: {
+            Authorization: localStorage.getItem('accessToken')
+          }});
+
         setBroadcasts(response.data.data);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
@@ -43,7 +47,11 @@ const BroadcastHistory = () => {
     }
 
     try {
-      const response = await axiosInstance.get(`/user/broadcast?page=${page}`);
+      const response = await axiosInstance.get(`/user/broadcast?page=${page}`, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }});
+
       console.log(response.data);
       setBroadcasts(response.data.data);
     } catch(error) {

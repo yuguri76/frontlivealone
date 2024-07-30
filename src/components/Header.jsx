@@ -31,7 +31,7 @@ function Header() {
     try {
       // 로그아웃 api 연동 예정
 
-      localStorage.removeItem('accessToken');
+      localStorage.clear();
       setIsLoggedIn(false);
 
     } catch (error) {
