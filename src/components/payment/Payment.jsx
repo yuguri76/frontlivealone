@@ -63,6 +63,8 @@ const Payment = () => {
         navigate('/checkout');
     };
 
+
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.paymentContainer}>
