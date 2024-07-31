@@ -11,7 +11,7 @@ const Payment = () => {
     const handlePayment = async (paymentMethod) => {
         const paymentRequestDto = {
             userId: 2, // 사용자 ID를 적절하게 설정합니다.
-            orderId: 2, // 주문 ID를 적절하게 설정합니다.
+            orderId: 20269876585, // 주문 ID를 적절하게 설정합니다.
             amount: 2200, // 결제 금액을 적절하게 설정합니다.
             orderQuantity: orderQuantity,
             shippingAddress: shippingAddress,
@@ -19,9 +19,11 @@ const Payment = () => {
             paymentMethod: paymentMethod,
         };
         console.log("payment_method: ", paymentMethod);
+        console.log("Payment Request Payload: ", paymentRequestDto);
+
         const url = paymentMethod === 'KAKAO_PAY'
-            ? 'http://localhost:8080/payment/kakao/process'
-            : 'http://localhost:8080/payment/toss/process';
+            ? 'http://seoldarin.iptime.org:7937/payment/kakao/process'
+            : 'http://seoldarin.iptime.org:7937/payment/toss/process';
 
         try {
             const response = await fetch(url, {
@@ -42,8 +44,8 @@ const Payment = () => {
 
             if (result.status === 'READY') {
                 console.log("Next Redirect URL: ", result); // 추가된 디버깅 로그
-                const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
-                //const redirectUrl = result.next_redirect_url;
+                //const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`; //카카오결제
+                const redirectUrl = result.next_redirect_url; //토스결제
                 console.log("Redirect URL: ", redirectUrl); // 디버깅을 위해 로그 출력
                 window.location.href = redirectUrl;
             } else {
@@ -60,9 +62,9 @@ const Payment = () => {
     };
 
     const handleTossPay = () => {
-        navigate('/checkout');
+        handlePayment('TOSS_PAY');
+        // navigate('/checkout');
     };
-
 
 
     return (
