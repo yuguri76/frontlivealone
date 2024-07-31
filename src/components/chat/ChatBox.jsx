@@ -20,7 +20,7 @@ function ChatContainer() {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
-  }, [messages, userNickname]); // messages 상태가 업데이트될 때마다 실행
+  }, [messages]); // messages 상태가 업데이트될 때마다 실행
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
