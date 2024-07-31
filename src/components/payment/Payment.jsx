@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import styles from '../styles/PaymentPage.module.css';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from '../../styles/PaymentPage.module.css';
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -10,15 +10,15 @@ const Payment = () => {
 
     const handlePayment = async (paymentMethod) => {
         const paymentRequestDto = {
-            userId: 1, // 사용자 ID를 적절하게 설정합니다.
-            orderId: 1, // 주문 ID를 적절하게 설정합니다.
+            userId: 2, // 사용자 ID를 적절하게 설정합니다.
+            orderId: 2, // 주문 ID를 적절하게 설정합니다.
             amount: 2200, // 결제 금액을 적절하게 설정합니다.
             orderQuantity: orderQuantity,
             shippingAddress: shippingAddress,
             deliveryRequest: deliveryRequest,
             paymentMethod: paymentMethod,
         };
-
+        console.log("payment_method: ", paymentMethod);
         const url = paymentMethod === 'KAKAO_PAY'
             ? 'http://localhost:8080/payment/kakao/process'
             : 'http://localhost:8080/payment/toss/process';
@@ -32,10 +32,20 @@ const Payment = () => {
                 body: JSON.stringify(paymentRequestDto),
             });
 
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            console.log(response);
             const result = await response.json();
+            console.log("Payment Response: ", result); // 응답을 디버깅하기 위해 로그 출력
+
             if (result.status === 'READY') {
-                console.log(result);
-                window.location.href = result.next_redirect_url; // 결제 승인 URL로 리디렉션
+                console.log("Next Redirect URL: ", result); // 추가된 디버깅 로그
+                const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
+                //const redirectUrl = result.next_redirect_url;
+                console.log("Redirect URL: ", redirectUrl); // 디버깅을 위해 로그 출력
+                window.location.href = redirectUrl;
             } else {
                 alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');
             }
@@ -50,7 +60,7 @@ const Payment = () => {
     };
 
     const handleTossPay = () => {
-        handlePayment('TOSS_PAY');
+        navigate('/checkout');
     };
 
     return (
