@@ -6,6 +6,7 @@ import useWebSocket from '../../hooks/useWebSocket';
 function ChatContainer() {
   const chatWindowRef = useRef();
   const [token, setToken] = useState('');
+  const { messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
 
   useEffect(() => {
     const newToken = localStorage.getItem('accessToken');
@@ -14,8 +15,6 @@ function ChatContainer() {
       setToken(newToken);
     }
   }, []);
-
-  const { messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
 
   useEffect(() => {
     if (chatWindowRef.current) {
