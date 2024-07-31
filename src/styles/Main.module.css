@@ -14,6 +14,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.siteIntro > h3 {
+  font-size: 30px;
+  color: #282c34;
+  margin-bottom: 10px;
+}
+
+.siteIntro > p {
+  margin-top: 30px;
+  opacity: 0.5;
 }
 
 .sections {
@@ -103,4 +116,7 @@
   justify-content: center;
   align-items: center;
   padding: 20px;
+  background-image: url("../assets/images/sparta_advertisement.png");
+  background-size: cover;
+  background-position: center;
 }
