@@ -10,7 +10,7 @@ function StreamingPage() {
   return (
       <div className="streaming-page">
           <div className="player-container">
-              <HLSPlayer src="http://localhost:8080/hls/test.m3u8"/>
+              <HLSPlayer src="http://localhost:8081/hls/test.m3u8"/>
               <div className="product-info-wrapper">
                   <div className="product-info">
                       <ProductionInfoForStreaming/>
