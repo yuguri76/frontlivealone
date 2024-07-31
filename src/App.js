@@ -14,27 +14,33 @@ import StreamerPage from './pages/StreamerPage';
 import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
 import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
+import CheckoutPage from './pages/CheckoutPage';
+import SuccessPage from './pages/SuccessPage';
+import FailPage from './pages/FailPage';
 
 function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className="App">
-        <Header />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/broadcasthistory" element={<BroadcastHistoryPage />} />
-          <Route path="/completepayment" element={<CompletePaymentPage />} />
-          <Route path="/deliveryhistory" element={<DeliveryHistoryPage />} />
-          <Route path="/myinfo" element={<MyInfoPage />} />
-          <Route path="/paymenthistory" element={<PaymentHistoryPage />} />
-          <Route path="/payment" element={<PaymentPage />} />
-          <Route path="/streamer" element={<StreamerPage />} />
-          <Route path="/streaming" element={<StreamingPage />} />
-          <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
-        </Routes>
-      </div>
+        <div className="App">
+          <Header />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/broadcasthistory" element={<BroadcastHistoryPage />} />
+            <Route path="/completepayment" element={<CompletePaymentPage />} />
+            <Route path="/deliveryhistory" element={<DeliveryHistoryPage />} />
+            <Route path="/myinfo" element={<MyInfoPage />} />
+            <Route path="/paymenthistory" element={<PaymentHistoryPage />} />
+            <Route path="/payment" element={<PaymentPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="/fail" element={<FailPage />} />
+            <Route path="/streamer" element={<StreamerPage />} />
+            <Route path="/streaming" element={<StreamingPage />} />
+            <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+          </Routes>
+        </div>
     </DndProvider>
   );
 }

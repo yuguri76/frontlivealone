@@ -11,12 +11,14 @@ const OAuth2RedirectHandler = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+    const accessToken = urlParams.get('access');
+    const refreshToken = urlParams.get('refresh');
 
-    if (token) {
-      localStorage.setItem('accessToken', token);
+    if (accessToken) {
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
 
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode(accessToken);
       const userState = {
         id: decoded.id,
         username: decoded.username,
@@ -25,7 +27,7 @@ const OAuth2RedirectHandler = () => {
       };
       localStorage.setItem('user', JSON.stringify(userState));
 
-      const payload = token.split('.')[1];
+      const payload = accessToken.split('.')[1];
       const decodedPayload = base64.decode(payload);
 
       const textDecoder = new TextDecoder('utf-8');
