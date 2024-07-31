@@ -28,7 +28,8 @@ const MyInfo = () => {
         const response = await axiosInstance.get('/user', {
           headers: {
             Authorization: localStorage.getItem('accessToken')
-          }});
+          }
+        });
 
         setNickname(response.data?.data?.nick_name ?? '');
         setName(response.data?.data?.name ?? '');
@@ -44,7 +45,8 @@ const MyInfo = () => {
         const response = await axiosInstance.get('/user/broadcast', {
           headers: {
             Authorization: localStorage.getItem('accessToken')
-          }});
+          }
+        });
 
         setBroadcasts(response.data.data);
       } catch (error) {
@@ -72,7 +74,8 @@ const MyInfo = () => {
         const response = await axiosInstance.get('/user/delivery', {
           headers: {
             Authorization: localStorage.getItem('accessToken')
-          }});
+          }
+        });
 
         setDeliverys(response.data.data);
       } catch (error) {
@@ -105,12 +108,15 @@ const MyInfo = () => {
         nickname,
         birth_day,
         address
+      }, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }
       });
       setHideSubmitButton(true);
       setHideEditButton(false);
       setHideInputValue(false);
       setHideInput(true);
-
 
       setNickname(response.data.data.nick_name);
       setName(response.data.data.name);
