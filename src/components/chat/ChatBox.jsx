@@ -28,7 +28,7 @@ function ChatContainer() {
       console.log('세션 연결 시도');
       socket.current = ws;
 
-      const authMessage = JSON.stringify({type:'AUTH',messenger:'',message:token});
+      const authMessage = JSON.stringify({type:'AUTH',messenger:'front-server',message:token});
       socket.current.send(authMessage);
     };
 
@@ -40,9 +40,10 @@ function ChatContainer() {
       if(data.type==='AUTH'){
         setUsernickname(messenger);
         setAvailableChat(true);
-      }
 
-      if (data.type === 'MESSAGE') {
+        const requestInit = JSON.stringify({type:'INIT',messenger:messenger,message:'Request Initialize'});
+        socket.current.send(requestInit);
+      }else if(data.type==='MESSAGE'){
         setMessages((prevMessages) => {
           const updatedMessages = [...prevMessages, { nickname: messenger, text: message }];
           if (updatedMessages.length > MAX_MESSAGES) {
@@ -51,11 +52,26 @@ function ChatContainer() {
           return updatedMessages;
         });
       }
-
-      if(data.type==='FAILED'){
+      else if(data.type==='FAILED'){
         const messageInput = document.getElementById('messageInput');
         messageInput.placeholder='채팅 입력 불가';
         setAvailableChat(false);
+      }
+      else if(data.type==='INIT'){
+        console.log('init메시지',message);
+        const initMessage = JSON.parse(message).map(({init_nickname,init_text})=> ({
+          nickname : init_nickname,
+          text : init_text,
+        }))
+        
+        setMessages((prevMessages) => {
+          const updatedMessages = [...initMessage ,...prevMessages, ];
+          if (updatedMessages.length > MAX_MESSAGES) {
+            updatedMessages.shift(); // 배열의 첫 번째 요소 제거
+          }
+          return updatedMessages;
+        });
+
       }
 
     };
