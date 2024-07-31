@@ -6,39 +6,103 @@ function ChatContainer() {
   const chatWindowRef = useRef();
   const socket = useRef();
   const [messages, setMessages] = useState([]);
+  const [token,setToken] = useState('')
+  const [userNickname,setUsernickname] = useState('');
+  const [isAvailableChat,setAvailableChat] = useState(false);
+  const MAX_MESSAGES = 100;
+  
+  useEffect(()=>{
+    const newToken = localStorage.getItem('accessToken');
+    console.log(newToken);
+    if(newToken){
+      setToken(newToken);
+    }
+  },[])
+
 
   useEffect(() => {
+    if(!token) return;
     const ws = new WebSocket('ws://localhost:8080/ws');
 
     ws.onopen = () => {
       console.log('세션 연결 시도');
       socket.current = ws;
+
+      const authMessage = JSON.stringify({type:'AUTH',messenger:'front-server',message:token});
+      socket.current.send(authMessage);
     };
 
     ws.onmessage = (e) => {
-      const data = e.data;
-      const [userNickname, newMessage] = data.split(/:(.+)/, 2);
+      const data = JSON.parse(e.data);
+      console.log(data);
+      const {type,messenger,message} = data;
 
-      // 이전 상태에 새 값을 추가하여 상태 업데이트
-      setMessages((prevMessages) => [...prevMessages, { nickname: userNickname, text: newMessage }]);
+      if(data.type==='AUTH'){
+        setUsernickname(messenger);
+        setAvailableChat(true);
+
+        const requestInit = JSON.stringify({type:'INIT',messenger:messenger,message:'Request Initialize'});
+        socket.current.send(requestInit);
+      }else if(data.type==='MESSAGE'){
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages, { nickname: messenger, text: message }];
+          if (updatedMessages.length > MAX_MESSAGES) {
+            updatedMessages.shift(); // 배열의 첫 번째 요소 제거
+          }
+          return updatedMessages;
+        });
+      }
+      else if(data.type==='FAILED'){
+        const messageInput = document.getElementById('messageInput');
+        messageInput.placeholder='채팅 입력 불가';
+        setAvailableChat(false);
+      }
+      else if(data.type==='INIT'){
+        console.log('init메시지',message);
+        const initMessage = JSON.parse(message).map(({init_nickname,init_text})=> ({
+          nickname : init_nickname,
+          text : init_text,
+        }))
+        
+        setMessages((prevMessages) => {
+          const updatedMessages = [...initMessage ,...prevMessages, ];
+          if (updatedMessages.length > MAX_MESSAGES) {
+            updatedMessages.shift(); // 배열의 첫 번째 요소 제거
+          }
+          return updatedMessages;
+        });
+
+      }
+
     };
 
     return () => {
       ws.close(); // 컴포넌트가 언마운트될 때 소켓 연결 닫기
     };
-  }, []);
+  },[token,userNickname]);
 
   useEffect(() => {
     if (chatWindowRef.current) {
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
-  }, [messages]); // messages 상태가 업데이트될 때마다 실행
+  }, [messages,userNickname]); // messages 상태가 업데이트될 때마다 실행
 
-  const sendMessage = () => {
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  };
+
+  const sendMessage = () => { 
     const messageInput = document.getElementById('messageInput');
-    if (messageInput.value && socket.current) {
-      socket.current.send(messageInput.value);
-      messageInput.value = '';
+    if (messageInput.value && socket.current && isAvailableChat) {
+      const sendMessage = JSON.stringify({
+        type:'MESSAGE',
+        messenger:userNickname,
+        message:messageInput.value
+      });
+      socket.current.send(sendMessage);
+      messageInput.value=''; // 메시지 전송후 입력칸 비우기
     }
   };
 
@@ -51,8 +115,15 @@ function ChatContainer() {
         <ChatList messages={messages}/>
       </div>
       <footer className={styles.chatFooter}>
-        <input id="messageInput" type="text" placeholder="채팅을 입력해주세요" />
-        <button onClick={sendMessage}>전송</button>
+        <input id="messageInput" 
+        type="text"  
+        placeholder={token ? "채팅을 입력해주세요" : "로그인 해야 입력가능"}  
+        disabled={!isAvailableChat}
+        onKeyDown={handleKeyDown}/>
+        <button onClick={sendMessage}
+        disabled={!isAvailableChat}>
+          전송
+        </button>
       </footer>
     </div>
   );
@@ -74,7 +145,7 @@ function ChatList({messages}){
     <List
       height={800}
       itemCount={messages.length}
-      itemSize={35}
+      itemSize={35} // 이 친구를 동적으로 해야 하는데 나중에 하겠습니다...
       width={400}
     >
       {({ index, style }) => (

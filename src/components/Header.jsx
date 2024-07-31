@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import axiosInstance from '../axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 import logo from '../assets/logo.png'
 import styles from '../styles/Header.module.css';
 
@@ -7,11 +9,12 @@ function Header() {
   const navigate = useNavigate();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const nickName = useSelector((state) => { return state.user.nickName })
 
   useEffect(() => {
-    // 로그인 연동한 뒤 현재 로그인 상태인지 알아내는 로직 추가합니다.
-    // setIsLoggedIn(loggedInStatus);
-  }, []);
+    const loggedInStatus = localStorage.getItem('accessToken') !== null;
+    setIsLoggedIn(loggedInStatus);
+  }, [localStorage.getItem('accessToken')]);
 
   const handleLogoClick = () => {
     navigate('/');
@@ -27,13 +30,18 @@ function Header() {
 
   const handleLogoutClick = async () => {
     try {
-      // 로그아웃 api 연동 예정
+      const response = await axiosInstance.patch(`/auth/logout`, {}, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }
+      });
 
-      // localStorage.setItem('accessToken', null);
+      localStorage.clear();
       setIsLoggedIn(false);
-
     } catch (error) {
-      alert(`${error.response.data.msg}`);
+      if (error.response.data.message) {
+        alert(`${error.response.data.message}`);
+      }
     }
   };
 
@@ -43,7 +51,7 @@ function Header() {
         <img src={logo} alt="나혼자산다 로고" className={styles.logo} onClick={handleLogoClick} />
         {isLoggedIn ? (
           <>
-            <div className={styles.welcomeMessage}>○○○님 환영합니다!</div>
+            <div className={styles.welcomeMessage}>{nickName}님 환영합니다!</div>
             <div className={styles.buttons}>
               <button className={styles.button} onClick={handleMyInfoClick}>마이페이지</button>
               <button className={styles.button} onClick={handleLogoutClick}>로그아웃</button>

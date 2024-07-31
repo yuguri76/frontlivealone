@@ -1,0 +1,74 @@
+.historyContainer {
+  background-color: white;
+  margin: 20px 100px 0 100px;
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.historyNameContainer > span {
+  font-size: 20px;
+  font-weight: 700;
+  color: dodgerblue;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #d4d4d4;
+  margin: 30px 0px;
+}
+
+.historyContentContainer {
+  height: 500px;
+  display: flex;
+  gap: 30px;
+}
+
+.historyContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  width: 300px;
+  padding: 30px;
+  border: 1px solid rgba(80, 118, 230, 0.5);
+  border-radius: 10px;
+  text-align: center;
+  color: #1a89f0;
+}
+
+.historyContent .historyContentState {
+  color: #db4242;
+  font-weight: 700;
+}
+
+.historyContent .historyContentTitle, .historyContentName {
+  font-weight: 900;
+}
+
+.historyContent .historyContentTime {
+  color: black;
+  opacity: 0.4;
+}
+
+.pageContainer {
+  display: flex;
+  gap: 30px;
+  margin-top: 50px;
+  justify-content: center;
+  color: dodgerblue;
+}
+
+.pageContainer span:hover {
+  cursor: pointer;
+}
+
+.pageSelect {
+  font-weight: 900;
+}
+
+.historyDeliveryState {
+  color: green;
+  font-weight: 800;
+}

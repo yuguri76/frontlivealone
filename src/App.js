@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import MainPage from './pages/MainPage';
@@ -19,6 +19,7 @@ import SuccessPage from './pages/SuccessPage';
 import FailPage from './pages/FailPage';
 
 function App() {
+
   return (
     <DndProvider backend={HTML5Backend}>
       <Router>
