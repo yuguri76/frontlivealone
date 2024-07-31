@@ -34,7 +34,10 @@ const Main = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.siteIntro}>
-        대충 사이트 소개
+        <h3>나 혼자 살고(Live) 나 혼자 산다(Buy)!</h3>
+        <h3>자취생들을 위한 홈쇼핑</h3>
+        <h3>나 혼자 산다에 오신 것을 환영합니다.</h3>
+        <p>나 혼자 산다는 자취생 꿀템을 판매하고 구매할 수 있는 라이브 커머스 사이트입니다.</p>
       </div>
       <div className={styles.sections}>
         <div className={styles.streamerPage}>
@@ -47,7 +50,6 @@ const Main = () => {
           <button className={styles.watchButton} onClick={handleStreamingClick}>보러가기</button>
         </div>
         <div className={styles.ad}>
-          구글 커머스 광고
         </div>
       </div>
     </div>
