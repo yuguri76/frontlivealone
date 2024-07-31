@@ -22,7 +22,6 @@ function App() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Router>
         <div className="App">
           <Header />
           <Routes>
@@ -42,7 +41,6 @@ function App() {
             <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
           </Routes>
         </div>
-      </Router>
     </DndProvider>
   );
 }
