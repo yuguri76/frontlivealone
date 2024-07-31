@@ -22,7 +22,7 @@ function ChatContainer() {
 
   useEffect(() => {
     if(!token) return;
-    const ws = new WebSocket('ws://localhost:8080/ws');
+    const ws = new WebSocket('ws://seoldarin.iptime.org:7937/ws');
 
     ws.onopen = () => {
       console.log('세션 연결 시도');
