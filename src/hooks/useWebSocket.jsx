@@ -5,6 +5,7 @@ const useWebSocket = (token) => {
     const [messages, setMessages] = useState([]);
     const [isAvailableChat, setAvailableChat] = useState(false);
     const [userNickname, setUserNickname] = useState('');
+    const [streamKey, setStreamKey] = useState('');
     const MAX_MESSAGES = 100;
 
     useEffect(() => {
@@ -55,6 +56,8 @@ const useWebSocket = (token) => {
                     }
                     return updatedMessages;
                 });
+            } else if (type === 'BROADCAST') {
+                setStreamKey(message);
             }
         };
 
@@ -73,7 +76,7 @@ const useWebSocket = (token) => {
         }
     };
 
-    return { messages, sendMessage, isAvailableChat, userNickname };
+    return { messages, sendMessage, isAvailableChat, userNickname, streamKey };
 };
 
 export default useWebSocket;
