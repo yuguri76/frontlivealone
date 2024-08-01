@@ -33,14 +33,68 @@ const userSlice = createSlice({
         setEmail(state, action) {
             state.email= action.payload;
         },
+        setBroadcastId(state, action) {
+            state.broadcastId = action.payload;
+        },
+        setProductId(state, action) {
+            state.productId = action.payload;
+        },
+        setProductName(state, action) {
+            state.productName = action.payload;
+        },
     }
 });
 
-export const { setNickname, setUsername, setId, setEmail } = userSlice.actions;
+const productSlice = createSlice({
+    name: 'product',
+    initialState,
+    reducers: {
+        setProductId(state, action) {
+            state.id = action.payload;
+        },
+        setProductName(state, action) {
+            state.name = action.payload;
+        },
+        setProductPrice(state, action) {
+            state.price = action.payload;
+        },
+        setProductQuantity(state, action) {
+            state.quantity = action.payload;
+        },
+    }
+});
+
+const broadcastSlice = createSlice({
+    name: 'broadcast',
+    initialState,
+    reducers: {
+        setBroadcastId(state, action) {
+            state.id = action.payload;
+        },
+    }
+});
+
+const orderSlice= createSlice({
+    name: 'order',
+    initialState,
+    reducers: {
+        setOrderId(state, action) {
+            state.id = action.payload;
+        },
+    }
+});
+
+export const { setNickname, setUsername, setId, setEmail} = userSlice.actions;
+export const { setProductId, setProductName, setProductPrice, setProductQuantity } = productSlice.actions;
+export const { setBroadcastId } = broadcastSlice.actions;
+export const { setOrderId } = orderSlice.actions;
 
 const store = configureStore({
     reducer: {
-        user: userSlice.reducer
+        user: userSlice.reducer,
+        product: productSlice.reducer,
+        broadcast: broadcastSlice.reducer,
+        order: orderSlice.reducer,
     },
 });
 

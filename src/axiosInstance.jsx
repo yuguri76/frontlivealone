@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://seoldarin.iptime.org:7937'
+  baseURL: 'http://localhost:8080'
 });
 
 axiosInstance.interceptors.response.use(
