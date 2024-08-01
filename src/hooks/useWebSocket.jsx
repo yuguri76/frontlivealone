@@ -5,12 +5,16 @@ const useWebSocket = (token) => {
     const [messages, setMessages] = useState([]);
     const [isAvailableChat, setAvailableChat] = useState(false);
     const [userNickname, setUserNickname] = useState('');
-    const [streamKey, setStreamKey] = useState('');
+    const [wsIsLive, setWsIsLive] = useState(false);
+    const [wsStreamKey, setWsStreamKey] = useState('');
  
     const MAX_MESSAGES = 100;
 
 
     useEffect(() => {
+
+        if(socket.current)
+            return;
 
         socket.current = new WebSocket('ws://localhost:8080/ws');
 
@@ -103,12 +107,17 @@ const useWebSocket = (token) => {
                     return updatedMessages;
                 });
             } else if (type === 'BROADCAST') {
-                setStreamKey(message);
+                const broadcastMessage = JSON.parse(message);
+                setWsIsLive(broadcastMessage.is_live);
+                setWsStreamKey(broadcastMessage.stream_key);
             }
         };
 
         return () => {
-            socket.current.close(); // 컴포넌트가 언마운트될 때 소켓 연결 닫기
+            if(socket.current) {
+                socket.current.close(); // 컴포넌트가 언마운트될 때 소켓 연결 닫기
+                socket.current = null;
+            }
         };
     }, ['ws://localhost:8080/ws', token]);
 
@@ -122,7 +131,17 @@ const useWebSocket = (token) => {
         }
     };
 
-    return { messages, sendMessage, isAvailableChat, userNickname, streamKey };
+    const requestStreamKey = () => {
+        if (socket.current && socket.current.readyState === WebSocket.OPEN) {
+            socket.current.send(JSON.stringify({
+                type: 'BROADCAST',
+                messenger: 'front-server',
+                message: 'Request StreamKey' 
+            }));
+        }
+    };
+
+    return { messages, sendMessage, isAvailableChat, userNickname, requestStreamKey, wsIsLive, wsStreamKey };
 };
 
 export default useWebSocket;

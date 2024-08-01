@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import HLSPlayer from '../components/HLSPlayer';
+import React from 'react';
 import ChatBox from '../components/chat/ChatBox';
 import '../styles/StreamingPage.css'
 import ProductionInfoForStreaming from "../components/ProductionInfoForStreaming";
-import useWebSocket from '../hooks/useWebSocket';
+import LiveScreen from '../components/LiveScreen';
 
 function StreamingPage() {
-    const [token, setToken] = useState('');
-    const { streamKey } = useWebSocket(token);
-
-    useEffect(() => {
-      const newToken = localStorage.getItem('accessToken');
-      console.log(newToken);
-      if (newToken) {
-        setToken(newToken);
-      }
-    }, []);
 
     return (
         <div className="streaming-page">
             <div className="player-container">
-                <HLSPlayer src={`http://seoldarin.iptime.org:7937/hls/${streamKey}.m3u8`} />
+                <LiveScreen />
                 <div className="product-info-wrapper">
                     <div className="product-info">
                         <ProductionInfoForStreaming />
