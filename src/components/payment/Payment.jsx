@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
+import axios from "axios";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -8,43 +9,30 @@ const Payment = () => {
     const [shippingAddress, setShippingAddress] = useState('');
     const [deliveryRequest, setDeliveryRequest] = useState('');
 
-    const handlePayment = async (paymentMethod) => {
+    const handleKakaoPayment = async () => {
         const paymentRequestDto = {
-            userId: 2, // 사용자 ID를 적절하게 설정합니다.
-            orderId: 2, // 주문 ID를 적절하게 설정합니다.
-            amount: 2200, // 결제 금액을 적절하게 설정합니다.
+            userId: 2,
+            orderId: 2,
+            amount: 2200,
             orderQuantity: orderQuantity,
             shippingAddress: shippingAddress,
             deliveryRequest: deliveryRequest,
-            paymentMethod: paymentMethod,
+            paymentMethod: 'KAKAO_PAY',
         };
-        console.log("payment_method: ", paymentMethod);
-        const url = paymentMethod === 'KAKAO_PAY'
-            ? 'http://localhost:8080/payment/kakao/process'
-            : 'http://localhost:8080/payment/toss/process';
+
+        const url = 'http://seoldarin.iptime.org:7937/payment/kakao/process';
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(paymentRequestDto),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            console.log(response);
-            const result = await response.json();
-            console.log("Payment Response: ", result); // 응답을 디버깅하기 위해 로그 출력
+            const result = response.data;
 
             if (result.status === 'READY') {
-                console.log("Next Redirect URL: ", result); // 추가된 디버깅 로그
                 const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
-                //const redirectUrl = result.next_redirect_url;
-                console.log("Redirect URL: ", redirectUrl); // 디버깅을 위해 로그 출력
                 window.location.href = redirectUrl;
             } else {
                 alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');
@@ -55,14 +43,72 @@ const Payment = () => {
         }
     };
 
-    const handleKakaoPay = () => {
-        handlePayment('KAKAO_PAY');
+    const handleTossPayment = async () => {
+        const paymentRequestDto = {
+            userId: 2,
+            orderId: 298765123483,
+            amount: 2200,
+            orderQuantity: orderQuantity,
+            shippingAddress: shippingAddress,
+            deliveryRequest: deliveryRequest,
+            paymentMethod: 'TOSS_PAY',
+        };
+
+        const url = 'http://seoldarin.iptime.org:7937/payment/toss/process';
+
+        try {
+            const response = await axios.post(url, paymentRequestDto, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = response.data;
+
+            if (result.status === 'READY') {
+                const redirectUrl = result.next_redirect_url;
+                window.location.href = redirectUrl;
+            } else {
+                alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');
+            }
+        } catch (error) {
+            console.error('Error during payment process:', error);
+            alert('결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
     };
 
-    const handleTossPay = () => {
-        navigate('/checkout');
-    };
+    const handleCompletePayment = async () => {
+        const paymentRequestDto = { //이번에 했던 결제정보 끌고와서 complete면 완료눌렀을 때 넘어가고 아니면 x(지금 당장은 결제 완료되면 바로 완료창으로 넘어가게 함. 상의해보기)
+            userId: 2,
+            orderId: 2,
+            amount: 2200,
+            orderQuantity: orderQuantity,
+            shippingAddress: shippingAddress,
+            deliveryRequest: deliveryRequest,
+            paymentMethod: 'KAKAO_PAY', // 혹은 'TOSS_PAY'로 변경
+        };
 
+        const url = 'http://seoldarin.iptime.org:7937/payment/complete'; // 결제 완료 API URL
+
+        try {
+            const response = await axios.post(url, paymentRequestDto, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = response.data;
+
+            if (result.status === 'COMPLETED') {
+                navigate('/completePaymentPage');
+            } else {
+                alert('결제가 완료되지 않았습니다.');
+            }
+        } catch (error) {
+            console.error('Error during complete payment process:', error);
+            alert('결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
+    };
 
 
     return (
@@ -101,15 +147,15 @@ const Payment = () => {
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"
                         alt="Kakao Pay"
-                        onClick={handleKakaoPay}
+                        onClick={handleKakaoPayment}
                     />
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/07de8ce3-5fc5-41af-b865-4ee89a773bab/image.png"
                         alt="Toss"
-                        onClick={handleTossPay}
+                        onClick={handleTossPayment}
                     />
                 </div>
-                <button className={styles.submitButton} onClick={() => handlePayment('KAKAO_PAY')}>완료</button>
+                <button className={styles.submitButton} onClick={handleCompletePayment}>완료</button>
             </div>
         </div>
     );

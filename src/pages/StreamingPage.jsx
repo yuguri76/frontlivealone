@@ -20,7 +20,7 @@ function StreamingPage() {
     return (
         <div className="streaming-page">
             <div className="player-container">
-                <HLSPlayer src={`http://localhost:8080/hls/${streamKey}.m3u8`} />
+                <HLSPlayer src={`http://seoldarin.iptime.org:7937/hls/${streamKey}.m3u8`} />
                 <div className="product-info-wrapper">
                     <div className="product-info">
                         <ProductionInfoForStreaming />
@@ -33,6 +33,7 @@ function StreamingPage() {
             </div>
         </div>
     );
+
 }
 
 export default StreamingPage;
