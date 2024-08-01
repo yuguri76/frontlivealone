@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import HLSPlayer from '../components/HLSPlayer';
 import useWebSocket from '../hooks/useWebSocket';
-import loginLogo from '../assets/images/login_logo.png'
+import logo from '../assets/images/stream_logo.png'
 
 const LiveScreen = () => {
     const { requestStreamKey, wsIsLive, wsStreamKey } = useWebSocket('');
@@ -15,8 +15,8 @@ const LiveScreen = () => {
             {wsIsLive ? (
                 <HLSPlayer src={`http://localhost:8081/hls/${wsStreamKey}.m3u8`} />
             ) : (
-                <img src={loginLogo} alt="logo"
-                    style={{ width: '300px', margin: '10px' }} />
+                <img src={logo} alt="logo"
+                    style={{ width: '730px'}} />
             )}
         </div>
     );

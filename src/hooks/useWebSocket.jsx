@@ -13,6 +13,9 @@ const useWebSocket = (token) => {
 
     useEffect(() => {
 
+        if(socket.current)
+            return;
+
         socket.current = new WebSocket('ws://localhost:8080/ws');
 
         socket.current.onopen = () => {
@@ -111,7 +114,10 @@ const useWebSocket = (token) => {
         };
 
         return () => {
-            socket.current.close(); // 컴포넌트가 언마운트될 때 소켓 연결 닫기
+            if(socket.current) {
+                socket.current.close(); // 컴포넌트가 언마운트될 때 소켓 연결 닫기
+                socket.current = null;
+            }
         };
     }, ['ws://localhost:8080/ws', token]);
 
