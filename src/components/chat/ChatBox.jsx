@@ -4,7 +4,7 @@ import styles from '../../styles/Chat.module.css';
 import useWebSocket from '../../hooks/useWebSocket';
 
 function ChatContainer() {
-  const chatWindowRef = useRef();
+  
   const [token, setToken] = useState('');
   const { messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
 
@@ -15,12 +15,6 @@ function ChatContainer() {
       setToken(newToken);
     }
   }, []);
-
-  useEffect(() => {
-    if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
-    }
-  }, [messages]); // messages 상태가 업데이트될 때마다 실행
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
@@ -41,7 +35,7 @@ function ChatContainer() {
       <header className={styles.chatHeader}>
         <h2>채팅방에 오신 것을 환영합니다</h2>
       </header>
-      <div className={styles.chatBody} ref={chatWindowRef}>
+      <div className={styles.chatBody} >
         <ChatList messages={messages}/>
       </div>
       <footer className={styles.chatFooter}>
@@ -71,12 +65,25 @@ const Chats = React.memo(({ userNickname, message }) => {
 });
 
 function ChatList({messages}){
+  const chatWindowRef = useRef();
+
+  const scrollToBottom= ()=>{
+    chatWindowRef.current.scrollToItem(messages.length);
+  }
+
+  useEffect(() => {
+    scrollToBottom();
+    console.log(messages);
+  }, [messages]); // messages 상태가 업데이트될 때마다 실행
+
   return (
     <List
-      height={800}
+      height={695}
       itemCount={messages.length}
-      itemSize={35} // 이 친구를 동적으로 해야 하는데 나중에 하겠습니다...
+      itemSize={35} //
       width={400}
+      itemData={messages}
+      ref ={chatWindowRef}
     >
       {({ index, style }) => (
         <div style={style}>
