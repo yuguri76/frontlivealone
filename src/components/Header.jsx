@@ -36,13 +36,14 @@ function Header() {
         }
       });
 
-      localStorage.clear();
-      setIsLoggedIn(false);
     } catch (error) {
       if (error.response.data.message) {
         alert(`${error.response.data.message}`);
       }
     }
+
+    localStorage.clear();
+    setIsLoggedIn(false);
   };
 
   return (
