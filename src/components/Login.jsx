@@ -8,7 +8,7 @@ import loginLogo from '../assets/images/login_logo.png'
 const Login = () => {
 
   const handleKakaoLogin = () => {
-    window.location.href = 'http://seoldarin.iptime.org:7937/oauth2/authorization/kakao';
+    window.location.href = 'http://localhost:8080/oauth2/authorization/kakao';
   };
 
   const handleNaverLogin = () => {
