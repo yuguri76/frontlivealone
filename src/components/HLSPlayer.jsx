@@ -10,7 +10,6 @@ const HLSPlayer = ({ src, width = 720 }) => {
     const playerRef = useRef(null); // video.js 플레이어 인스턴스를 참조하는 playerRef
 
     useEffect(() => {
-
         // 비디오 요소가 DOM에 추가된 후에 비디오.js 플레이어를 초기화
         if(videoRef.current && !playerRef.current){
             // 비디오 플레이어 초기화
@@ -32,15 +31,13 @@ const HLSPlayer = ({ src, width = 720 }) => {
             });
         }
 
-        //메모리 누수 때문에 필요하다고 했는데 이게 있으면 플레이어가 아예 안 뜨는 문제로 인해 주석
-        //작업일자 : 2024-07-30까지
         // 컴포넌트 언마운트 시 , src 변경 시 플레이어 해제
-        // return () => {
-        //     if (playerRef.current) {
-        //         playerRef.current.dispose(); // 비디오.js 플레이어 해제
-        //         playerRef.current = null; // 플레이어 참조 초기화
-        //     }
-        // };
+        return () => {
+            if (playerRef.current && !playerRef.current.isDisposed()) {
+                playerRef.current.dispose(); // 비디오.js 플레이어 해제
+                playerRef.current = null; // 플레이어 참조 초기화
+            }
+        };
     }, [src, width]); // src와 width가 변경될 때만 효과 실행
 
     return (
