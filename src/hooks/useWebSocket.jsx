@@ -5,6 +5,7 @@ const useWebSocket = (token) => {
     const [messages, setMessages] = useState([]);
     const [isAvailableChat, setAvailableChat] = useState(false);
     const [userNickname, setUserNickname] = useState('');
+    const [wsIsLive, setWsIsLive] = useState(false);
     const [wsStreamKey, setWsStreamKey] = useState('');
  
     const MAX_MESSAGES = 100;
@@ -103,7 +104,9 @@ const useWebSocket = (token) => {
                     return updatedMessages;
                 });
             } else if (type === 'BROADCAST') {
-                setWsStreamKey(message);
+                const broadcastMessage = JSON.parse(message);
+                setWsIsLive(broadcastMessage.is_live);
+                setWsStreamKey(broadcastMessage.stream_key);
             }
         };
 
@@ -122,7 +125,17 @@ const useWebSocket = (token) => {
         }
     };
 
-    return { messages, sendMessage, isAvailableChat, userNickname, wsStreamKey };
+    const requestStreamKey = () => {
+        if (socket.current && socket.current.readyState === WebSocket.OPEN) {
+            socket.current.send(JSON.stringify({
+                type: 'BROADCAST',
+                messenger: 'front-server',
+                message: 'Request StreamKey' 
+            }));
+        }
+    };
+
+    return { messages, sendMessage, isAvailableChat, userNickname, requestStreamKey, wsIsLive, wsStreamKey };
 };
 
 export default useWebSocket;
