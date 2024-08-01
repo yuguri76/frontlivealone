@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
+import axios from "axios";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -22,19 +23,13 @@ const Payment = () => {
         const url = 'http://seoldarin.iptime.org:7937/payment/kakao/process';
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(paymentRequestDto),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
+            const result = response.data;
 
             if (result.status === 'READY') {
                 const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
@@ -51,7 +46,7 @@ const Payment = () => {
     const handleTossPayment = async () => {
         const paymentRequestDto = {
             userId: 2,
-            orderId: 298765123481,
+            orderId: 298765123483,
             amount: 2200,
             orderQuantity: orderQuantity,
             shippingAddress: shippingAddress,
@@ -62,19 +57,13 @@ const Payment = () => {
         const url = 'http://seoldarin.iptime.org:7937/payment/toss/process';
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(paymentRequestDto),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
+            const result = response.data;
 
             if (result.status === 'READY') {
                 const redirectUrl = result.next_redirect_url;
@@ -102,19 +91,13 @@ const Payment = () => {
         const url = 'http://seoldarin.iptime.org:7937/payment/complete'; // 결제 완료 API URL
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(paymentRequestDto),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const result = await response.json();
+            const result = response.data;
 
             if (result.status === 'COMPLETED') {
                 navigate('/completePaymentPage');
