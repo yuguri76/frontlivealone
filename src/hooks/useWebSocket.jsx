@@ -119,7 +119,7 @@ const useWebSocket = (token) => {
                 socket.current = null;
             }
         };
-    }, ['ws://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/ws', token]);
+    }, [token]);
 
     const sendMessage = (userNickname, message) => {
         if (socket.current && isAvailableChat) {
