@@ -11,7 +11,7 @@ const Main = () => {
     const getBroadcast = async () => {
       try {
         const response = await axiosInstance.get('/broadcast');
-        setBroadcastTitle(response.data.data.title);
+        setBroadcastTitle(response.data.data.broadcast_title);
       } catch (error) {
         setBroadcastTitle(error.response.data.message);
       }
