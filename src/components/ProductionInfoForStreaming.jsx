@@ -1,27 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import axiosInstance from '../axiosInstance';
 
-const ProductionInfoForStreaming = () => {
+const ProductionInfoForStreaming = ({ onProductInfo }) => {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [introduction, setIntroduction] = useState('');
 
-    useEffect(()=>{
+    useEffect(() => {
         const getProductionInfo = async () => {
             try {
                 const response = await axiosInstance.get('/broadcast');
+                const productData = response.data.data;
 
-                setName(response.data.data.product_name);
-                setPrice(response.data.data.product_price);
-                setIntroduction(response.data.data.product_introduction);
+                setName(productData.product_name);
+                setPrice(productData.product_price);
+                setIntroduction(productData.product_introduction);
 
+                onProductInfo(productData); // 부모 컴포넌트로 데이터 전달
             } catch (error) {
                 console.error('Error fetching productInfo:', error);
             }
         };
 
         getProductionInfo();
-    }, []);
+    }, [onProductInfo]);
 
     return (
         <div>
@@ -32,6 +34,6 @@ const ProductionInfoForStreaming = () => {
             <span>상품소개: {introduction}</span>
         </div>
     );
-}
+};
 
 export default ProductionInfoForStreaming;
