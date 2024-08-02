@@ -12,7 +12,7 @@ const Login = () => {
   };
 
   const handleNaverLogin = () => {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/naver';
+    window.location.href = 'http://seoldarin.iptime.org:7937/oauth2/authorization/naver';
   };
 
   const handleGoogleLogin = () => {

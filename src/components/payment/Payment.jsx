@@ -1,50 +1,124 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
+import axios from "axios";
 
 const Payment = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const { userId, productId, amount, broadcastId } = location.state; // broadcastId를 추가로 전달받음
+
     const [orderQuantity, setOrderQuantity] = useState('');
     const [shippingAddress, setShippingAddress] = useState('');
     const [deliveryRequest, setDeliveryRequest] = useState('');
+    const [orderId, setOrderId] = useState(null); // orderId를 상태로 추가
 
-    const handlePayment = async (paymentMethod) => {
-        const paymentRequestDto = {
-            userId: 2, // 사용자 ID를 적절하게 설정합니다.
-            orderId: 2, // 주문 ID를 적절하게 설정합니다.
-            amount: 2200, // 결제 금액을 적절하게 설정합니다.
-            orderQuantity: orderQuantity,
-            shippingAddress: shippingAddress,
-            deliveryRequest: deliveryRequest,
-            paymentMethod: paymentMethod,
+    const handleOrderComplete = async () => {
+        const orderRequestDto = {
+            quantity: parseInt(orderQuantity, 10), // 수량을 숫자로 변환
         };
-        console.log("payment_method: ", paymentMethod);
-        const url = paymentMethod === 'KAKAO_PAY'
-            ? 'http://localhost:8080/payment/kakao/process'
-            : 'http://localhost:8080/payment/toss/process';
+
+        const url = `http://seoldarin.iptime.org:7937/order/broadcast/${broadcastId}/product/${productId}`;
 
         try {
-            const response = await fetch(url, {
-                method: 'POST',
+            const response = await axios.post(url, orderRequestDto, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: localStorage.getItem('accessToken'), // 인증 토큰 추가
+                },
+            });
+
+            const result = response.data;
+
+            console.log('주문 생성 응답:', result);
+
+            if (result.status_code === 200) {
+                alert('주문이 성공적으로 생성되었습니다.');
+                setOrderId(result.data.id); // 주문이 생성된 후 orderId를 상태에 저장
+            } else {
+                alert(`주문 생성에 실패했습니다. 다시 시도해 주세요. 상태: ${result.status_code}`);
+            }
+        } catch (error) {
+            console.error('주문 생성 중 오류 발생:', error);
+            if (error.response) {
+                console.error('오류 응답 데이터:', error.response.data);
+                alert(`주문 처리 중 오류가 발생했습니다. 다시 시도해 주세요. 오류 메시지: ${error.response.data.message || error.response.data}`);
+            } else {
+                alert('주문 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            }
+        }
+    };
+
+    const handleKakaoPayment = async () => {
+        if (!orderId) {
+            alert('주문이 생성되지 않았습니다. 다시 시도해 주세요.');
+            return;
+        }
+
+        const paymentRequestDto = {
+            userId,
+            orderId,
+            amount,
+            paymentMethod: 'KAKAO_PAY',
+            orderQuantity,
+            shippingAddress,
+            deliveryRequest
+        };
+
+        const url = 'http://seoldarin.iptime.org:7937/payment/kakao/process';
+
+        try {
+            const response = await axios.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(paymentRequestDto),
             });
 
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+            const result = response.data;
 
-            console.log(response);
-            const result = await response.json();
-            console.log("Payment Response: ", result); // 응답을 디버깅하기 위해 로그 출력
+            console.log('결제 준비 응답:', result);
 
             if (result.status === 'READY') {
-                console.log("Next Redirect URL: ", result); // 추가된 디버깅 로그
                 const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
-                //const redirectUrl = result.next_redirect_url;
-                console.log("Redirect URL: ", redirectUrl); // 디버깅을 위해 로그 출력
+                window.location.href = redirectUrl;
+            } else {
+                alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');
+            }
+        } catch (error) {
+            console.error('결제 처리 중 오류 발생:', error);
+            if (error.response) {
+                console.error('오류 응답 데이터:', error.response.data);
+                alert(`결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요. 오류 메시지: ${error.response.data.message || error.response.data}`);
+            } else {
+                alert('결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            }
+        }
+    };
+
+    const handleTossPayment = async () => {
+        const paymentRequestDto = {
+            userId,
+            orderId,
+            amount,
+            paymentMethod: 'TOSS_PAY',
+            orderQuantity,
+            shippingAddress,
+            deliveryRequest
+        };
+
+        const url = 'http://seoldarin.iptime.org:7937/payment/toss/process';
+
+        try {
+            const response = await axios.post(url, paymentRequestDto, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = response.data;
+
+            if (result.status === 'READY') {
+                const redirectUrl = result.next_redirect_url;
                 window.location.href = redirectUrl;
             } else {
                 alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');
@@ -55,15 +129,38 @@ const Payment = () => {
         }
     };
 
-    const handleKakaoPay = () => {
-        handlePayment('KAKAO_PAY');
+    const handleCompletePayment = async () => {
+        const paymentRequestDto = {
+            userId,
+            orderId,
+            amount,
+            paymentMethod: 'KAKAO_PAY', // 혹은 'TOSS_PAY'로 변경
+            orderQuantity,
+            shippingAddress,
+            deliveryRequest
+        };
+
+        const url = 'http://seoldarin.iptime.org:7937/payment/complete';
+
+        try {
+            const response = await axios.post(url, paymentRequestDto, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const result = response.data;
+
+            if (result.status === 'COMPLETED') {
+                navigate('/completePaymentPage');
+            } else {
+                alert('결제가 완료되지 않았습니다.');
+            }
+        } catch (error) {
+            console.error('Error during complete payment process:', error);
+            alert('결제 처리 중 오류가 발생했습니다. 다시 시도해 주세요.');
+        }
     };
-
-    const handleTossPay = () => {
-        navigate('/checkout');
-    };
-
-
 
     return (
         <div className={styles.pageContainer}>
@@ -77,6 +174,7 @@ const Payment = () => {
                         value={orderQuantity}
                         onChange={(e) => setOrderQuantity(e.target.value)}
                     />
+                    <button className={styles.completeButton} onClick={handleOrderComplete}>완료</button> {/* 완료 버튼 추가 */}
                 </div>
                 <div className={styles.formGroup}>
                     <label>배송 주소</label>
@@ -101,15 +199,15 @@ const Payment = () => {
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"
                         alt="Kakao Pay"
-                        onClick={handleKakaoPay}
+                        onClick={handleKakaoPayment}
                     />
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/07de8ce3-5fc5-41af-b865-4ee89a773bab/image.png"
                         alt="Toss"
-                        onClick={handleTossPay}
+                        onClick={handleTossPayment}
                     />
                 </div>
-                <button className={styles.submitButton} onClick={() => handlePayment('KAKAO_PAY')}>완료</button>
+                <button className={styles.submitButton} onClick={handleCompletePayment}>완료</button>
             </div>
         </div>
     );
