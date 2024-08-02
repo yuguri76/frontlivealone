@@ -8,7 +8,7 @@ const LiveScreen = () => {
 
     useEffect(() => {
         requestStreamKey();
-    }, [requestStreamKey]);
+    }, []);
 
     return (
         <div>
