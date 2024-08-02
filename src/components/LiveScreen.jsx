@@ -13,7 +13,7 @@ const LiveScreen = () => {
     return (
         <div>
             {wsIsLive ? (
-                <HLSPlayer src={`http://localhost:8081/hls/${wsStreamKey}.m3u8`} />
+                <HLSPlayer src={`http://ec2-52-79-50-124.ap-northeast-2.compute.amazonaws.com:8081/hls/${wsStreamKey}.m3u8`} />
             ) : (
                 <img src={logo} alt="logo"
                     style={{ width: '730px'}} />
