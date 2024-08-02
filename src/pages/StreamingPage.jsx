@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import ChatBox from '../components/chat/ChatBox';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import '../styles/StreamingPage.css';
-import ProductionInfoForStreaming from "../components/ProductionInfoForStreaming";
+import ProductionInfoForStreaming from '../components/ProductionInfoForStreaming';
 import LiveScreen from '../components/LiveScreen';
-import axiosInstance from "../axiosInstance";
+import axiosInstance from '../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProductId } from '../store/store'; // 실제 경로에 맞게 수정
 
@@ -12,6 +12,7 @@ function StreamingPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(null);
+  const [itemName, setItemName] = useState('');
 
   const productId = useSelector((state) => state.product.id);
   const broadcastId = useSelector((state) => state.broadcast.id);
@@ -33,8 +34,9 @@ function StreamingPage() {
         const response = await axiosInstance.get(`/product/${productId}`);
         console.log('Product info:', response.data);
         setAmount(response.data.data.price); // 상품 정보에서 amount 값을 설정
+        setItemName(response.data.data.name); // 상품 이름 설정
       } catch (error) {
-        console.error("error: error fetching product info", error);
+        console.error('error: error fetching product info', error);
       }
     };
 
@@ -44,8 +46,8 @@ function StreamingPage() {
   }, [productId, dispatch]);
 
   const handleBuyClick = async (event) => {
-    console.log("product id: " + productId);
-    console.log("broadcast id: " + broadcastId);
+    console.log('product id: ' + productId);
+    console.log('broadcast id: ' + broadcastId);
 
     try {
       const response = await axiosInstance.post(`/broadcast/${broadcastId}/product/${productId}`, {}, {
@@ -54,7 +56,7 @@ function StreamingPage() {
         }
       });
 
-      console.log("재고 확인 성공: " + response.data.message);
+      console.log('재고 확인 성공: ' + response.data.message);
 
       navigate('/payment', {
         state: {
@@ -62,12 +64,13 @@ function StreamingPage() {
           productId,
           amount,
           broadcastId,
+          itemName, // itemName을 전달합니다.
         }
       });
-    } catch(error) {
-      console.error("재고 확인 실패: " + (error.response?.data?.message || error.message));
+    } catch (error) {
+      console.error('재고 확인 실패: ' + (error.response?.data?.message || error.message));
     }
-  }
+  };
 
   if (amount === null) {
     return <div>Loading...</div>; // 금액을 불러오는 동안 로딩 화면을 표시
