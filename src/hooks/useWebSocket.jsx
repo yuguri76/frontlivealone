@@ -16,7 +16,7 @@ const useWebSocket = (token) => {
         if(socket.current)
             return;
 
-        socket.current = new WebSocket('ws://localhost:8080/ws');
+        socket.current = new WebSocket('ws://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/ws');
 
         socket.current.onopen = () => {
             console.log('세션 연결 시도');
@@ -119,7 +119,7 @@ const useWebSocket = (token) => {
                 socket.current = null;
             }
         };
-    }, ['ws://localhost:8080/ws', token]);
+    }, ['ws://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/ws', token]);
 
     const sendMessage = (userNickname, message) => {
         if (socket.current && isAvailableChat) {

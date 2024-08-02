@@ -18,7 +18,7 @@ const Payment = () => {
             quantity: parseInt(orderQuantity, 10),
         };
 
-        const url = `http://seoldarin.iptime.org:7937/order/broadcast/${broadcastId}/product/${productId}`;
+        const url = `http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/order/broadcast/${broadcastId}/product/${productId}`;
 
         console.log('userId', userId);
 
@@ -70,7 +70,7 @@ const Payment = () => {
 
         console.log('userId', userId);
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/kakao/process';
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/kakao/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -112,7 +112,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/toss/process';
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/toss/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -147,7 +147,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/complete';
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/complete';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
