@@ -36,7 +36,7 @@ const Payment = () => {
             quantity: parseInt(orderQuantity, 10),
         };
 
-        const url = `http://process.env.SERVER_ADDRESS/order/broadcast/${broadcastId}/product/${productId}`;
+        const url = `http://process.env.REACT_APP_SERVER_ADDRESS/order/broadcast/${broadcastId}/product/${productId}`;
 
         console.log('userId', userId);
 
@@ -88,7 +88,7 @@ const Payment = () => {
 
         console.log('userId', userId);
 
-        const url = 'http://process.env.SERVER_ADDRESS/payment/kakao/process';
+        const url = 'http://process.env.REACT_APP_SERVER_ADDRESS/payment/kakao/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -132,7 +132,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = 'http://process.env.SERVER_ADDRESS/payment/toss/process';
+        const url = 'http://process.env.REACT_APP_SERVER_ADDRESS/payment/toss/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -167,7 +167,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = 'http://process.env.SERVER_ADDRESS/payment/complete';
+        const url = 'http://process.env.REACT_APP_SERVER_ADDRESS/payment/complete';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
