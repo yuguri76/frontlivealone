@@ -95,6 +95,7 @@ const Payment = () => {
             const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: localStorage.getItem('accessToken'),
                 },
             });
 
@@ -139,6 +140,7 @@ const Payment = () => {
             const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: localStorage.getItem('accessToken'),
                 },
             });
 
@@ -174,6 +176,7 @@ const Payment = () => {
             const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: localStorage.getItem('accessToken'),
                 },
             });
 
