@@ -16,7 +16,7 @@ const useWebSocket = (token) => {
         if(socket.current)
             return;
 
-        socket.current = new WebSocket('ws://process.env.SERVER_ADDRESS/ws');
+        socket.current = new WebSocket('ws://process.env.REACT_APP_SERVER_ADDRESS/ws');
 
         socket.current.onopen = () => {
             console.log('세션 연결 시도');
