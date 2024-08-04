@@ -4,7 +4,7 @@ import styles from '../styles/CompletePaymentPage.module.css';
 
 const CompletePayment = () => {
     const handleReturn = () => {
-        window.location.href = 'http://localhost:3000'; // 메인 페이지로 돌아가기
+        window.location.href = 'http://livealone.shop:3000'; // 메인 페이지로 돌아가기
     };
 
     return (

@@ -1,30 +1,32 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
-import axios from "axios";
+import axios from 'axios';
 
 const Payment = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId, productId, amount, broadcastId } = location.state; // broadcastId를 추가로 전달받음
+    const { userId, productId, amount, broadcastId, itemName } = location.state; // itemName을 추가로 전달받음
 
     const [orderQuantity, setOrderQuantity] = useState('');
     const [shippingAddress, setShippingAddress] = useState('');
     const [deliveryRequest, setDeliveryRequest] = useState('');
-    const [orderId, setOrderId] = useState(null); // orderId를 상태로 추가
+    const [orderId, setOrderId] = useState(null);
 
     const handleOrderComplete = async () => {
         const orderRequestDto = {
-            quantity: parseInt(orderQuantity, 10), // 수량을 숫자로 변환
+            quantity: parseInt(orderQuantity, 10),
         };
 
-        const url = `http://seoldarin.iptime.org:7937/order/broadcast/${broadcastId}/product/${productId}`;
+        const url = `http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/order/broadcast/${broadcastId}/product/${productId}`;
+
+        console.log('userId', userId);
 
         try {
             const response = await axios.post(url, orderRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: localStorage.getItem('accessToken'), // 인증 토큰 추가
+                    Authorization: localStorage.getItem('accessToken'),
                 },
             });
 
@@ -34,7 +36,7 @@ const Payment = () => {
 
             if (result.status_code === 200) {
                 alert('주문이 성공적으로 생성되었습니다.');
-                setOrderId(result.data.id); // 주문이 생성된 후 orderId를 상태에 저장
+                setOrderId(result.data.order_id);
             } else {
                 alert(`주문 생성에 실패했습니다. 다시 시도해 주세요. 상태: ${result.status_code}`);
             }
@@ -50,7 +52,7 @@ const Payment = () => {
     };
 
     const handleKakaoPayment = async () => {
-        if (!orderId) {
+        if (orderId == null) {
             alert('주문이 생성되지 않았습니다. 다시 시도해 주세요.');
             return;
         }
@@ -62,10 +64,13 @@ const Payment = () => {
             paymentMethod: 'KAKAO_PAY',
             orderQuantity,
             shippingAddress,
-            deliveryRequest
+            deliveryRequest,
+            itemName // itemName 추가
         };
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/kakao/process';
+        console.log('userId', userId);
+
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/kakao/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -103,10 +108,11 @@ const Payment = () => {
             paymentMethod: 'TOSS_PAY',
             orderQuantity,
             shippingAddress,
-            deliveryRequest
+            deliveryRequest,
+            itemName // itemName 추가
         };
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/toss/process';
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/toss/process';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -137,10 +143,11 @@ const Payment = () => {
             paymentMethod: 'KAKAO_PAY', // 혹은 'TOSS_PAY'로 변경
             orderQuantity,
             shippingAddress,
-            deliveryRequest
+            deliveryRequest,
+            itemName // itemName 추가
         };
 
-        const url = 'http://seoldarin.iptime.org:7937/payment/complete';
+        const url = 'http://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/payment/complete';
 
         try {
             const response = await axios.post(url, paymentRequestDto, {
@@ -174,7 +181,7 @@ const Payment = () => {
                         value={orderQuantity}
                         onChange={(e) => setOrderQuantity(e.target.value)}
                     />
-                    <button className={styles.completeButton} onClick={handleOrderComplete}>완료</button> {/* 완료 버튼 추가 */}
+                    <button className={styles.completeButton} onClick={handleOrderComplete}>완료</button>
                 </div>
                 <div className={styles.formGroup}>
                     <label>배송 주소</label>
