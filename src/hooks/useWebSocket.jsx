@@ -16,7 +16,7 @@ const useWebSocket = (token) => {
         if(socket.current)
             return;
 
-        socket.current = new WebSocket('ws://ec2-13-124-187-83.ap-northeast-2.compute.amazonaws.com:8080/ws');
+        socket.current = new WebSocket(`ws://${process.env.REACT_APP_SERVER_ADDRESS}/ws`);
 
         socket.current.onopen = () => {
             console.log('세션 연결 시도');
@@ -122,7 +122,9 @@ const useWebSocket = (token) => {
     }, [token]);
 
     const sendMessage = (userNickname, message) => {
+        console.log('메시지 전송 시도');
         if (socket.current && isAvailableChat) {
+            console.log('메시지 전송')
             socket.current.send(JSON.stringify({
                 type: 'CHAT_MESSAGE',
                 messenger: userNickname,
