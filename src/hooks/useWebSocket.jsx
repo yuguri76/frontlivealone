@@ -122,7 +122,9 @@ const useWebSocket = (token) => {
     }, [token]);
 
     const sendMessage = (userNickname, message) => {
+        console.log('메시지 전송 시도');
         if (socket.current && isAvailableChat) {
+            console.log('메시지 전송')
             socket.current.send(JSON.stringify({
                 type: 'CHAT_MESSAGE',
                 messenger: userNickname,
