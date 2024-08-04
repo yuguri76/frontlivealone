@@ -5,6 +5,8 @@ import BroadcastControl from './BroadcastControl';
 import ChatBox from './chat/ChatBox';
 import ProductionInfoInput from './ProductionInfoInput';
 import ProductionInfo from './ProductionInfo';
+import {useDispatch} from "react-redux";
+import {setProductPrice, setProductName} from "../store/store";
 
 const Streamer = () => {
     const initialIsSettingCompleted = JSON.parse(localStorage.getItem('isSettingCompleted')) || false;
@@ -13,12 +15,19 @@ const Streamer = () => {
     const [isSettingCompleted, setSettingCompleted] = useState(initialIsSettingCompleted);
     const [product, setProduct] = useState(initialProduct);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
         localStorage.setItem('isSettingCompleted', JSON.stringify(isSettingCompleted));
     }, [isSettingCompleted]);
 
     useEffect(() => {
         localStorage.setItem('product', JSON.stringify(product));
+        console.log("product ===> ", product);
+
+        // dispatch(setProductId(response.data.data.id));
+        dispatch(setProductPrice(product.price));
+        dispatch(setProductName(product.name));
     }, [product]);
 
 
