@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
-import axios from 'axios';
 import {useSelector} from "react-redux";
+import axiosInstance from "../../axiosInstance";
 
 const Payment = () => {
     const navigate = useNavigate();
     const location = useLocation();
     //const userId = useSelector((state) => state.user.id);
     const user = localStorage.getItem('user');
-    const product = localStorage.getItem('product');
-    const userobj = JSON.parse(user);
-    const productObj = JSON.parse(product);
-
-    const {id: userId} = userobj;
-    const {id: productId, name: itemName, price: amount, quantity} = productObj;
+    const userId = useSelector((state) => state.user.id);
+    const productId = useSelector((state) => state.product.id);
+    const itemName = useSelector((state) => state.product.name);
+    const amount = useSelector((state) => state.product.price);
+    // const product = localStorage.getItem('product');
+    // const userobj = JSON.parse(user);
+    // const productObj = JSON.parse(product);
+    //
+    // const {id: userId} = userobj;
+    // const {id: productId, name: itemName, price: amount, quantity} = productObj;
 
     const broadcastId = useSelector((state) => state.broadcast.id);
 
-
-    console.log(productId);
-    console.log(broadcastId);
-    console.log(amount);
-    console.log(itemName);
-
-
+    console.log("product id: " + productId);
+    console.log("broadcast id: " + broadcastId);
+    console.log("amount: " + amount);
+    console.log("itemName: " + itemName);
 
     const [orderQuantity, setOrderQuantity] = useState('');
     const [shippingAddress, setShippingAddress] = useState('');
@@ -41,7 +42,7 @@ const Payment = () => {
         console.log('userId', userId);
 
         try {
-            const response = await axios.post(url, orderRequestDto, {
+            const response = await axiosInstance.post(url, orderRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: localStorage.getItem('accessToken'),
@@ -91,7 +92,7 @@ const Payment = () => {
         const url = `http://${process.env.REACT_APP_SERVER_ADDRESS}/payment/kakao/process`;
 
         try {
-            const response = await axios.post(url, paymentRequestDto, {
+            const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -135,7 +136,7 @@ const Payment = () => {
         const url = `http:/${process.env.REACT_APP_SERVER_ADDRESS}/payment/toss/process`;
 
         try {
-            const response = await axios.post(url, paymentRequestDto, {
+            const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -170,7 +171,7 @@ const Payment = () => {
         const url = `http://${process.env.REACT_APP_SERVER_ADDRESS}/payment/complete`;
 
         try {
-            const response = await axios.post(url, paymentRequestDto, {
+            const response = await axiosInstance.post(url, paymentRequestDto, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -241,3 +242,4 @@ const Payment = () => {
 };
 
 export default Payment;
+
