@@ -6,7 +6,6 @@ import ProductionInfoForStreaming from '../components/ProductionInfoForStreaming
 import LiveScreen from '../components/LiveScreen';
 import axiosInstance from '../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
-import { setProductId } from '../store/store'; // 실제 경로에 맞게 수정
 
 function StreamingPage() {
   const navigate = useNavigate();
@@ -15,6 +14,9 @@ function StreamingPage() {
   const [itemName, setItemName] = useState('');
 
   const productId = useSelector((state) => state.product.id);
+  const productName = useSelector((state) => state.product.name);
+  const productPrice = useSelector((state) => state.product.price);
+  const productQuantity = useSelector((state) => state.product.quantity);
   const broadcastId = useSelector((state) => state.broadcast.id);
   const userId = useSelector((state) => state.user.id); // Redux store에서 user id를 가져온다고 가정
   console.log(userId);
@@ -42,6 +44,9 @@ function StreamingPage() {
   const handleBuyClick = async (event) => {
     console.log('product id: ' + productId);
     console.log('broadcast id: ' + broadcastId);
+    console.log('product name: ' + productName);
+    console.log('product price: ' + productPrice);
+    console.log('product quantity: ' + productQuantity);
 
     try {
       const response = await axiosInstance.post(`/broadcast/${broadcastId}/product/${productId}`, {}, {
@@ -95,3 +100,4 @@ function StreamingPage() {
 }
 
 export default StreamingPage;
+

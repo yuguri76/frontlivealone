@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/ProductionInfoInput.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import {setProductId, setProductName, setProductQuantity, setProductPrice } from "../store/store";
 
 const ProductionInfoInput = ({ onSettingComplete }) => {
-  const dispatch = useDispatch();
 
   const [name, setName] = useState(localStorage.getItem('name') || '');
   const [price, setPrice] = useState(localStorage.getItem('price') || '');
@@ -36,11 +33,6 @@ const ProductionInfoInput = ({ onSettingComplete }) => {
           Authorization: localStorage.getItem('accessToken')
         }
       });
-
-      dispatch(setProductId(response.data.data.id));
-      dispatch(setProductName(response.data.data.name));
-      dispatch(setProductPrice(response.data.data.price));
-      dispatch(setProductQuantity(response.data.data.quantity));
 
       onSettingComplete(response.data.data);
     } catch (error) {
