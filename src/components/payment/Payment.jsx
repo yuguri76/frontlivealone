@@ -2,11 +2,29 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
 import axios from 'axios';
+import {useSelector} from "react-redux";
 
 const Payment = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { userId, productId, amount, broadcastId, itemName } = location.state; // itemName을 추가로 전달받음
+    //const userId = useSelector((state) => state.user.id);
+    const user = localStorage.getItem('user');
+    const product = localStorage.getItem('product');
+    const userobj = JSON.parse(user);
+    const productObj = JSON.parse(product);
+
+    const {id: userId} = userobj;
+    const {id: productId, name: itemName, price: amount, quantity} = productObj;
+
+    const broadcastId = useSelector((state) => state.broadcast.id);
+
+
+    console.log(productId);
+    console.log(broadcastId);
+    console.log(amount);
+    console.log(itemName);
+
+
 
     const [orderQuantity, setOrderQuantity] = useState('');
     const [shippingAddress, setShippingAddress] = useState('');
@@ -85,6 +103,8 @@ const Payment = () => {
 
             if (result.status === 'READY') {
                 const redirectUrl = `${result.next_redirect_url}?orderId=${paymentRequestDto.orderId}&userId=${paymentRequestDto.userId}`;
+
+                console.log("redirectUrl => ", redirectUrl)
                 window.location.href = redirectUrl;
             } else {
                 alert('결제 준비에 실패했습니다. 다시 시도해 주세요.');

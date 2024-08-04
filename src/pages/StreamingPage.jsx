@@ -17,16 +17,10 @@ function StreamingPage() {
   const productId = useSelector((state) => state.product.id);
   const broadcastId = useSelector((state) => state.broadcast.id);
   const userId = useSelector((state) => state.user.id); // Redux store에서 user id를 가져온다고 가정
+  console.log(userId);
 
   useEffect(() => {
     console.log(`Product ID from Redux: ${productId}`); // Redux에서 가져온 productId를 로그로 출력
-
-    // 임시로 productId 설정
-    if (!productId) {
-      const tempProductId = 2; // 실제 로직에 맞게 설정
-      dispatch(setProductId(tempProductId));
-      console.log(`Product ID temporarily set to: ${tempProductId}`);
-    }
 
     const fetchProductInfo = async () => {
       try {
@@ -57,6 +51,12 @@ function StreamingPage() {
       });
 
       console.log('재고 확인 성공: ' + response.data.message);
+
+      console.log(userId);
+      console.log(productId);
+      console.log(amount);
+      console.log(broadcastId);
+      console.log(itemName);
 
       navigate('/payment', {
         state: {
