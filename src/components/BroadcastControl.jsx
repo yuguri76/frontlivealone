@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/BroadcastControl.module.css';
-import { useSelector, useDispatch } from 'react-redux';
-import {setBroadcastId } from "../store/store";
 
 const BroadcastControl = ({ product, isSettingCompleted, onBroadcastClose }) => {
-    const dispatch = useDispatch();
-
     const initialIsBroadcastStart = JSON.parse(localStorage.getItem('isBroadcastStart')) || false;
 
     const [isBroadcastStart, setBroadcastStart] = useState(initialIsBroadcastStart);
@@ -32,8 +28,6 @@ const BroadcastControl = ({ product, isSettingCompleted, onBroadcastClose }) => 
             });
 
             setBroadcastStart(true);
-
-            dispatch(setBroadcastId(response.data.data.id));
 
         } catch (error) {
             if (error.response.data.message) {

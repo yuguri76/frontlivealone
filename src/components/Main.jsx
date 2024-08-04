@@ -2,9 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../styles/Main.module.css';
 import axiosInstance from '../axiosInstance';
+import { useDispatch } from 'react-redux';
+import {
+  setBroadcastId,
+  setProductId,
+  setProductName, setProductPrice,
+  setProductQuantity
+} from "../store/store";
 
 const Main = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [broadcastTitle, setBroadcastTitle] = useState('');
 
   useEffect(() => {
@@ -27,8 +35,28 @@ const Main = () => {
       navigate('/login');
   };
 
-  const handleStreamingClick = () => {
+  const handleStreamingClick = async () => {
     navigate('/streaming');
+
+    try {
+      const response = await axiosInstance.get(`/broadcast`, {}, {
+        headers: {
+          Authorization: localStorage.getItem('accessToken')
+        }
+      });
+
+      console.log("서버로부터 product_id, broadcast_id 가져오기");
+      console.log(response.data.data);
+
+      dispatch(setBroadcastId(response.data.data.broadcast_id));
+      dispatch(setProductId(response.data.data.product_id));
+      dispatch(setProductName(response.data.data.product_name));
+      dispatch(setProductQuantity(response.data.data.product_quantity));
+      dispatch(setProductPrice(response.data.data.product_price));
+    } catch (error) {
+      console.error('상품, 방송 정보 가져오기 실패: ' + (error.response?.data?.message
+          || error.message));
+    }
   };
 
   return (
