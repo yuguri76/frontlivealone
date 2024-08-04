@@ -8,17 +8,12 @@ const Payment = () => {
     const navigate = useNavigate();
     const location = useLocation();
     //const userId = useSelector((state) => state.user.id);
-    const user = localStorage.getItem('user');
-    const userId = useSelector((state) => state.user.id);
+    const user = JSON.parse(localStorage.getItem('user'));
+    // const userId = useSelector((state) => state.user.id);
+    const userId = user.id;
     const productId = useSelector((state) => state.product.id);
     const itemName = useSelector((state) => state.product.name);
     const amount = useSelector((state) => state.product.price);
-    // const product = localStorage.getItem('product');
-    // const userobj = JSON.parse(user);
-    // const productObj = JSON.parse(product);
-    //
-    // const {id: userId} = userobj;
-    // const {id: productId, name: itemName, price: amount, quantity} = productObj;
 
     const broadcastId = useSelector((state) => state.broadcast.id);
 
@@ -134,7 +129,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = `http:/${process.env.REACT_APP_SERVER_ADDRESS}/payment/toss/process`;
+        const url = `/payment/toss/process`;
 
         try {
             const response = await axiosInstance.post(url, paymentRequestDto, {
@@ -245,4 +240,5 @@ const Payment = () => {
 };
 
 export default Payment;
+
 
