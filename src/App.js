@@ -29,7 +29,7 @@ function App() {
             <Route path="/broadcasthistory" element={<BroadcastHistoryPage />} />
             <Route path="/completepayment" element={<CompletePaymentPage />} />
             <Route path="/deliveryhistory" element={<DeliveryHistoryPage />} />
-            <Route path="/myinfo" element={<MyInfoPage />} />
+            <Route path="/user/:userId" element={<MyInfoPage />} />
             <Route path="/paymenthistory" element={<PaymentHistoryPage />} />
             <Route path="/payment" element={<PaymentPage />} />
             <Route path="/streamer" element={<StreamerPage />} />

@@ -7,10 +7,10 @@
 .adminButtonContainer {
   display: flex;
   gap: 300px;
-  margin-top: 20px;
+  margin: 50px 0;
 }
 
-.adminButtonContainer > button {
+button {
   border: none;
   border-radius: 10px;
   padding: 10px;
@@ -25,10 +25,41 @@
   background-color: dodgerblue;
 }
 
-.select {
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.itemContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.itemContainer:hover {
+  cursor: pointer;
+}
+
+.itemListContent {
+  display: flex;
+  width: 700px;
+  justify-content: space-between;
+  padding: 0 15px 10px 15px;
+  border-bottom: 1px solid black;
+}
+
+.pageContainer {
+  margin-top: 30px;
+}
+
+.pageContainer > a:hover {
+  cursor: pointer;
+}
+
+.select{
   background-color: dodgerblue;
 }
 
-.hidden {
+.hide {
   display: none;
 }

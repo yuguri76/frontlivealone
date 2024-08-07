@@ -25,7 +25,8 @@ function Header() {
   };
 
   const handleMyInfoClick = () => {
-    navigate('/myinfo');
+    const user = JSON.parse(localStorage.getItem('user'));
+    navigate(`/user/${user.id}`);
   };
 
   const handleLogoutClick = async () => {
