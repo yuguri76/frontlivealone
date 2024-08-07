@@ -28,8 +28,16 @@ const Payment = () => {
     const [orderId, setOrderId] = useState(null);
 
     const handleOrderComplete = async () => {
+
+        const curquantity = parseInt(orderQuantity, 10);
+
+        if (isNaN(curquantity) || curquantity < 1){
+            alert('유효한 숫자를 입력해주세요. (1 이상의 숫자)');
+            return false;
+        }
+
         const orderRequestDto = {
-            quantity: parseInt(orderQuantity, 10),
+            quantity: curquantity,
         };
 
         const url = `http://${process.env.REACT_APP_SERVER_ADDRESS}/order/broadcast/${broadcastId}/product/${productId}`;
