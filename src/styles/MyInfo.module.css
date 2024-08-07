@@ -29,13 +29,33 @@ body {
   color: dodgerblue;
 }
 
-.nameBox {
+.nameContainer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 50px;
 }
 
-.nameBox>button {
+.nameContainer > .nameBox {
+  display: flex;
+  gap: 10px;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.nameBox > .nameBoxAdmin {
+  font-size: 15px;
+  font-weight: 500;
+  color: black;
+  opacity: 0.4;
+}
+
+.nameBoxButtonContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.nameBoxButtonContainer>button {
   border: none;
   border-radius: 10px;
   padding: 10px;

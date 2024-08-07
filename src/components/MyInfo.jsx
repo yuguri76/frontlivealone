@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
@@ -8,9 +8,11 @@ const MyInfo = () => {
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
+  const [adminText, setAdminText] = useState('');
   const [nickname, setNickname] = useState('');
   const [birth_day, setBirthday] = useState('');
   const [address, setAddress] = useState('');
+  const [adminButtonValue, setAdminButtonValue] = useState('');
 
   const [broadcasts, setBroadcasts] = useState([]);
   const [payments, setPayments] = useState([]);
@@ -22,7 +24,6 @@ const MyInfo = () => {
   const [hideInputValue, setHideInputValue] = useState(false);
 
   useEffect(() => {
-
     const getProfile = async () => {
       try {
         const response = await axiosInstance.get('/user', {
@@ -35,6 +36,14 @@ const MyInfo = () => {
         setName(response.data?.data?.name ?? '');
         setBirthday(response.data?.data?.birth_day ?? '');
         setAddress(response.data?.data?.address ?? '');
+
+        if (response.data.data.role === "ADMIN") {
+          setAdminButtonValue("관리자 페이지");
+          setAdminText('관리자');
+        } else {
+          setAdminButtonValue("관리자 신청하기");
+          setAdminText('');
+        }
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
@@ -127,6 +136,14 @@ const MyInfo = () => {
     }
   }
 
+  const handleAdminClick = (event) => {
+    if (event.target.innerHTML === "관리자 페이지") {
+      navigate('/admin');
+    } else {
+      navigate('/registeradmin');
+    }
+  }
+
   const handleEditClick = () => {
     setHideSubmitButton(false);
     setHideInput(false);
@@ -149,13 +166,21 @@ const MyInfo = () => {
   return (
       <div className={styles.myinfoContainer}>
         <div className={styles.infoContainer}>
-          <div className={styles.nameBox}>
-            <h1>{name}</h1>
-            <button className={classNames({[styles.hide]: hideEditButton})}
-                    onClick={handleEditClick}>Edit</button>
+          <div className={styles.nameContainer}>
+            <div className={styles.nameBox}>
+              <span>{name}</span>
+              <span className={styles.nameBoxAdmin}>{adminText}</span>
+            </div>
+            <div className={styles.nameBoxButtonContainer}>
+              <button className={styles.AdminButton}
+                      onClick={handleAdminClick}>{adminButtonValue}</button>
+              <button className={classNames({[styles.hide]: hideEditButton})}
+                      onClick={handleEditClick}>Edit
+              </button>
+            </div>
           </div>
           <div className={styles.infoBox}>
-            <h3>닉네임</h3>
+          <h3>닉네임</h3>
             <input type="text" className={classNames({[styles.hide]: hideInput})} value={nickname} onChange={handlerUsernameInputChange}/>
             <span className={classNames({[styles.hide]: hideInputValue})}>{nickname}</span>
           </div>
