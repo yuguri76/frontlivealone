@@ -6,21 +6,18 @@ import useWebSocket from '../../hooks/useWebSocket';
 function ChatContainer() {
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
-  const [isComposing, setIsComposing] = useState(false);
-  const { messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
+  const [isComposing, setIsComposing] = useState(0);
+  const {messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
   const [inputCount, setInputCount] = useState(0);
   const maxByteLength = 90;
 
-  useEffect(() => {
-    const newToken = localStorage.getItem('accessToken');
-    console.log(newToken);
-    if (newToken) {
-      setToken(newToken);
-    }
-  }, []);
+  const setComposingStack = (value) =>{
+    setIsComposing(prev => prev+value);
+  }
+
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && !isComposing) {
+    if (event.key === 'Enter' && isComposing>-1) {
       sendMessageHandler();
     }
   };
@@ -41,10 +38,11 @@ function ChatContainer() {
     const inputText = event.target.value;
     const byteLength = calculateByteLength(inputText);
 
-    if (byteLength <= maxByteLength) {
+    if (byteLength < maxByteLength) {
       setMessage(inputText);
       setInputCount(byteLength);
     } else {
+      setComposingStack(1);
       const truncatedText = inputText.slice(0, -1); // 마지막 글자 제거
       setMessage(truncatedText);
       setInputCount(calculateByteLength(truncatedText));
@@ -67,11 +65,11 @@ function ChatContainer() {
   };
 
   const handleCompositionStart = () => {
-    setIsComposing(true);
+    setComposingStack(-1);
   };
 
   const handleCompositionEnd = (event) => {
-    setIsComposing(false);
+    setComposingStack(1);
     onInputCountHandler(event); // Composition이 끝난 후에 input count를 다시 계산
   };
 
@@ -100,6 +98,7 @@ function ChatContainer() {
           onCompositionEnd={handleCompositionEnd}
           onCompositionUpdate={handleCompositionUpdate}
           value={message}
+
         />
         <button onClick={sendMessageHandler} disabled={!isAvailableChat}>
           전송
@@ -137,9 +136,9 @@ function ChatList({ messages }) {
 
   return (
     <List
-      height={640}
+      height={635}
       itemCount={messages.length}
-      itemSize={39}
+      itemSize={45}
       width={400}
       itemData={messages}
       ref={chatWindowRef}
