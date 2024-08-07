@@ -32,11 +32,12 @@ const Login = () => {
             <img src={kakaoLogo} alt="Kakao Login"
                  style={{width: '200px', margin: '10px'}}/>
           </button>
-          <button onClick={handleNaverLogin}
-                  style={{border: 'none', background: 'none'}}>
-            <img src={naverLogo} alt="Naver Login"
-                 style={{width: '200px', margin: '10px'}}/>
-          </button>
+          {/*  네이버 로그인 비활성화 */}
+          {/*<button onClick={handleNaverLogin}*/}
+          {/*        style={{border: 'none', background: 'none'}}>*/}
+          {/*  <img src={naverLogo} alt="Naver Login"*/}
+          {/*       style={{width: '200px', margin: '10px'}}/>*/}
+          {/*</button>*/}
           <button onClick={handleGoogleLogin}
                   style={{border: 'none', background: 'none'}}>
             <img src={googleLogo} alt="Google Login"
