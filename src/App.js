@@ -14,6 +14,7 @@ import StreamerPage from './pages/StreamerPage';
 import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
 import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
+import RegisterAdminPage from "./pages/RegisterAdminPage";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/streamer" element={<StreamerPage />} />
             <Route path="/streaming" element={<StreamingPage />} />
             <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+            <Route path="/registeradmin" element={<RegisterAdminPage />} />
           </Routes>
         </div>
     </DndProvider>
