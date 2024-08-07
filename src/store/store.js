@@ -33,15 +33,6 @@ const userSlice = createSlice({
         setEmail(state, action) {
             state.email= action.payload;
         },
-        setBroadcastId(state, action) {
-            state.broadcastId = action.payload;
-        },
-        setProductId(state, action) {
-            state.productId = action.payload;
-        },
-        setProductName(state, action) {
-            state.productName = action.payload;
-        },
     }
 });
 
