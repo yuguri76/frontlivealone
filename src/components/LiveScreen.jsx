@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HLSPlayer from '../components/HLSPlayer';
 import useWebSocket from '../hooks/useWebSocket';
 import logo from '../assets/images/stream_logo.png'
@@ -12,12 +12,15 @@ const LiveScreen = () => {
 
     return (
         <div>
-            {wsIsLive ? (
-                <HLSPlayer src={`http://${process.env.REACT_APP_MEDIA_SERVER_ADDRESS}/hls/${wsStreamKey}.m3u8`} />
+            {wsStreamKey != '' ? (
+                <HLSPlayer
+                    src ={`http://${process.env.REACT_APP_MEDIA_SERVER_ADDRESS}/hls/${wsStreamKey}.m3u8`}
+                />
             ) : (
                 <img src={logo} alt="logo"
-                    style={{ width: '730px'}} />
+                    style={{ width: '730px' }} />
             )}
+
         </div>
     );
 };
