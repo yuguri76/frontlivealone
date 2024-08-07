@@ -1,0 +1,65 @@
+.adminContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminButtonContainer {
+  display: flex;
+  gap: 300px;
+  margin: 50px 0;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #666666;
+  color: white;
+  font-size: 20px;
+  font-weight: 800;
+  transition: all 0.5s ease; /* 배경 색상 변화에 애니메이션 추가 */
+}
+
+.adminButtonContainer > button:hover {
+  background-color: dodgerblue;
+}
+
+.itemsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.itemContainer {
+  display: flex;
+  gap: 30px;
+}
+
+.itemContainer:hover {
+  cursor: pointer;
+}
+
+.itemListContent {
+  display: flex;
+  width: 700px;
+  justify-content: space-between;
+  padding: 0 15px 10px 15px;
+  border-bottom: 1px solid black;
+}
+
+.pageContainer {
+  margin-top: 30px;
+}
+
+.pageContainer > a:hover {
+  cursor: pointer;
+}
+
+.select{
+  background-color: dodgerblue;
+}
+
+.hide {
+  display: none;
+}
