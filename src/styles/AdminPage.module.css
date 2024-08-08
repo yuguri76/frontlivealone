@@ -68,8 +68,8 @@ button {
   font-weight: 900;
 }
 
-.pageContainer > .selectPage{
-  font-weight: 900;
+.select {
+  background-color: dodgerblue;
 }
 
 .hide {
