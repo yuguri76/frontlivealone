@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
 
 const MyInfo = () => {
   const navigate = useNavigate();
+  const { userId: paramUserId } = useParams();
+  const [userId, setUserId] = useState(paramUserId);
 
   const [name, setName] = useState('');
   const [adminText, setAdminText] = useState('');
@@ -24,9 +26,14 @@ const MyInfo = () => {
   const [hideInputValue, setHideInputValue] = useState(false);
 
   useEffect(() => {
+    if (!userId) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setUserId(user.id);
+    }
+
     const getProfile = async () => {
       try {
-        const response = await axiosInstance.get('/user', {
+        const response = await axiosInstance.get(`/user/${userId}`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
           }

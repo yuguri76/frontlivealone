@@ -5,8 +5,8 @@ const useWebSocket = (token) => {
     const [messages, setMessages] = useState([]);
     const [isAvailableChat, setAvailableChat] = useState(false);
     const [userNickname, setUserNickname] = useState('');
-    const [wsIsLive, setWsIsLive] = useState(false);
     const [wsStreamKey, setWsStreamKey] = useState('');
+    const [wsIsLive, setWsIsLive] = useState(false);
  
     const MAX_MESSAGES = 100;
 
@@ -107,6 +107,8 @@ const useWebSocket = (token) => {
                 });
             } else if (type === 'BROADCAST') {
                 const broadcastMessage = JSON.parse(message);
+                localStorage.setItem('isBroadcastStart', broadcastMessage.is_live);
+                localStorage.setItem('isSettingCompleted', broadcastMessage.is_live);
                 setWsIsLive(broadcastMessage.is_live);
                 setWsStreamKey(broadcastMessage.stream_key);
             }

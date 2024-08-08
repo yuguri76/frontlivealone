@@ -1,0 +1,58 @@
+.adminDetailsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+}
+
+.adminMenuContainer {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.adminMenuContainer > span:hover {
+  cursor: pointer;
+}
+
+.adminMenuContainer:nth-of-type(2):hover {
+  cursor: default;
+}
+
+.userListButtonContainer {
+  text-align: right;
+}
+
+.userListButtonContainer > button {
+  background-color: dodgerblue;
+}
+
+.infosContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: 30px;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.infoContainer:nth-child(2) {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.infoContainer > h3 {
+  font-size: 30px;
+}
+
+.infoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 20px;
+}
