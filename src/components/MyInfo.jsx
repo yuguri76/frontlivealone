@@ -70,19 +70,18 @@ const MyInfo = () => {
       }
     };
 
-    // 결제 완료 후 수정 예정
-    // 수정 예정일: 24.7.30 이전까지
     const getPayments = async () => {
-      // try {
-      //   const response = await axiosInstance.get('/user/1/payment', {
-      //     headers: {
-      //       Authorization: localStorage.getItem('accessToken')
-      //     }});
-      //
-      //   setPayments(response.data.data);
-      // } catch (error) {
-      //   console.error('Error fetching payments:', error);
-      // }
+      try {
+        const response = await axiosInstance.get(`/payment/user/${userId}/completed`, {
+          headers: {
+            Authorization: localStorage.getItem('accessToken')
+          }
+        });
+
+        setPayments(response.data.data);
+      } catch (error) {
+        console.error('Error fetching payments:', error);
+      }
     };
 
     const getDelivery = async () => {
@@ -236,28 +235,14 @@ const MyInfo = () => {
               {
                 payments.map((content, index) => (
                     <div className={styles.orderContent} key={index}>
-                      <span className={styles.orderContentName}>content.product_name</span>
+                      <span className={styles.orderContentName}>{content.product_name}</span>
                       <span>{content.product_quantity} 개</span>
                       <span>{content.amount} 원</span>
                       <span>{content.paymentMethod}</span>
-                      <span className={styles.orderContentTime}>{content.createAt.replace('T', ' ')}</span>
+                      <span className={styles.orderContentTime}>{content.createdAt.replace('T', ' ')}</span>
                     </div>
                 ))
               }
-              <div className={styles.orderContent}>
-                <span className={styles.orderContentName}>선산 곱창</span>
-                <span>6 개</span>
-                <span>60000 원</span>
-                <span>카카오페이</span>
-                <span className={styles.orderContentTime}>2024/06/23</span>
-              </div>
-              <div className={styles.orderContent}>
-                <span className={styles.orderContentName}>선산 곱창</span>
-                <span>6 개</span>
-                <span>60000 원</span>
-                <span>카카오페이</span>
-                <span className={styles.orderContentTime}>2024/06/23</span>
-              </div>
             </div>
           </div>
           <div className={styles.actBox}>
