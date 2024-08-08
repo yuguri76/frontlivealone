@@ -232,11 +232,11 @@ const MyInfo = () => {
               {
                 payments.map((content, index) => (
                     <div className={styles.orderContent} key={index}>
-                      <span className={styles.orderContentName}>{content.productName}</span>
-                      <span>{content.orderQuantity} 개</span>
+                      <span className={styles.orderContentName}>{content.product_name}</span>
+                      <span>{content.quantity} 개</span>
                       <span>{content.amount} 원</span>
-                      <span>{content.paymentMethod}</span>
-                      <span className={classNames(styles.orderContentTime)}>{content.createdAt ? content.createdAt.replace('T', ' ') : 'N/A'}</span>
+                      <span>{content.payment_method}</span>
+                      <span className={classNames(styles.orderContentTime)}>{content.created_at ? content.created_at.replace('T', ' ') : 'N/A'}</span>
                     </div>
                 ))
               }
