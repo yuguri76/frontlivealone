@@ -66,6 +66,10 @@ const Main = () => {
     }
   };
 
+  const handleAdClick = () => {
+    window.open("https://nbcamp.spartacodingclub.kr/");
+  }
+
   return (
     <div className={styles.mainContainer}>
       <div className={styles.siteIntro}>
@@ -90,7 +94,7 @@ const Main = () => {
           <div className={styles.discountText}>{broadcastTitle}</div>
           <button className={styles.watchButton} onClick={handleStreamingClick}>보러가기</button>
         </div>
-        <div className={styles.ad}>
+        <div className={styles.ad} onClick={handleAdClick}>
         </div>
       </div>
     </div>
