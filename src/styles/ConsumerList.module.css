@@ -51,6 +51,10 @@
   font-size: 20px;
 }
 
+.consumerName:hover {
+  cursor: pointer;
+}
+
 .consumerListPageContainer {
   display: flex;
   gap: 50px;
