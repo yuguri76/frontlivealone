@@ -74,6 +74,7 @@ function StreamingPage() {
       });
     } catch (error) {
       console.error('재고 확인 실패: ' + (error.response?.data?.message || error.message));
+      alert("남은 재고가 없습니다. 죄송합니다.");
     }
   };
 
