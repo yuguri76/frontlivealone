@@ -236,7 +236,7 @@ const MyInfo = () => {
                       <span>{content.orderQuantity} 개</span>
                       <span>{content.amount} 원</span>
                       <span>{content.paymentMethod}</span>
-                      <span className={styles.orderContentTime}>{content.createdAt ? content.createdAt.replace('T', ' ') : 'N/A'}</span>
+                      <span className={classNames(styles.orderContentTime)}>{content.createdAt ? content.createdAt.replace('T', ' ') : 'N/A'}</span>
                     </div>
                 ))
               }
