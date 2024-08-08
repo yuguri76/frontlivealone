@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styles from '../../styles/PaymentPage.module.css';
 import {useSelector} from "react-redux";
 import axiosInstance from "../../axiosInstance";
+import Timer from "../Timer";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ const Payment = () => {
     const [shippingAddress, setShippingAddress] = useState('');
     const [deliveryRequest, setDeliveryRequest] = useState('');
     const [orderId, setOrderId] = useState(null);
+    const [isTimerActive, setIsTimerActive] = useState(false);
 
     const handleOrderComplete = async () => {
 
@@ -59,6 +61,7 @@ const Payment = () => {
             if (result.status_code === 200) {
                 alert('주문이 성공적으로 생성되었습니다.');
                 setOrderId(result.data.order_id);
+                setIsTimerActive(true);
             } else {
                 alert(`주문 생성에 실패했습니다. 다시 시도해 주세요. 상태: ${result.status_code}`);
             }
@@ -196,10 +199,34 @@ const Payment = () => {
         }
     };
 
+    const handleTimeExpired = async () => {
+        try {
+            const response = await axiosInstance.delete(`/order/product/${productId}`, {
+            }, {
+                headers: {
+                    Authorization: localStorage.getItem('accessToken')
+                }
+            });
+
+            if(response.status === 200) {
+                alert('주문 시간이 만료되었습니다. 다시 주문해 주세요.');
+                setOrderId(null);
+                setIsTimerActive(false);
+                navigate('/streaming')
+            }
+        } catch (error) {
+            console.error('서버와 통신 중 오류 발생',error);
+            alert("요청 실패 : " + error);
+        }
+    };
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.paymentContainer}>
                 <h1>결제 정보 입력</h1>
+                {isTimerActive &&(
+                    <Timer initialTime={600} onExpire={handleTimeExpired} />
+                )}
                 <div className={styles.formGroup}>
                     <label>주문 수량</label>
                     <input
