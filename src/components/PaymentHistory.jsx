@@ -40,15 +40,21 @@ const PaymentHistory = () => {
         <div className={styles.line}></div>
         <div className={styles.historyContentContainer}>
           {
-            payments.map((content, index) => (
-                <div className={styles.historyContent} key={index}>
-                  <span className={styles.historyContentName}>content.product_name</span>
-                  <span>{content.product_quantity} 개</span>
-                  <span>{content.amount} 원</span>
-                  <span>{content.paymentMethod}</span>
-                  <span className={styles.historyContentTime}>{content.createAt.replace('T', ' ')}</span>
-                </div>
-            ))
+            payments.map((content, index) => {
+              const {created_at} = content;
+              const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
+              const [createdTime, _] = rawCreatedTime.split('.');
+              return (
+                  <div className={styles.historyContent} key={index}>
+                    <span className={styles.historyContentName}>{content.product_name}</span>
+                    <span>{content.quantity} 개</span>
+                    <span>{content.amount} 원</span>
+                    <span>{content.payment_method}</span>
+                    <span className={styles.historyContentTime}>{createdDate}</span>
+                    <span className={styles.historyContentTime}>{createdTime}</span>
+                  </div>
+              )
+            })
           }
         </div>
         <div className={styles.pageContainer}>
