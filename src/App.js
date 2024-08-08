@@ -18,6 +18,7 @@ import RegisterAdminPage from "./pages/RegisterAdminPage";
 import ReservationPage from './pages/ReservationPage';
 import AdminPage from "./pages/AdminPage";
 import BroadcastDetailPage from "./pages/BroadcastDetailPage";
+import ConsumerList from './components/ConsumerList';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/broadcast/:broadcastId" element={<BroadcastDetailPage />} />
             <Route path="/reservation" element={<ReservationPage />} />
+            <Route path="/admin/broadcast/:broadcastId/consumer" element={<ConsumerList />} />
           </Routes>
         </div>
     </DndProvider>
