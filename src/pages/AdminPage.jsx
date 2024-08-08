@@ -76,16 +76,7 @@ function AdminPage() {
   };
 
   const handleBroadcastClick = async (event) => {
-    try {
-      const response = await axiosInstance.get(`/admin/broadcast/${event.currentTarget.dataset.id}`, {
-        headers: {
-          Authorization: localStorage.getItem('accessToken')
-        }
-      });
-
-    } catch (error) {
-      console.error('Get broadcast error!!!!!!', error);
-    }
+    navigate(`/admin/broadcast/${event.currentTarget.dataset.id}`);
   };
 
   const handleUserClick = async (event) => {
@@ -111,6 +102,9 @@ function AdminPage() {
 
   return (
       <div className={styles.adminContainer}>
+        <div className={styles.adminMenuContainer}>
+          <span>관리자 페이지</span>
+        </div>
         <div className={styles.adminButtonContainer}>
           <button onClick={handleBroadcastButtonClick} className={classNames(
               {[styles.select]: selectBroadcastButton})}>방송 조회
