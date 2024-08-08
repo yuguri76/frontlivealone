@@ -20,7 +20,8 @@ const RegisterAdmin = () => {
       });
 
       alert("관리자로 등록되었습니다.");
-      navigate("/myinfo");
+      const user = JSON.parse(localStorage.getItem('user'));
+      navigate(`/user/${user.id}`);
 
     } catch(error) {
       alert("암호가 일치하지 않습니다.");
