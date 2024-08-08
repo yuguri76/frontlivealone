@@ -16,6 +16,7 @@ import Header from './components/Header';
 import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
 import RegisterAdminPage from "./pages/RegisterAdminPage";
 import AdminPage from "./pages/AdminPage";
+import BroadcastDetailPage from "./pages/BroadcastDetailPage";
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
             <Route path="/registeradmin" element={<RegisterAdminPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin/broadcast/:broadcastId" element={<BroadcastDetailPage />} />
           </Routes>
         </div>
     </DndProvider>

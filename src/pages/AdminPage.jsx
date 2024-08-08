@@ -76,16 +76,7 @@ function AdminPage() {
   };
 
   const handleBroadcastClick = async (event) => {
-    try {
-      const response = await axiosInstance.get(`/admin/broadcast/${event.currentTarget.dataset.id}`, {
-        headers: {
-          Authorization: localStorage.getItem('accessToken')
-        }
-      });
-
-    } catch (error) {
-      console.error('Get broadcast error!!!!!!', error);
-    }
+    navigate(`/admin/broadcast/${event.currentTarget.dataset.id}`);
   };
 
   const handleUserClick = async (event) => {
