@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
@@ -102,8 +102,7 @@ const MyInfo = () => {
     getBroadcasts();
     getPayments();
     getDelivery();
-  }, []);
-
+  }, [userId]);
 
   const handlerUsernameInputChange = (event) => {
     setNickname(event.target.value);
@@ -180,27 +179,27 @@ const MyInfo = () => {
             <div className={styles.nameBoxButtonContainer}>
               <button className={styles.AdminButton}
                       onClick={handleAdminClick}>{adminButtonValue}</button>
-              <button className={classNames({[styles.hide]: hideEditButton})}
+              <button className={classNames({ [styles.hide]: hideEditButton })}
                       onClick={handleEditClick}>Edit
               </button>
             </div>
           </div>
           <div className={styles.infoBox}>
-          <h3>닉네임</h3>
-            <input type="text" className={classNames({[styles.hide]: hideInput})} value={nickname} onChange={handlerUsernameInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{nickname}</span>
+            <h3>닉네임</h3>
+            <input type="text" className={classNames({ [styles.hide]: hideInput })} value={nickname} onChange={handlerUsernameInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{nickname}</span>
           </div>
           <div className={styles.infoBox}>
             <h3>생년월일</h3>
             <input type="date" value={birth_day}
-                   className={classNames({[styles.hide]: hideInput})}
-                   onChange={handlerBirthdateInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{birth_day}</span>
+                   className={classNames({ [styles.hide]: hideInput })}
+                   onChange={handlerBirthdateInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{birth_day}</span>
           </div>
           <div className={styles.infoBox}>
             <h3>주소<br />(기본 배송지)</h3>
-            <input type="text" value={address} className={classNames({[styles.hide]: hideInput})} onChange={handleAddressInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{address}</span>
+            <input type="text" value={address} className={classNames({ [styles.hide]: hideInput })} onChange={handleAddressInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{address}</span>
           </div>
           <button className={classNames(styles.infoBtn, { [styles.hide]: hideSubmitButton })} onClick={sendProfileInfo}>확인</button>
         </div>
@@ -216,11 +215,9 @@ const MyInfo = () => {
                 broadcasts.map((content, index) => (
                     <div className={styles.actContent} key={index}>
                       <span className={styles.actContentState}>{content.status}</span>
-                      <span
-                          className={styles.actContentTitle}>{content.title}</span>
+                      <span className={styles.actContentTitle}>{content.title}</span>
                       <span>상품명: {content.product_name}</span>
-                      <span
-                          className={styles.actContentTime}>{content.air_time.replace('T', ' ')}</span>
+                      <span className={styles.actContentTime}>{content.air_time.replace('T', ' ')}</span>
                     </div>
                 ))
               }
@@ -235,8 +232,8 @@ const MyInfo = () => {
               {
                 payments.map((content, index) => (
                     <div className={styles.orderContent} key={index}>
-                      <span className={styles.orderContentName}>{content.product_name}</span>
-                      <span>{content.product_quantity} 개</span>
+                      <span className={styles.orderContentName}>{content.productName}</span>
+                      <span>{content.orderQuantity} 개</span>
                       <span>{content.amount} 원</span>
                       <span>{content.paymentMethod}</span>
                       <span className={styles.orderContentTime}>{content.createdAt ? content.createdAt.replace('T', ' ') : 'N/A'}</span>
