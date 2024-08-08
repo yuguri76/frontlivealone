@@ -19,13 +19,12 @@ function AdminPage() {
             getRole();
       }, []);
 
-      const handleBroadcastButtonClick = async (event) => {
+      const handleBroadcastButtonClick = async (page) => {
         setHideBroadcasts(false);
         setHideUsers(true);
         setSelectUserButton(false);
         setSelectBroadcastButton(true);
 
-        let page = parseInt(event.target.innerHTML, 10);
         if (isNaN(page)) {
           page = 1;
         }
@@ -47,13 +46,12 @@ function AdminPage() {
         }
       };
 
-  const handleUserButtonClick = async (event) => {
+  const handleUserButtonClick = async (page) => {
     setHideUsers(false);
     setHideBroadcasts(true);
     setSelectBroadcastButton(false);
     setSelectUserButton(true);
 
-    let page = parseInt(event.target.innerHTML, 10);
     if (isNaN(page)) {
       page = 1;
     }
@@ -100,6 +98,20 @@ function AdminPage() {
     }
   };
 
+  const handleBroadcastPageClick = async (event) => {
+    let page = parseInt(event.target.innerHTML, 10);
+    console.log(event.target.innerHTML);
+    console.log(page);
+    handleBroadcastButtonClick(page);
+  };
+
+  const handleUserPageClick = async (event) => {
+    let page = parseInt(event.target.innerHTML, 10);
+    console.log(event.target.innerHTML);
+    console.log(page);
+    handleUserButtonClick(page);
+  };
+
   return (
       <div className={styles.adminContainer}>
         <div className={styles.adminMenuContainer}>
@@ -110,40 +122,54 @@ function AdminPage() {
               {[styles.select]: selectBroadcastButton})}>방송 조회
           </button>
           <button onClick={handleUserButtonClick}
-                  className={classNames({[styles.select]: selectUserButton})}>유저 조회
+                  className={classNames({[styles.select]: selectUserButton})}>유저
+            조회
           </button>
         </div>
 
-        <div className={classNames(styles.itemsContainer,
-            {[styles.hide]: hideBroadcasts})}>
-          {broadcasts.map((broadcast, index) => (
-              <div key={index} data-id={broadcast.id} className={styles.itemContainer} onClick={handleBroadcastClick}>
-                <span>{index + 1}.</span>
-                <div className={styles.itemListContent}>
-                  <span>{broadcast.title}</span>
-                  <span>{broadcast.streamer}</span>
-                  <span>{broadcast.date}</span>
+        <div className={styles.adminInfoContainer}>
+          <div className={classNames(styles.itemsContainer,
+              {[styles.hide]: hideBroadcasts})}>
+            {broadcasts.map((broadcast, index) => (
+                <div key={index} data-id={broadcast.id}
+                     className={styles.itemContainer}
+                     onClick={handleBroadcastClick}>
+                  <span>{index + 1}.</span>
+                  <div className={styles.itemListContent}>
+                    <span>{broadcast.title}</span>
+                    <span>{broadcast.streamer}</span>
+                    <span>{broadcast.date}</span>
+                  </div>
                 </div>
-              </div>
-          ))}
+            ))}
+          </div>
+
+          <div className={classNames(styles.itemsContainer,
+              {[styles.hide]: hideUsers})}>
+            {users.map((user, index) => (
+                <div key={index} data-id={user.id}
+                     className={styles.itemContainer} onClick={handleUserClick}>
+                  <span>{index + 1}.</span>
+                  <div className={styles.itemListContent}>
+                    <span>{user.name}</span>
+                    <span>{user.role}</span>
+                  </div>
+                </div>
+            ))}
+          </div>
         </div>
 
-        <div className={classNames(styles.itemsContainer,
-            {[styles.hide]: hideUsers})}>
-          {users.map((user, index) => (
-              <div key={index} data-id={user.id} className={styles.itemContainer} onClick={handleUserClick}>
-                <span>{index + 1}.</span>
-                <div className={styles.itemListContent}>
-                  <span>{user.name}</span>
-                  <span>{user.role}</span>
-                </div>
-              </div>
-          ))}
-        </div>
-
-        <div className={styles.pageContainer}>
+        <div className={classNames(styles.pageContainer, {[styles.hide]: hideBroadcasts})}>
           {Array.from({length: totalPage}, (_, index) => (
-              <a key={index} onClick={handleBroadcastButtonClick}>
+              <a key={index} onClick={handleBroadcastPageClick}>
+                {index + 1}
+              </a>
+          ))}
+        </div>
+
+        <div className={classNames(styles.pageContainer, {[styles.hide]: hideUsers})}>
+          {Array.from({length: totalPage}, (_, index) => (
+              <a key={index} onClick={handleUserPageClick}>
                 {index + 1}
               </a>
           ))}

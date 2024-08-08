@@ -22,6 +22,7 @@ const MyInfo = () => {
 
   const [hideSubmitButton, setHideSubmitButton] = useState(true);
   const [hideEditButton, setHideEditButton] = useState(false);
+  const [hideAdminButton, setHideAdminButton] = useState(false);
   const [hideInput, setHideInput] = useState(true);
   const [hideInputValue, setHideInputValue] = useState(false);
 
@@ -29,6 +30,12 @@ const MyInfo = () => {
     if (!userId) {
       const user = JSON.parse(localStorage.getItem('user'));
       setUserId(user.id);
+    }
+
+    const saveUser = JSON.parse(localStorage.getItem('user'));
+    if (parseInt(userId, 10) !== parseInt(saveUser.id, 10)) {
+      setHideEditButton(true);
+      setHideAdminButton(true);
     }
 
     const getProfile = async () => {
@@ -179,7 +186,7 @@ const MyInfo = () => {
               <span className={styles.nameBoxAdmin}>{adminText}</span>
             </div>
             <div className={styles.nameBoxButtonContainer}>
-              <button className={styles.AdminButton}
+              <button className={classNames(styles.AdminButton, { [styles.hide]: hideAdminButton })}
                       onClick={handleAdminClick}>{adminButtonValue}</button>
               <button className={classNames({[styles.hide]: hideEditButton})}
                       onClick={handleEditClick}>Edit
