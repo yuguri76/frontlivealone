@@ -147,6 +147,7 @@ body {
   gap: 20px;
   max-height: 250px;
   min-height: 250px;
+  flex-wrap: wrap;
 }
 
 .actContentContainer .actContent {

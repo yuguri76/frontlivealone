@@ -212,7 +212,7 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                broadcasts.map((content, index) => (
+                broadcasts.slice(0, 5).map((content, index) => (
                     <div className={styles.actContent} key={index}>
                       <span className={styles.actContentState}>{content.status}</span>
                       <span className={styles.actContentTitle}>{content.title}</span>
@@ -230,15 +230,21 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                payments.map((content, index) => (
-                    <div className={styles.orderContent} key={index}>
-                      <span className={styles.orderContentName}>{content.product_name}</span>
-                      <span>{content.quantity} 개</span>
-                      <span>{content.amount} 원</span>
-                      <span>{content.payment_method}</span>
-                      <span className={classNames(styles.orderContentTime)}>{content.created_at ? content.created_at.replace('T', ' ') : 'N/A'}</span>
-                    </div>
-                ))
+                payments.slice(0, 5).map((content, index) => {
+                  const {created_at} = content;
+                  const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
+                  const [createdTime, _] = rawCreatedTime.split('.');
+                  return (
+                      <div className={styles.orderContent} key={index}>
+                        <span className={styles.orderContentName}>{content.product_name}</span>
+                        <span>{content.quantity} 개</span>
+                        <span>{content.amount} 원</span>
+                        <span>{content.payment_method}</span>
+                        <span className={classNames(styles.orderContentTime)}>{createdDate ? createdDate : 'N/A'}</span>
+                        <span className={classNames(styles.orderContentTime)}>{createdTime ? createdTime : 'N/A'}</span>
+                      </div>
+                  )
+                })
               }
             </div>
           </div>
@@ -249,7 +255,7 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                deliverys.map((content, index) => (
+                deliverys.slice(0, 5).map((content, index) => (
                     <div className={styles.deliveryContent} key={index}>
                       <span className={styles.deliveryState}>{content.order_status}</span>
                       <span>{content.product_name}</span>
