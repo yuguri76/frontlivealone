@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    font-family: Arial, sans-serif;
+  }
+  
+  .logo {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .message {
+    font-size: 2rem;
+    color: #333;
+  }
+  
