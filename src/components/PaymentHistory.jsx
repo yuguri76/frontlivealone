@@ -1,34 +1,18 @@
 import React, {useEffect, useState} from 'react';
+import {useLocation, useParams} from "react-router-dom";
 import styles from '../styles/History.module.css';
 import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
 
 const PaymentHistory = () => {
-
-  const [payments, setPayments] = useState([]);
+  const location = useLocation();
+  const {payments} = location.state;
 
   const [selectPageOne, setSelectPageOne] = useState(true);
   const [selectPageTwo, setSelectPageTwo] = useState(false);
   const [selectPageThree, setSelectPageThree] = useState(false);
   const [selectPageFour, setSelectPageFour] = useState(false);
   const [selectPageFive, setSelectPageFive] = useState(false);
-
-  useEffect(() => {
-    const getPayments = async () => {
-      try {
-        const response = await axiosInstance.get('/user/{userId}/payment', {
-          headers: {
-            Authorization: localStorage.getItem('accessToken')
-          }});
-
-        setPayments(response.data.data);
-      } catch (error) {
-        console.error('Error fetching broadcasts:', error);
-      }
-    };
-
-    getPayments();
-  }, []);
 
   const handlePageClick = async (event) => {
     let page = parseInt(event.target.textContent);
@@ -45,17 +29,6 @@ const PaymentHistory = () => {
       case 3: setSelectPageThree(true); break;
       case 4: setSelectPageFour(true); break;
       case 5: setSelectPageFive(true); break;
-    }
-
-    try {
-      const response = await axiosInstance.get(`/user/{userId}/payments?page=${page}`, {
-        headers: {
-          Authorization: localStorage.getItem('accessToken')
-        }});
-
-      setPayments(response.data.data);
-    } catch(error) {
-      console.error('Error fetching deliverys:', error);
     }
   }
 
@@ -77,20 +50,6 @@ const PaymentHistory = () => {
                 </div>
             ))
           }
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentName}>선산 곱창</span>
-            <span>6 개</span>
-            <span>60000 원</span>
-            <span>카카오페이</span>
-            <span className={styles.historyContentTime}>2024/06/23</span>
-          </div>
-          <div className={styles.historyContent}>
-            <span className={styles.historyContentName}>선산 곱창</span>
-            <span>6 개</span>
-            <span>60000 원</span>
-            <span>카카오페이</span>
-            <span className={styles.historyContentTime}>2024/06/23</span>
-          </div>
         </div>
         <div className={styles.pageContainer}>
           <span className={classNames({[styles.pageSelect]: selectPageOne})}

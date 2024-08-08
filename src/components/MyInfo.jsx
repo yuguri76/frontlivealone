@@ -161,7 +161,7 @@ const MyInfo = () => {
   }
 
   const handlePaymentHistoryClick = () => {
-    navigate('/paymentHistory');
+    navigate('/paymentHistory', { state: { payments }});
   }
 
   const handleDeliveryHistoryClick = () => {
