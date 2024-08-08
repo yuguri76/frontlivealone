@@ -6,19 +6,14 @@ import useWebSocket from '../../hooks/useWebSocket';
 function ChatContainer() {
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('');
-  const [isComposing, setIsComposing] = useState(0);
   const {messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
   const [inputCount, setInputCount] = useState(0);
   const maxByteLength = 90;
 
-  const setComposingStack = (value) =>{
-    setIsComposing(prev => prev+value);
-  }
-
-
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && isComposing>-1) {
+    if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
       sendMessageHandler();
+      console.log(event.nativeEvent.isComposing);
     }
   };
 
@@ -37,12 +32,11 @@ function ChatContainer() {
   const onInputCountHandler = (event) => {
     const inputText = event.target.value;
     const byteLength = calculateByteLength(inputText);
-
-    if (byteLength < maxByteLength) {
+ 
+    if (byteLength <= maxByteLength) {
       setMessage(inputText);
       setInputCount(byteLength);
     } else {
-      setComposingStack(1);
       const truncatedText = inputText.slice(0, -1); // 마지막 글자 제거
       setMessage(truncatedText);
       setInputCount(calculateByteLength(truncatedText));
@@ -65,11 +59,9 @@ function ChatContainer() {
   };
 
   const handleCompositionStart = () => {
-    setComposingStack(-1);
   };
 
   const handleCompositionEnd = (event) => {
-    setComposingStack(1);
     onInputCountHandler(event); // Composition이 끝난 후에 input count를 다시 계산
   };
 
@@ -98,7 +90,6 @@ function ChatContainer() {
           onCompositionEnd={handleCompositionEnd}
           onCompositionUpdate={handleCompositionUpdate}
           value={message}
-
         />
         <button onClick={sendMessageHandler} disabled={!isAvailableChat}>
           전송
@@ -126,7 +117,7 @@ function ChatList({ messages }) {
   const chatWindowRef = useRef();
 
   const scrollToBottom = () => {
-    chatWindowRef.current.scrollToItem(messages.length+1);
+    chatWindowRef.current.scrollToItem(messages.length + 1);
   };
 
   useEffect(() => {
