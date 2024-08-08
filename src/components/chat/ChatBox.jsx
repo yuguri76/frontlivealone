@@ -13,7 +13,6 @@ function ChatContainer() {
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
       sendMessageHandler();
-      console.log(event.nativeEvent.isComposing);
     }
   };
 
@@ -58,9 +57,6 @@ function ChatContainer() {
     }
   };
 
-  const handleCompositionStart = () => {
-  };
-
   const handleCompositionEnd = (event) => {
     onInputCountHandler(event); // Composition이 끝난 후에 input count를 다시 계산
   };
@@ -86,7 +82,6 @@ function ChatContainer() {
           onKeyDown={handleKeyDown}
           onChange={onInputCountHandler}
           onPaste={onPasteHandler}
-          onCompositionStart={handleCompositionStart}
           onCompositionEnd={handleCompositionEnd}
           onCompositionUpdate={handleCompositionUpdate}
           value={message}
