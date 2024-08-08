@@ -102,6 +102,9 @@ function AdminPage() {
 
   return (
       <div className={styles.adminContainer}>
+        <div className={styles.adminMenuContainer}>
+          <span>관리자 페이지</span>
+        </div>
         <div className={styles.adminButtonContainer}>
           <button onClick={handleBroadcastButtonClick} className={classNames(
               {[styles.select]: selectBroadcastButton})}>방송 조회
