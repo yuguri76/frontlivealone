@@ -5,10 +5,19 @@ import useWebSocket from '../../hooks/useWebSocket';
 
 function ChatContainer() {
   const [token, setToken] = useState('');
+  const [refreshToken, setRefreshTOken] = useState('');
   const [message, setMessage] = useState('');
-  const {messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token);
+  const {messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token,refreshToken);
   const [inputCount, setInputCount] = useState(0);
   const maxByteLength = 90;
+
+  useEffect(()=>{
+    const token = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    setToken(token);
+    setRefreshTOken(refreshToken);
+
+  },[token,refreshToken])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -117,7 +126,6 @@ function ChatList({ messages }) {
 
   useEffect(() => {
     scrollToBottom();
-    console.log(messages);
   }, [messages]); // messages 상태가 업데이트될 때마다 실행
 
   return (
