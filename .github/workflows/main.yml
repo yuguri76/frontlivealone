@@ -18,14 +18,17 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-34-123-112.ap-northeast-2.compute.amazonaws.com << 'EOF'
-            # Node.js를 최신 버전으로 업데이트
-            curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+            # 기존 Node.js 제거
+            sudo apt-get remove -y nodejs libnode-dev
+            
+            # Node.js 20.x 설치
+            curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
             sudo apt-get install -y nodejs
 
             cd frontlivealone
             git pull origin develop
             npm ci
-            npm run build
+            npm build run
             pm2 stop all || true
             pm2 start npm --name "react-app" -- start
           EOF
