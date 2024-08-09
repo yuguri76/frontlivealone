@@ -20,7 +20,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-34-123-112.ap-northeast-2.compute.amazonaws.com << 'EOF'
             git pull origin develop
             npm ci
-            npm run build
+            npm build run
             pm2 stop all || true
             pm2 start npm --name "react-app" -- start
           EOF
