@@ -27,8 +27,12 @@ jobs:
 
             cd frontlivealone
             git pull origin develop
+
+            # 캐시 디렉토리 삭제
+            rm -rf node_modules/.cache
+
             npm ci
-            npm build run
+            npm run build
             pm2 stop all || true
             pm2 start npm --name "react-app" -- start
           EOF
