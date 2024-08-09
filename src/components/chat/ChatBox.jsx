@@ -37,15 +37,35 @@ function ChatContainer() {
     return new Blob([str]).size;
   };
 
+  const truncateTextByByteLength = (text, maxByteLength) => {
+    const calculateByteLength = (str) => new Blob([str]).size;
+  
+    let start = 0;
+    let end = text.length;
+  
+    while (start < end) {
+      const mid = Math.ceil((start + end) / 2);
+      const byteLength = calculateByteLength(text.slice(0, mid));
+  
+      if (byteLength <= maxByteLength) {
+        start = mid;
+      } else {
+        end = mid - 1;
+      }
+    }
+  
+    return text.slice(0, start);
+  };
+  
   const onInputCountHandler = (event) => {
     const inputText = event.target.value;
     const byteLength = calculateByteLength(inputText);
- 
+  
     if (byteLength <= maxByteLength) {
       setMessage(inputText);
       setInputCount(byteLength);
     } else {
-      const truncatedText = inputText.slice(0, -1); // 마지막 글자 제거
+      const truncatedText = truncateTextByByteLength(inputText, maxByteLength);
       setMessage(truncatedText);
       setInputCount(calculateByteLength(truncatedText));
     }
@@ -66,14 +86,6 @@ function ChatContainer() {
     }
   };
 
-  const handleCompositionEnd = (event) => {
-    onInputCountHandler(event); // Composition이 끝난 후에 input count를 다시 계산
-  };
-
-  const handleCompositionUpdate = (event) => {
-    onInputCountHandler(event); // Composition 중간에도 input count를 계산
-  };
-
   return (
     <div className={styles.chatBox}>
       <header className={styles.chatHeader}>
@@ -91,8 +103,6 @@ function ChatContainer() {
           onKeyDown={handleKeyDown}
           onChange={onInputCountHandler}
           onPaste={onPasteHandler}
-          onCompositionEnd={handleCompositionEnd}
-          onCompositionUpdate={handleCompositionUpdate}
           value={message}
         />
         <button onClick={sendMessageHandler} disabled={!isAvailableChat}>

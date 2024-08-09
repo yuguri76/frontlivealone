@@ -8,6 +8,7 @@ const useWebSocket = (token,refreshToken) => {
     const [userNickname, setUserNickname] = useState('');
     const [wsStreamKey, setWsStreamKey] = useState('');
     const [wsIsLive, setWsIsLive] = useState(false);
+    const [chatColor,setChatColor] = useState('');
 
     const MAX_MESSAGES = 100;
 
@@ -42,6 +43,10 @@ const useWebSocket = (token,refreshToken) => {
                     const data = JSON.parse(message.body);
                     handleSessionMessage(data);
                 });
+                client.current.subscribe('/user/queue/broadcast',(message)=>{
+                    const data = JSON.parse(message.body);
+                    handlerBroadcastMessage(data);
+                })
 
                 client.current.publish({ destination: '/pub/session', body: authMessage });
             },
@@ -74,7 +79,13 @@ const useWebSocket = (token,refreshToken) => {
                 }
                 return updatedMessages;
             });
-        }else if (type === 'BROADCAST') {
+        }
+    }
+
+    const handlerBroadcastMessage = (data) =>{
+        const {type, messenger, message} = data;
+        console.log(data);
+        if (type === 'BROADCAST') {
             const broadcastMessage = JSON.parse(message);
             localStorage.setItem('isBroadcastStart', broadcastMessage.is_live);
             localStorage.setItem('isSettingCompleted', broadcastMessage.is_live);
@@ -88,6 +99,7 @@ const useWebSocket = (token,refreshToken) => {
         console.log(data);
         if (type === 'RESPONSE_AUTH') {
             setUserNickname(messenger);
+            setChatColor(message);
             setAvailableChat(true);
 
             const requestInit = JSON.stringify({
@@ -165,7 +177,7 @@ const useWebSocket = (token,refreshToken) => {
     const requestStreamKey = () => {
         if (client.current && client.current.connected) {
             client.current.publish({
-                destination: '/pub/chat',
+                destination: '/pub/session/broadcast',
                 body: JSON.stringify({
                     type: 'BROADCAST',
                     messenger: 'front-server',
