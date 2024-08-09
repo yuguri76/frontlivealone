@@ -1,0 +1,67 @@
+.adminConsumerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  padding: 30px;
+}
+
+.adminMenuContainer {
+  display: flex;
+  gap: 20px;
+  font-size: 20px;
+}
+
+.adminMenuContainer > span:hover {
+  cursor: pointer;
+}
+
+.consumerMenu {
+  display: flex;
+  gap: 300px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.consumerListBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 70%;
+  height: 600px;
+  margin: 0 auto;
+}
+
+.consumerListBox > table {
+  width: 100%;
+  text-align: center;
+}
+
+.consumerListBox > table th, .consumerListBox > table td {
+  padding: 15px;
+}
+
+.consumerListBox > table > thead > tr > th {
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.consumerListBox > table > tbody > tr {
+  border-bottom: 1px solid black;
+  font-size: 20px;
+}
+
+.consumerName:hover {
+  cursor: pointer;
+}
+
+.consumerListPageContainer {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.select {
+  font-weight: 900;
+}

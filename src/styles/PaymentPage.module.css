@@ -17,7 +17,7 @@
     width: 60%;
     margin: 0 auto;
     max-width: 1000px;
-    height: 50vh;
+    height: 100vh;
 }
 
 h1 {
@@ -30,32 +30,25 @@ h1 {
     width: 70%;
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    flex-direction: column; /* 변경: 세로 정렬로 변경 */
+    align-items: flex-start; /* 변경: 라벨을 왼쪽에 정렬 */
 }
-
 
 .paymentInfoGroup {
     margin-bottom: 40px;
 }
 
-.formGroup:nth-of-type(3) label {
-    margin-left: -20px;
-}
-
 .formGroup label {
-    flex: 1;
     font-weight: bold;
     text-align: left;
-    margin-right: 10px;
+    margin-bottom: 8px; /* 변경: 라벨과 입력 필드 사이의 간격 조절 */
 }
 
 .formGroup input {
-    flex: 3;
+    width: 100%; /* 변경: 입력 필드의 너비를 formGroup에 맞추기 */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-left: 10px;
-    width: 50%;
 }
 
 .formGroup button {
@@ -65,7 +58,8 @@ h1 {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 10px;
+    margin-top: 10px; /* 변경: 버튼 위에 간격 추가 */
+    align-self: flex-end; /* 버튼을 오른쪽 끝으로 정렬 */
 }
 
 .defaultAddressButton {

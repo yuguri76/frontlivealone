@@ -35,6 +35,13 @@ const Main = () => {
       navigate('/login');
   };
 
+  const handleReservationClick = () => {
+    if (localStorage.getItem('accessToken') !== null)
+      navigate('/reservation');
+    else
+      navigate('/login');
+  };
+
   const handleStreamingClick = async () => {
     navigate('/streaming');
 
@@ -55,9 +62,13 @@ const Main = () => {
       dispatch(setProductPrice(response.data.data.product_price));
     } catch (error) {
       console.error('상품, 방송 정보 가져오기 실패: ' + (error.response?.data?.message
-          || error.message));
+        || error.message));
     }
   };
+
+  const handleAdClick = () => {
+    window.open("https://nbcamp.spartacodingclub.kr/");
+  }
 
   return (
     <div className={styles.mainContainer}>
@@ -68,16 +79,22 @@ const Main = () => {
         <p>나 혼자 산다는 자취생 꿀템을 판매하고 구매할 수 있는 라이브 커머스 사이트입니다.</p>
       </div>
       <div className={styles.sections}>
-        <div className={styles.streamerPage}>
-          <div className={styles.streamerText}>스트리머 페이지</div>
-          <button className={styles.streamButton} onClick={handleStreamerClick}>방송하기</button>
+        <div className={styles.streamerSection}>
+          <div className={styles.reservationPage}>
+            <div className={styles.streamerText}>예약 페이지</div>
+            <button className={styles.reservationButton} onClick={handleReservationClick}>예약하기</button>
+          </div>
+          <div className={styles.streamerPage}>
+            <div className={styles.streamerText}>스트리머 페이지</div>
+            <button className={styles.streamButton} onClick={handleStreamerClick}>방송하기</button>
+          </div>
         </div>
         <div className={styles.onAir}>
           <div className={styles.onAirText}>ON AIR!</div>
           <div className={styles.discountText}>{broadcastTitle}</div>
           <button className={styles.watchButton} onClick={handleStreamingClick}>보러가기</button>
         </div>
-        <div className={styles.ad}>
+        <div className={styles.ad} onClick={handleAdClick}>
         </div>
       </div>
     </div>

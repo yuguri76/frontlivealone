@@ -4,6 +4,7 @@ import styles from '../../styles/PaymentPage.module.css';
 import {useSelector} from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import Timer from "../Timer";
+import AddressForm from "../AddressForm";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -129,6 +130,12 @@ const Payment = () => {
     };
 
     const handleTossPayment = async () => {
+
+        if (orderId == null) {
+            alert('주문이 생성되지 않았습니다. 다시 시도해 주세요.');
+            return;
+        }
+
         const paymentRequestDto = {
             userId,
             orderId,
@@ -220,12 +227,17 @@ const Payment = () => {
         }
     };
 
+    const handleAddressSubmit = (addressData) => {
+        setShippingAddress(addressData.fullAddress);
+        console.log(shippingAddress);
+    };
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.paymentContainer}>
                 <h1>결제 정보 입력</h1>
-                {isTimerActive &&(
-                    <Timer initialTime={600} onExpire={handleTimeExpired} />
+                {isTimerActive && (
+                    <Timer initialTime={600} onExpire={handleTimeExpired}/>
                 )}
                 <div className={styles.formGroup}>
                     <label>주문 수량</label>
@@ -239,12 +251,8 @@ const Payment = () => {
                 </div>
                 <div className={styles.formGroup}>
                     <label>배송 주소</label>
-                    <input
-                        type="text"
-                        placeholder="배송 주소 입력"
-                        value={shippingAddress}
-                        onChange={(e) => setShippingAddress(e.target.value)}
-                    />
+                    <AddressForm onSubmit={handleAddressSubmit}/>
+
                 </div>
                 <button className={styles.defaultAddressButton}>기본 배송지로 설정</button>
                 <div className={styles.formGroup}>
@@ -256,6 +264,7 @@ const Payment = () => {
                         onChange={(e) => setDeliveryRequest(e.target.value)}
                     />
                 </div>
+                <h4>상품명 : {itemName} 총 가격 : {amount * orderQuantity}</h4>
                 <div className={styles.paymentMethods}>
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"

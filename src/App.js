@@ -15,8 +15,11 @@ import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
 import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
 import RegisterAdminPage from "./pages/RegisterAdminPage";
+import ReservationPage from './pages/ReservationPage';
 import AdminPage from "./pages/AdminPage";
 import BroadcastDetailPage from "./pages/BroadcastDetailPage";
+import ConsumerList from './components/ConsumerList';
+import WarningPage from './pages/WarningPage';
 
 function App() {
 
@@ -39,6 +42,9 @@ function App() {
             <Route path="/registeradmin" element={<RegisterAdminPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/broadcast/:broadcastId" element={<BroadcastDetailPage />} />
+            <Route path="/reservation" element={<ReservationPage />} />
+            <Route path="/admin/broadcast/:broadcastId/consumer" element={<ConsumerList />} />
+            <Route path="/*" element={<WarningPage />} />
           </Routes>
         </div>
     </DndProvider>
