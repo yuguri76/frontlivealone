@@ -20,8 +20,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-34-123-112.ap-northeast-2.compute.amazonaws.com << 'EOF'
             cd frontlivealone
             git pull origin develop
-            # 캐시 디렉토리 삭제
-            rm -rf node_modules/.cache
             npm ci
             npm run build
             
