@@ -236,8 +236,8 @@ const Payment = () => {
         <div className={styles.pageContainer}>
             <div className={styles.paymentContainer}>
                 <h1>결제 정보 입력</h1>
-                {isTimerActive &&(
-                    <Timer initialTime={600} onExpire={handleTimeExpired} />
+                {isTimerActive && (
+                    <Timer initialTime={600} onExpire={handleTimeExpired}/>
                 )}
                 <div className={styles.formGroup}>
                     <label>주문 수량</label>
@@ -264,6 +264,7 @@ const Payment = () => {
                         onChange={(e) => setDeliveryRequest(e.target.value)}
                     />
                 </div>
+                <h4>상품명 : {itemName} 총 가격 : {amount * orderQuantity}</h4>
                 <div className={styles.paymentMethods}>
                     <img
                         src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"
