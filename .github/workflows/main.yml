@@ -24,6 +24,8 @@ jobs:
             # 캐시 디렉토리 삭제
             rm -rf node_modules/.cache
 
+            npm outdated
+            npm update
             npm ci
             npm run build
             
