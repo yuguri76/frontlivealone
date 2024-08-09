@@ -30,7 +30,7 @@ const useWebSocket = (token) => {
 
         socket.current.onmessage = (e) => {
             const data = JSON.parse(e.data);
-            console.log(data);
+            
             const { type, messenger, message } = data;
 
             if (type === 'RESPONSE_AUTH') {
@@ -93,7 +93,6 @@ const useWebSocket = (token) => {
                 messageInput.placeholder = '채팅 입력 불가';
                 setAvailableChat(false);
             } else if (type === 'RESPONSE_CHAT_INIT') {
-                console.log('init메시지',message);
                 const initMessages = JSON.parse(message).map(({ init_nickname, init_text }) => ({
                     nickname: init_nickname,
                     text: init_text,
@@ -124,9 +123,7 @@ const useWebSocket = (token) => {
     }, [token]);
 
     const sendMessage = (userNickname, message) => {
-        console.log('메시지 전송 시도');
         if (socket.current && isAvailableChat) {
-            console.log('메시지 전송')
             socket.current.send(JSON.stringify({
                 type: 'CHAT_MESSAGE',
                 messenger: userNickname,

@@ -1,0 +1,62 @@
+.reservationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+.calendar {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    font-size: 1.2rem;
+}
+
+.timeslots {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    width: 1000px;
+    font-size: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.timeslot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(31.00%);
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.timeslot:nth-child(3n) {
+    margin-right: 0;
+}
+
+.timeslot span {
+    flex-grow: 1;
+}
+
+.available {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 1rem;
+}
+
+.unavailable {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 1rem;
+}
