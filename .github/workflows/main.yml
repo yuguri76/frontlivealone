@@ -2,9 +2,9 @@ name: livealone-front
 
 on:
   push:
-    branches: [cicd]
+    branches: [develop]
   pull_request:
-    branches: [cicd]
+    branches: [develop]
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-34-123-112.ap-northeast-2.compute.amazonaws.com << 'EOF'
             cd frontlivealone
-            git pull origin develop
+            git pull origin cicd
             npm ci
             npm run build
             # Set environment variables
