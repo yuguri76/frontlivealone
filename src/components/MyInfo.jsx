@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
@@ -77,19 +77,18 @@ const MyInfo = () => {
       }
     };
 
-    // 결제 완료 후 수정 예정
-    // 수정 예정일: 24.7.30 이전까지
     const getPayments = async () => {
-      // try {
-      //   const response = await axiosInstance.get('/user/1/payment', {
-      //     headers: {
-      //       Authorization: localStorage.getItem('accessToken')
-      //     }});
-      //
-      //   setPayments(response.data.data);
-      // } catch (error) {
-      //   console.error('Error fetching payments:', error);
-      // }
+      try {
+        const response = await axiosInstance.get(`/payment/user/${userId}/completed`, {
+          headers: {
+            Authorization: localStorage.getItem('accessToken')
+          }
+        });
+
+        setPayments(response.data.data);
+      } catch (error) {
+        console.error('Error fetching payments:', error);
+      }
     };
 
     const getDelivery = async () => {
@@ -110,8 +109,7 @@ const MyInfo = () => {
     getBroadcasts();
     getPayments();
     getDelivery();
-  }, []);
-
+  }, [userId]);
 
   const handlerUsernameInputChange = (event) => {
     setNickname(event.target.value);
@@ -170,7 +168,7 @@ const MyInfo = () => {
   }
 
   const handlePaymentHistoryClick = () => {
-    navigate('/paymentHistory');
+    navigate('/paymentHistory', { state: { payments }});
   }
 
   const handleDeliveryHistoryClick = () => {
@@ -188,27 +186,27 @@ const MyInfo = () => {
             <div className={styles.nameBoxButtonContainer}>
               <button className={classNames(styles.AdminButton, { [styles.hide]: hideAdminButton })}
                       onClick={handleAdminClick}>{adminButtonValue}</button>
-              <button className={classNames({[styles.hide]: hideEditButton})}
+              <button className={classNames({ [styles.hide]: hideEditButton })}
                       onClick={handleEditClick}>Edit
               </button>
             </div>
           </div>
           <div className={styles.infoBox}>
-          <h3>닉네임</h3>
-            <input type="text" className={classNames({[styles.hide]: hideInput})} value={nickname} onChange={handlerUsernameInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{nickname}</span>
+            <h3>닉네임</h3>
+            <input type="text" className={classNames({ [styles.hide]: hideInput })} value={nickname} onChange={handlerUsernameInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{nickname}</span>
           </div>
           <div className={styles.infoBox}>
             <h3>생년월일</h3>
             <input type="date" value={birth_day}
-                   className={classNames({[styles.hide]: hideInput})}
-                   onChange={handlerBirthdateInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{birth_day}</span>
+                   className={classNames({ [styles.hide]: hideInput })}
+                   onChange={handlerBirthdateInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{birth_day}</span>
           </div>
           <div className={styles.infoBox}>
             <h3>주소<br />(기본 배송지)</h3>
-            <input type="text" value={address} className={classNames({[styles.hide]: hideInput})} onChange={handleAddressInputChange}/>
-            <span className={classNames({[styles.hide]: hideInputValue})}>{address}</span>
+            <input type="text" value={address} className={classNames({ [styles.hide]: hideInput })} onChange={handleAddressInputChange} />
+            <span className={classNames({ [styles.hide]: hideInputValue })}>{address}</span>
           </div>
           <button className={classNames(styles.infoBtn, { [styles.hide]: hideSubmitButton })} onClick={sendProfileInfo}>확인</button>
         </div>
@@ -221,14 +219,12 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                broadcasts.map((content, index) => (
+                broadcasts.slice(0, 5).map((content, index) => (
                     <div className={styles.actContent} key={index}>
                       <span className={styles.actContentState}>{content.status}</span>
-                      <span
-                          className={styles.actContentTitle}>{content.title}</span>
+                      <span className={styles.actContentTitle}>{content.title}</span>
                       <span>상품명: {content.product_name}</span>
-                      <span
-                          className={styles.actContentTime}>{content.air_time.replace('T', ' ')}</span>
+                      <span className={styles.actContentTime}>{content.air_time.replace('T', ' ')}</span>
                     </div>
                 ))
               }
@@ -241,30 +237,22 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                payments.map((content, index) => (
-                    <div className={styles.orderContent} key={index}>
-                      <span className={styles.orderContentName}>content.product_name</span>
-                      <span>{content.product_quantity} 개</span>
-                      <span>{content.amount} 원</span>
-                      <span>{content.paymentMethod}</span>
-                      <span className={styles.orderContentTime}>{content.createAt.replace('T', ' ')}</span>
-                    </div>
-                ))
+                payments.slice(0, 5).map((content, index) => {
+                  const {created_at} = content;
+                  const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
+                  const [createdTime, _] = rawCreatedTime.split('.');
+                  return (
+                      <div className={styles.orderContent} key={index}>
+                        <span className={styles.orderContentName}>{content.product_name}</span>
+                        <span>{content.quantity} 개</span>
+                        <span>{content.amount} 원</span>
+                        <span>{content.payment_method}</span>
+                        <span className={classNames(styles.orderContentTime)}>{createdDate ? createdDate : 'N/A'}</span>
+                        <span className={classNames(styles.orderContentTime)}>{createdTime ? createdTime : 'N/A'}</span>
+                      </div>
+                  )
+                })
               }
-              <div className={styles.orderContent}>
-                <span className={styles.orderContentName}>선산 곱창</span>
-                <span>6 개</span>
-                <span>60000 원</span>
-                <span>카카오페이</span>
-                <span className={styles.orderContentTime}>2024/06/23</span>
-              </div>
-              <div className={styles.orderContent}>
-                <span className={styles.orderContentName}>선산 곱창</span>
-                <span>6 개</span>
-                <span>60000 원</span>
-                <span>카카오페이</span>
-                <span className={styles.orderContentTime}>2024/06/23</span>
-              </div>
             </div>
           </div>
           <div className={styles.actBox}>
@@ -274,7 +262,7 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                deliverys.map((content, index) => (
+                deliverys.slice(0, 5).map((content, index) => (
                     <div className={styles.deliveryContent} key={index}>
                       <span className={styles.deliveryState}>{content.order_status}</span>
                       <span>{content.product_name}</span>
