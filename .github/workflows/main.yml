@@ -22,6 +22,10 @@ jobs:
             git pull origin develop
             npm ci
             npm run build
+
+            # Set environment variables
+            export REACT_APP_SERVER_ADDRESS=${{ secrets.REACT_APP_SERVER_ADDRESS }}
+            export REACT_APP_MEDIA_SERVER_ADDRESS=${{ secrets.REACT_APP_MEDIA_SERVER_ADDRESS }}
             
             # PM2 앱 정지 후 삭제 (확실한 종료를 위해)
             pm2 stop all || true
