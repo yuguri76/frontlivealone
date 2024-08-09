@@ -24,3 +24,4 @@ jobs:
             pm2 stop all || true
             pm2 start npm --name "react-app" -- start
           EOF
+
