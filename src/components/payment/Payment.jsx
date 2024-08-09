@@ -4,6 +4,7 @@ import styles from '../../styles/PaymentPage.module.css';
 import {useSelector} from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import Timer from "../Timer";
+import AddressForm from "../AddressForm";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -129,6 +130,12 @@ const Payment = () => {
     };
 
     const handleTossPayment = async () => {
+
+        if (orderId == null) {
+            alert('주문이 생성되지 않았습니다. 다시 시도해 주세요.');
+            return;
+        }
+
         const paymentRequestDto = {
             userId,
             orderId,
@@ -220,6 +227,11 @@ const Payment = () => {
         }
     };
 
+    const handleAddressSubmit = (addressData) => {
+        setShippingAddress(addressData.fullAddress);
+        console.log(shippingAddress);
+    };
+
     return (
         <div className={styles.pageContainer}>
             <div className={styles.paymentContainer}>
@@ -239,12 +251,8 @@ const Payment = () => {
                 </div>
                 <div className={styles.formGroup}>
                     <label>배송 주소</label>
-                    <input
-                        type="text"
-                        placeholder="배송 주소 입력"
-                        value={shippingAddress}
-                        onChange={(e) => setShippingAddress(e.target.value)}
-                    />
+                    <AddressForm onSubmit={handleAddressSubmit}/>
+
                 </div>
                 <button className={styles.defaultAddressButton}>기본 배송지로 설정</button>
                 <div className={styles.formGroup}>
