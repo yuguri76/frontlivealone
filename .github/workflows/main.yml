@@ -20,19 +20,16 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-34-123-112.ap-northeast-2.compute.amazonaws.com << 'EOF'
             cd frontlivealone
             git pull origin develop
-
             # 캐시 디렉토리 삭제
             rm -rf node_modules/.cache
-
             npm outdated
-            npm update
+            npm install
             npm ci
             npm run build
             
             # PM2 앱 정지 후 삭제 (확실한 종료를 위해)
             pm2 stop all || true
             pm2 delete all || true
-
             # 애플리케이션 다시 시작
             pm2 start npm --name "react-app" -- start
           EOF
