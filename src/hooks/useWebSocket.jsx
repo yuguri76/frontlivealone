@@ -21,7 +21,7 @@ const useWebSocket = (token,refreshToken) => {
         console.log('token :',token);
         console.log('refreshToken :',refreshToken);
         client.current = new Client({
-            brokerURL: `ws://${process.env.REACT_APP_SERVER_ADDRESS}/ws`,
+            brokerURL: `wss://${process.env.REACT_APP_SERVER_ADDRESS}/ws`,
             connectHeaders: {
                 Authorization: `${token}`,
                 RefreshToken : `${refreshToken}`,
