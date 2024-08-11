@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
+import AddressForm from "./AddressForm";
 
 const MyInfo = () => {
   const navigate = useNavigate();
@@ -119,8 +120,9 @@ const MyInfo = () => {
     setBirthday(event.target.value);
   }
 
-  const handleAddressInputChange = (event) => {
-    setAddress(event.target.value);
+  const handleAddressSubmit = (addressData) => {
+    setAddress(addressData.fullAddress);
+    console.log(address);
   };
 
   const sendProfileInfo = async () => {
@@ -205,7 +207,7 @@ const MyInfo = () => {
           </div>
           <div className={styles.infoBox}>
             <h3>주소<br />(기본 배송지)</h3>
-            <input type="text" value={address} className={classNames({ [styles.hide]: hideInput })} onChange={handleAddressInputChange} />
+            <AddressForm onSubmit={handleAddressSubmit} className={classNames(styles.addressFromBox , { [styles.hide]: hideInput })}/>
             <span className={classNames({ [styles.hide]: hideInputValue })}>{address}</span>
           </div>
           <button className={classNames(styles.infoBtn, { [styles.hide]: hideSubmitButton })} onClick={sendProfileInfo}>확인</button>

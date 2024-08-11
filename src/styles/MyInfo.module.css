@@ -206,6 +206,22 @@ body {
   font-weight: 800;
 }
 
+.addressFromBox input {
+  border: none;
+}
+
+.addressFromBox input[type="button"] {
+  background-color: dodgerblue;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+}
+
+.addressFromBox button {
+  background-color: dodgerblue;
+}
+
 .hide {
   display: none;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const AddressForm = ({ onSubmit }) => {
+const AddressForm = ({ onSubmit, className }) => {
     // 상태 관리
     const [postcode, setPostcode] = useState('');
     const [roadAddress, setRoadAddress] = useState('');
@@ -67,7 +67,7 @@ const AddressForm = ({ onSubmit }) => {
     };
 
     return (
-        <div>
+        <div className={className}>
             <input
                 type="text"
                 id="sample4_postcode"

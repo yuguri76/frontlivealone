@@ -113,3 +113,7 @@ h1 {
 .formRow .formGroup:last-child {
     margin-right: 0;
 }
+
+.hide {
+    display: none;
+}
