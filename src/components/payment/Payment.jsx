@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import axiosInstance from "../../axiosInstance";
 import Timer from "../Timer";
 import AddressForm from "../AddressForm";
+import classNames from "classnames";
 
 const Payment = () => {
     const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Payment = () => {
     const [deliveryRequest, setDeliveryRequest] = useState('');
     const [orderId, setOrderId] = useState(null);
     const [isTimerActive, setIsTimerActive] = useState(false);
+    const [hideInputAddress, setHideInputAddress] = useState(true);
 
     const handleOrderComplete = async () => {
 
@@ -229,7 +231,23 @@ const Payment = () => {
 
     const handleAddressSubmit = (addressData) => {
         setShippingAddress(addressData.fullAddress);
+        setHideInputAddress(true);
         console.log(shippingAddress);
+    };
+
+    const getDefaultAddress = async () => {
+        try {
+            const response = await axiosInstance.get(
+                '/user/address', {}, {
+                    headers: {
+                        Authorization: localStorage.getItem('accessToken')
+                    }
+                });
+
+            setShippingAddress(response.data.data.address);
+        } catch (error) {
+            console.error("Get Default Address err!!!");
+        }
     };
 
     return (
@@ -247,14 +265,25 @@ const Payment = () => {
                         value={orderQuantity}
                         onChange={(e) => setOrderQuantity(e.target.value)}
                     />
-                    <button className={styles.completeButton} onClick={handleOrderComplete}>완료</button>
+                    <button className={styles.completeButton}
+                            onClick={handleOrderComplete}>완료
+                    </button>
                 </div>
+                <button className={styles.defaultAddressButton}
+                        onClick={() => setHideInputAddress(false)}>새 배송 주소지 입력
+                </button>
+                <div className={classNames(styles.formGroup,
+                    {[styles.hide]: hideInputAddress})}>
+                    <label>새 배송 주소지 입력</label>
+                    <AddressForm onSubmit={handleAddressSubmit}/>
+                </div>
+                <button className={styles.defaultAddressButton}
+                        onClick={getDefaultAddress}>기본 배송지로 설정
+                </button>
                 <div className={styles.formGroup}>
                     <label>배송 주소</label>
-                    <AddressForm onSubmit={handleAddressSubmit}/>
-
+                    <input type="text" value={shippingAddress} readOnly/>
                 </div>
-                <button className={styles.defaultAddressButton}>기본 배송지로 설정</button>
                 <div className={styles.formGroup}>
                     <label>배송 요청사항</label>
                     <input
@@ -277,7 +306,9 @@ const Payment = () => {
                         onClick={handleTossPayment}
                     />
                 </div>
-                <button className={styles.submitButton} onClick={handleCompletePayment}>완료</button>
+                <button className={styles.submitButton}
+                        onClick={handleCompletePayment}>완료
+                </button>
             </div>
         </div>
     );
