@@ -37,16 +37,22 @@ const useWebSocket = (token,refreshToken) => {
                 client.current.subscribe('/queue/message', (message) =>{
                     const data = JSON.parse(message.body);
                     handleMessage(data);
-                })
+                });
                 
                 client.current.subscribe('/user/queue/reply', (message) => {
                     const data = JSON.parse(message.body);
                     handleSessionMessage(data);
                 });
+
                 client.current.subscribe('/user/queue/broadcast',(message)=>{
                     const data = JSON.parse(message.body);
                     handlerBroadcastMessage(data);
-                })
+                });
+
+                client.current.subscribe('/queue/alert', (message) =>{
+                    const data = JSON.parse(message.body);
+                    handleAlert(data);
+                });
 
                 client.current.publish({ destination: '/pub/session', body: authMessage });
             },
@@ -79,6 +85,20 @@ const useWebSocket = (token,refreshToken) => {
                 }
                 return updatedMessages;
             });
+        }
+    }
+
+    const handleAlert = (data) =>{
+        const { type, messenger, message } = data;
+        console.log(data);
+        if (type === 'ALERT_BROADCAST_START') {
+            const responseMessage = JSON.parse(message);
+            alert(responseMessage.title + " 방송이 시작되었습니다.");
+        } else if (type === 'ALERT_ALMOST_SOLD_OUT') {
+            const responseMessage = JSON.parse(message);
+            alert("매진 임박!!!!!\n" + "재고가 " + responseMessage.quantity + "개 남았습니다.");
+        } else if (type === 'ALERT_SOLD_OUT') {
+            alert("매진^^");
         }
     }
 
@@ -186,6 +206,7 @@ const useWebSocket = (token,refreshToken) => {
             });
         }
     };
+
 
     return { messages, sendMessage, isAvailableChat, userNickname, requestStreamKey, wsIsLive, wsStreamKey };
 };
