@@ -96,7 +96,7 @@ const Payment = () => {
 
         console.log('userId', userId);
 
-        const url = `http://${process.env.REACT_APP_SERVER_ADDRESS}/payment/kakao/process`;
+        const url = `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_SERVER_ADDRESS}/payment/kakao/process`;
 
         try {
             const response = await axiosInstance.post(url, paymentRequestDto, {
@@ -183,7 +183,7 @@ const Payment = () => {
             itemName // itemName 추가
         };
 
-        const url = `http://${process.env.REACT_APP_SERVER_ADDRESS}/payment/complete`;
+        const url = `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_SERVER_ADDRESS}/payment/complete`;
 
         try {
             const response = await axiosInstance.post(url, paymentRequestDto, {
