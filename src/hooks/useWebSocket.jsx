@@ -6,7 +6,7 @@ const useWebSocket = (token,refreshToken) => {
     const [messages, setMessages] = useState([]);
     const [isAvailableChat, setAvailableChat] = useState(false);
     const [userNickname, setUserNickname] = useState('');
-    const [wsStreamKey, setWsStreamKey] = useState('');
+    const [wsStreamKey, setWsStreamKey] = useState(`${process.env.REACT_APP_DEFAULT_STREAM_KEY}`);
     const [wsIsLive, setWsIsLive] = useState(false);
     const [chatColor,setChatColor] = useState('');
 
@@ -21,7 +21,7 @@ const useWebSocket = (token,refreshToken) => {
         console.log('token :',token);
         console.log('refreshToken :',refreshToken);
         client.current = new Client({
-            brokerURL: `wss://${process.env.REACT_APP_SERVER_ADDRESS}/ws`,
+            brokerURL: `${process.env.REACT_APP_WEBSOCKET_PROTOCOL}://${process.env.REACT_APP_SERVER_ADDRESS}/ws`,
             connectHeaders: {
                 Authorization: `${token}`,
                 RefreshToken : `${refreshToken}`,
@@ -42,6 +42,11 @@ const useWebSocket = (token,refreshToken) => {
                 client.current.subscribe('/user/queue/reply', (message) => {
                     const data = JSON.parse(message.body);
                     handleSessionMessage(data);
+                });
+
+                client.current.subscribe('/queue/broadcast', (message) =>{
+                    const data = JSON.parse(message.body);
+                    handlerBroadcastMessage(data);
                 });
 
                 client.current.subscribe('/user/queue/broadcast',(message)=>{
