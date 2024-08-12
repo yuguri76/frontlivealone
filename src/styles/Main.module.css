@@ -6,104 +6,71 @@
 
 .siteIntro {
   background-color: #ADD8E6;
-  padding: 20px;
+  padding: 40px;
   text-align: center;
   font-size: 18px;
   margin-bottom: 20px;
-  height: 300px;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
   flex-direction: column;
 }
 
 .siteIntro > h3 {
-  font-size: 30px;
+  font-size: 36px;
   color: #282c34;
   margin-bottom: 10px;
 }
 
 .siteIntro > p {
-  margin-top: 30px;
-  opacity: 0.5;
+  margin-top: 20px;
+  opacity: 0.7;
+  font-size: 18px;
 }
 
 .sections {
   display: flex;
   justify-content: space-between;
-  height: 400px;
+  gap: 20px;
+  height: auto;
 }
 
-.streamerSection {
+.quickServices {
   display: flex;
   flex-direction: column;
   flex: 1;
-  justify-content: space-between;
+  gap: 20px;
 }
 
-.streamerPage {
-  background-color: #FFDAB9;
+.quickServiceButton {
+  background-color: #FFFFFF;
   flex: 1;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-right: 10px;
-  position: relative;
-}
-
-.streamButton {
-  background-color: #FFA500;
-  border: none;
-  padding: 20px 40px;
-  color: white;
+  text-align: center;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 15px;
-  bottom: 20px;
+  transition: background-color 0.3s ease;
 }
 
-.reservationPage {
-  background-color: #E6E6FA;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.reservationButton {
-  background-color: #9370DB;
-  border: none;
-  padding: 20px 40px;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 15px;
-  bottom: 20px;
-}
-
-.streamerText {
-  font-size: 36px;
-  margin-bottom: 20px;
+.quickServiceButton:hover {
+  background-color: #F0F0F0;
 }
 
 .onAir {
   background-color: #FFB6C1;
-  flex: 1;
+  flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  margin-right: 10px;
   position: relative;
+  border-radius: 8px;
+  text-align: center;
 }
 
 .onAirText {
@@ -116,29 +83,24 @@
 }
 
 .discountText {
-  font-size: 36px;
+  font-size: 24px;
   margin-bottom: 10px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-80%);
 }
 
 .watchButton {
   background-color: #FF4500;
-
   border: none;
   padding: 20px 40px;
   color: white;
   cursor: pointer;
   font-size: 16px;
   border-radius: 15px;
-  position: absolute;
-  bottom: 100px;
+  margin-top: 20px;
 }
 
 .ad {
   background-color: #FFFFFF;
-  flex: 1;
+  flex: 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,4 +108,5 @@
   background-image: url("../assets/images/sparta_advertisement.png");
   background-size: cover;
   background-position: center;
+  border-radius: 8px;
 }
