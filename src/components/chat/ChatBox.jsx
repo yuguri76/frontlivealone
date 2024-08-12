@@ -5,7 +5,7 @@ import styles from '../../styles/Chat.module.css';
 function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }) {
   const [message, setMessage] = useState('');
   const [inputCount, setInputCount] = useState(0);
-  const maxByteLength = 90;
+  const maxByteLength = 63;
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -130,7 +130,7 @@ function ChatList({ messages }) {
     <List
       height={635}
       itemCount={messages.length}
-      itemSize={45}
+      itemSize={50}
       width={400}
       itemData={messages}
       ref={chatWindowRef}
