@@ -6,6 +6,7 @@ import ProductionInfoForStreaming from '../components/ProductionInfoForStreaming
 import LiveScreen from '../components/LiveScreen';
 import axiosInstance from '../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
+import useWebSocket from '../hooks/useWebSocket';
 
 function StreamingPage() {
   const navigate = useNavigate();
@@ -20,6 +21,9 @@ function StreamingPage() {
   const broadcastId = useSelector((state) => state.broadcast.id);
   const userId = useSelector((state) => state.user.id); // Redux store에서 user id를 가져온다고 가정
   console.log(userId);
+
+  // 웹소켓 훅을 한 번만 호출
+  const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname } = useWebSocket('');
 
   useEffect(() => {
     console.log(`Product ID from Redux: ${productId}`); // Redux에서 가져온 productId를 로그로 출력
@@ -83,20 +87,29 @@ function StreamingPage() {
   }
 
   return (
-      <div className="streaming-page">
-        <div className="player-container">
-          <LiveScreen />
-          <div className="product-info-wrapper">
-            <div className="product-info">
-              <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
-            </div>
-            <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
+    <div className="streaming-page">
+      <div className="player-container">
+        <LiveScreen 
+          requestStreamKey={requestStreamKey} 
+          wsIsLive={wsIsLive} 
+          wsStreamKey={wsStreamKey} 
+        />
+        <div className="product-info-wrapper">
+          <div className="product-info">
+            <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
           </div>
-        </div>
-        <div className="chatbox-container">
-          <ChatBox />
+          <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
         </div>
       </div>
+      <div className="chatbox-container">
+        <ChatBox 
+          messages={messages} 
+          sendMessage={sendMessage} 
+          isAvailableChat={isAvailableChat} 
+          userNickname={userNickname} 
+        />
+      </div>
+    </div>
   );
 }
 

@@ -1,23 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import styles from '../../styles/Chat.module.css';
-import useWebSocket from '../../hooks/useWebSocket';
 
-function ChatContainer() {
-  const [token, setToken] = useState('');
-  const [refreshToken, setRefreshTOken] = useState('');
+function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }) {
   const [message, setMessage] = useState('');
-  const {messages, sendMessage, isAvailableChat, userNickname } = useWebSocket(token,refreshToken);
   const [inputCount, setInputCount] = useState(0);
   const maxByteLength = 90;
-
-  useEffect(()=>{
-    const token = localStorage.getItem('accessToken');
-    const refreshToken = localStorage.getItem('refreshToken');
-    setToken(token);
-    setRefreshTOken(refreshToken);
-
-  },[token,refreshToken])
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -39,28 +27,28 @@ function ChatContainer() {
 
   const truncateTextByByteLength = (text, maxByteLength) => {
     const calculateByteLength = (str) => new Blob([str]).size;
-  
+
     let start = 0;
     let end = text.length;
-  
+
     while (start < end) {
       const mid = Math.ceil((start + end) / 2);
       const byteLength = calculateByteLength(text.slice(0, mid));
-  
+
       if (byteLength <= maxByteLength) {
         start = mid;
       } else {
         end = mid - 1;
       }
     }
-  
+
     return text.slice(0, start);
   };
-  
+
   const onInputCountHandler = (event) => {
     const inputText = event.target.value;
     const byteLength = calculateByteLength(inputText);
-  
+
     if (byteLength <= maxByteLength) {
       setMessage(inputText);
       setInputCount(byteLength);
@@ -98,7 +86,7 @@ function ChatContainer() {
         <input
           id="messageInput"
           type="text"
-          placeholder={token ? "채팅을 입력해주세요" : "로그인 해야 입력가능"}
+          placeholder={isAvailableChat ? "채팅을 입력해주세요" : "로그인 해야 입력가능"}
           disabled={!isAvailableChat}
           onKeyDown={handleKeyDown}
           onChange={onInputCountHandler}

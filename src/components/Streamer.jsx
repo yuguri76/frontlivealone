@@ -7,6 +7,7 @@ import ProductionInfoInput from './ProductionInfoInput';
 import ProductionInfo from './ProductionInfo';
 import {useDispatch} from "react-redux";
 import {setProductPrice, setProductName} from "../store/store";
+import useWebSocket from '../hooks/useWebSocket'; // 웹소켓 훅 가져오기
 
 const Streamer = () => {
     const initialIsSettingCompleted = JSON.parse(localStorage.getItem('isSettingCompleted')) || false;
@@ -18,6 +19,9 @@ const Streamer = () => {
     const [product, setProduct] = useState(initialProduct);
 
     const dispatch = useDispatch();
+
+    // 웹소켓 훅을 한 번만 호출
+    const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname } = useWebSocket('');
 
     useEffect(() => {
         localStorage.setItem('isSettingCompleted', JSON.stringify(isSettingCompleted));
@@ -56,7 +60,11 @@ const Streamer = () => {
             <div className={styles.mainContent}>
                 <div className={styles.leftSection}>
                     <section className={styles.streamSection}>
-                        <LiveScreen />
+                        <LiveScreen 
+                            requestStreamKey={requestStreamKey}
+                            wsIsLive={wsIsLive}
+                            wsStreamKey={wsStreamKey}
+                        />
                         <BroadcastControl
                             product={product}
                             isSettingCompleted={isSettingCompleted}
@@ -77,7 +85,12 @@ const Streamer = () => {
                         )}
                     </section>
                 </div>
-                <ChatBox />
+                <ChatBox 
+                    messages={messages} 
+                    sendMessage={sendMessage} 
+                    isAvailableChat={isAvailableChat} 
+                    userNickname={userNickname} 
+                />
             </div>
         </div>
     );
