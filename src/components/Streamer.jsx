@@ -21,7 +21,7 @@ const Streamer = () => {
     const dispatch = useDispatch();
 
     // 웹소켓 훅을 한 번만 호출
-    const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname } = useWebSocket('');
+    const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname,viewerCount } = useWebSocket('');
 
     useEffect(() => {
         localStorage.setItem('isSettingCompleted', JSON.stringify(isSettingCompleted));
@@ -60,6 +60,9 @@ const Streamer = () => {
             <div className={styles.mainContent}>
                 <div className={styles.leftSection}>
                     <section className={styles.streamSection}>
+                        <div className={styles.viewerCount}>
+                            시청자 수: {viewerCount}
+                        </div>
                         <LiveScreen 
                             requestStreamKey={requestStreamKey}
                             wsIsLive={wsIsLive}
