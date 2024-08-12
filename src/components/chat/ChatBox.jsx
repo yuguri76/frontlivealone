@@ -5,7 +5,9 @@ import styles from '../../styles/Chat.module.css';
 function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }) {
   const [message, setMessage] = useState('');
   const [inputCount, setInputCount] = useState(0);
+  const [sendAvailable,setSendAvailable] = useState(true);
   const maxByteLength = 63;
+  const throtteleTime = 1000;
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -15,9 +17,17 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
 
   const sendMessageHandler = () => {
     if (message.trim() && isAvailableChat) {
+
+      if(!sendAvailable){
+        console.log('메시지를 너무 빨리 보냈음'); // 채팅창이든 알람이든 뭔가 띄우는 로직 
+        return;
+      }
+
       sendMessage(userNickname, message.trim());
       setMessage(''); // 메시지 전송 후 입력 칸 비우기
       setInputCount(0); // 글자 수 초기화
+      setSendAvailable(false);
+      setTimeout(()=>setSendAvailable(true),throtteleTime);
     }
   };
 
