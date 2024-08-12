@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/BroadcastControl.module.css';
 
-const BroadcastControl = ({ product, isSettingCompleted, onBroadcastClose }) => {
-    const initialIsBroadcastStart = JSON.parse(localStorage.getItem('isBroadcastStart')) || false;
-
-    const [isBroadcastStart, setBroadcastStart] = useState(initialIsBroadcastStart);
+const BroadcastControl = ({ product, isSettingCompleted, isBroadcastStart, onBroadcastStart, onBroadcastClose }) => {
     const [title, setTitle] = useState(localStorage.getItem('title') || '');
 
     useEffect(() => {
-        localStorage.setItem('isBroadcastStart', JSON.stringify(isBroadcastStart));
         localStorage.setItem('title', title);
-    }, [isBroadcastStart, title]);
+    }, [title]);
 
     const handleBroadcastStart = async () => {
         try {
@@ -24,8 +20,7 @@ const BroadcastControl = ({ product, isSettingCompleted, onBroadcastClose }) => 
                 }
             });
 
-            setBroadcastStart(true);
-
+            onBroadcastStart();
         } catch (error) {
             if (error.response.data.message) {
                 alert(`${error.response.data.message}`);
@@ -41,13 +36,13 @@ const BroadcastControl = ({ product, isSettingCompleted, onBroadcastClose }) => 
                 }
             });
 
-            setBroadcastStart(false);
-            onBroadcastClose();
         } catch (error) {
             if (error.response.data.message) {
                 alert(`${error.response.data.message}`);
             }
         }
+
+        onBroadcastClose();
     };
 
     return (

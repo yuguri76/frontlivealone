@@ -10,9 +10,11 @@ import {setProductPrice, setProductName} from "../store/store";
 
 const Streamer = () => {
     const initialIsSettingCompleted = JSON.parse(localStorage.getItem('isSettingCompleted')) || false;
+    const initialIsBroadcastStart = JSON.parse(localStorage.getItem('isBroadcastStart')) || false;
     const initialProduct = JSON.parse(localStorage.getItem('product')) || {};
 
     const [isSettingCompleted, setSettingCompleted] = useState(initialIsSettingCompleted);
+    const [isBroadcastStart, setBroadcastStart] = useState(initialIsBroadcastStart);
     const [product, setProduct] = useState(initialProduct);
 
     const dispatch = useDispatch();
@@ -20,6 +22,10 @@ const Streamer = () => {
     useEffect(() => {
         localStorage.setItem('isSettingCompleted', JSON.stringify(isSettingCompleted));
     }, [isSettingCompleted]);
+
+    useEffect(() => {
+        localStorage.setItem('isBroadcastStart', JSON.stringify(isBroadcastStart));
+    }, [isBroadcastStart]);
 
     useEffect(() => {
         localStorage.setItem('product', JSON.stringify(product));
@@ -36,7 +42,12 @@ const Streamer = () => {
         setSettingCompleted(true);
     };
 
+    const onBroadcastStart = () => {
+        setBroadcastStart(true);
+    };
+
     const onBroadcastClose = () => {
+        setBroadcastStart(false);
         setSettingCompleted(false);
     };
 
@@ -49,6 +60,8 @@ const Streamer = () => {
                         <BroadcastControl
                             product={product}
                             isSettingCompleted={isSettingCompleted}
+                            isBroadcastStart={isBroadcastStart}
+                            onBroadcastStart={onBroadcastStart}
                             onBroadcastClose={onBroadcastClose}
                         />
                     </section>
