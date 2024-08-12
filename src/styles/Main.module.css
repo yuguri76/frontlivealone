@@ -232,24 +232,33 @@
 }
 
 .discountText {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 30px; /* 방송 이름 크기 */
+  margin-top: 50px;
+  margin-bottom: 20px; /* 10px 추가 (기존 값 + 10px) */
   color: white;
-  text-align: center; /* 중앙 정렬로 변경 */
+  text-align: center; /* 중앙 정렬 */
   width: 100%; /* 부모 요소의 너비를 차지하도록 설정 */
+}
+
+.broadcastStatus {
+  font-size: 18px; /* 텍스트 크기 */
+  color: white; /* 텍스트 색상 */
+  margin-bottom: 0px; /* 10px 추가 (기존 값 + 10px) */
+  text-align: center; /* 중앙 정렬 */
 }
 
 .watchButton {
   background-color: red;
   border: none;
-  padding: 10px 20px; /* 버튼 크기를 줄임 */
+  padding: 10px 20px; /* 버튼 크기 */
   color: white;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 5px;
-  margin-top: 10px; /* 간격 조정 */
+  border-radius: 15px; /* 더 둥글게 변경 (기존 값 5px에서 10px로) */
+  margin-top: 20px; /* 10px 추가 (기존 값 + 10px) */
   align-self: center; /* 버튼을 중앙 정렬 */
 }
+
 
 .ad {
   background-color: #FFFFFF;
