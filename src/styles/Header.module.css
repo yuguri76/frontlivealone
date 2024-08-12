@@ -1,42 +1,58 @@
 .header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    height: 120px;
+    height: 100px;
+    justify-content: space-between; /* 로고와 버튼을 양 끝에 배치 */
+    padding: 10px 20px;
     background-color: white;
-    border-radius: 35px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px 0;
 }
 
 .logo {
-    width: 120px;
-    height: 120px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    width: 300px;
+    height: auto;
+    cursor: pointer;
+}
+
+.userName {
+    text-decoration: underline; /* 사용자 이름에 밑줄 추가 */
 }
 
 .welcomeMessage {
-    font-size: 24px;
-    color: black;
-    text-align: right;
-    margin: 20px;
-    flex: 1;
+    font-size: 18px;
+    color: #105258;
+    font-weight: bold;
+    margin-right: 10px; /* 버튼과의 간격 조정 */
+    padding: 10px 0; /* 위아래 간격 조정 */
+    line-height: 1.5; /* 텍스트 위아래 간격 동일하게 조정 */
 }
 
 .buttons {
     display: flex;
+    gap: 10px;
 }
 
 .button {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    margin-left: 10px;
-    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: 2px solid #105258;
+    background-color: transparent;
+    color: #105258;
     cursor: pointer;
-    font-size: 24px;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #105258; /* 마우스 오버 시 배경색을 #105258로 설정 */
+    color: white; /* 마우스 오버 시 텍스트 색상을 흰색으로 설정 */
+}
+
+.logoutButton {
+    background-color: #105258;
+    color: white;
+}
+
+.logoutButton:hover {
+    background-color: #0d4347; /* 마우스 오버 시 더 어두운 색상으로 변경 */
 }

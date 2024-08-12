@@ -1,0 +1,19 @@
+.sliderContainer {
+    position: absolute; /* siteIntro의 배경으로 설정 */
+    top: 0;
+    left: 0;
+    width: 100%; /* 슬라이더가 siteIntro의 너비를 꽉 채우도록 */
+    height: 450px; /* 슬라이더 높이를 siteIntro와 동일하게 */
+    z-index: -1; /* 콘텐츠보다 뒤에 배치 */
+    overflow: hidden;
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+}
+
+.slideImage {
+    width: 500px; /* 이미지 너비를 450px로 고정 */
+    height: 450px; /* 이미지 높이를 450px로 고정 */
+    object-fit: cover; /* 이미지가 컨테이너에 꽉 차도록 설정 */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+}
