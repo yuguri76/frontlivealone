@@ -2,40 +2,44 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 40px 20px; /* 패딩을 늘려서 여백 추가 */
     font-family: Arial, sans-serif;
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 2.5rem; /* 제목 크기를 키움 */
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* 제목과 첫 번째 섹션 사이의 간격을 넓힘 */
     text-align: center;
+    line-height: 1.5; /* 줄 간격을 넓힘 */
 }
 
 .step {
     width: 100%;
     max-width: 800px;
-    margin-bottom: 40px;
-    text-align: center;
+    margin-bottom: 50px; /* 섹션 간의 간격을 더 넓힘 */
+    text-align: left; /* 텍스트를 왼쪽 정렬 */
 }
 
 .image {
     max-width: 100%;
     height: auto;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: block; /* 이미지를 블록 요소로 설정하여 중앙 정렬 */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .startButton {
     display: block;
-    margin: 0 auto;
+    margin: 40px auto; /* 버튼과 아래 여백을 더 넓힘 */
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 15px 30px; /* 버튼 크기를 더 키움 */
     border-radius: 4px;
-    font-size: 1.2rem;
+    font-size: 1.5rem; /* 버튼 텍스트 크기를 키움 */
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
