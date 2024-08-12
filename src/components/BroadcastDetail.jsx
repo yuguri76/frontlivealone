@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import styles from '../styles/BroadcastDetail.module.css';
 import axiosInstance from "../axiosInstance";
+import classNames from "classnames";
 
 const BroadcastDetail = () => {
   const navigate = useNavigate();
@@ -69,28 +70,66 @@ const BroadcastDetail = () => {
           <button onClick={handleShowConsumerButtonClick}>구매자 목록 보러가기</button>
         </div>
         <div className={styles.infosContainer}>
-          <div className={styles.infoContainer}>
-            <h3>방송 정보</h3>
-            <div className={styles.infoDetails}>
-              <span>제목: {broadcastTitle}</span>
-              <span>스트리머: {broadcastStreamer}</span>
-              <span>스트리밍 시간: {broadcastStartTime} ~ {broadcastEndTime}</span>
+          <div className={styles.broadcastProductInfoContainer}>
+            <div className={classNames(styles.infoContainer, styles.broadcastProductInfo)}>
+              <h3>방송 정보</h3>
+              <div className={styles.infoDetails}>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsTitle}>제목</span>
+                  <span className={styles.infoDetailsInfo}>{broadcastTitle}</span>
+                </div>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsTitle}>스트리머</span>
+                  <span className={styles.infoDetailsInfo}> {broadcastStreamer}</span>
+                </div>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsTitle}>스트리밍 시간</span>
+                  <span className={styles.infoDetailsInfo}>{broadcastStartTime} ~ {broadcastEndTime}</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className={styles.infoContainer}>
-            <h3>상품 정보</h3>
-            <div className={styles.infoDetails}>
-              <span>이름: {productName}</span>
-              <span>가격: {productPrice} 원</span>
-              <span>수량: {productQuantity} 개</span>
-              <span>소개: {productIntroduction}</span>
+            <div className={classNames(styles.infoContainer,
+                styles.broadcastProductInfo)}>
+              <h3>상품 정보</h3>
+              <div className={styles.infoDetails}>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsProductTitle}>이름</span>
+                  <span
+                      className={styles.infoDetailsInfo}>{productName}</span>
+                </div>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsProductTitle}>가격</span>
+                  <span
+                      className={styles.infoDetailsInfo}>{productPrice} 원</span>
+                </div>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsProductTitle}>수량</span>
+                  <span
+                      className={styles.infoDetailsInfo}>{productQuantity} 개</span>
+                </div>
+                <div className={styles.infoDetailsItem}>
+                  <span className={styles.infoDetailsProductTitle}>소개</span>
+                  <span
+                      className={styles.infoDetailsInfo}>{productIntroduction}</span>
+                </div>
+              </div>
             </div>
           </div>
           <div className={styles.infoContainer}>
             <h3>매출 정보</h3>
             <div className={styles.infoDetails}>
-              <span>총 상품 판매 개수: {totalOrderCount} 개</span>
-              <span>총 판매 금액: {totalSalePrice} 원</span>
+              <div className={styles.infoDetailsItem}>
+                <span
+                    className={styles.infoDetailsSaleTitle}>총 판매한 상품 개수</span>
+                <span
+                    className={styles.infoDetailsInfo}>{totalOrderCount} 개</span>
+              </div>
+              <div className={styles.infoDetailsItem}>
+                <span
+                    className={styles.infoDetailsSaleTitle}>총 판매 금액</span>
+                <span
+                    className={styles.infoDetailsInfo}>{totalSalePrice} 원</span>
+              </div>
             </div>
           </div>
         </div>
