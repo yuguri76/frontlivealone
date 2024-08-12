@@ -30,7 +30,7 @@ const Main = () => {
 
   const handleStreamerClick = () => {
     if (localStorage.getItem('accessToken') !== null)
-      navigate('/streamer');
+      navigate('/guide');
     else
       navigate('/login');
   };

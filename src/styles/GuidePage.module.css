@@ -1,0 +1,41 @@
+.container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.title {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.step {
+    margin-bottom: 40px;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.startButton {
+    display: block;
+    margin: 0 auto;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.startButton:hover {
+    background-color: #0056b3;
+}
+
+.startButton:active {
+    background-color: #004080;
+}
