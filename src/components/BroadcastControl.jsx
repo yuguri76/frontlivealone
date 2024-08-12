@@ -36,12 +36,13 @@ const BroadcastControl = ({ product, isSettingCompleted, isBroadcastStart, onBro
                 }
             });
 
-            onBroadcastClose();
         } catch (error) {
             if (error.response.data.message) {
                 alert(`${error.response.data.message}`);
             }
         }
+
+        onBroadcastClose();
     };
 
     return (
