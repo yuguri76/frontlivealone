@@ -6,6 +6,7 @@
     padding: 10px 20px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #47a7ac;
 }
 
 .logo {
