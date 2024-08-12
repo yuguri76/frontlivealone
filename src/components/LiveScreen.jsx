@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import HLSPlayer from '../components/HLSPlayer';
 
-const LiveScreen = ({ requestStreamKey, wsIsLive, wsStreamKey }) => {
-
-    useEffect(() => {
-        requestStreamKey();
-    }, [requestStreamKey]);
+const LiveScreen = ({ wsIsLive, wsStreamKey }) => {
 
     return (
         <div>

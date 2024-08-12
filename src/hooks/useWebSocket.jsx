@@ -38,6 +38,8 @@ const useWebSocket = (token,refreshToken) => {
                     messenger: 'front-server',
                     message: token
                 });
+
+                requestStreamKey();
                 
                 client.current.subscribe('/queue/message', (message) =>{
                     const data = JSON.parse(message.body);
