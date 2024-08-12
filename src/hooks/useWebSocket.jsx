@@ -9,6 +9,7 @@ const useWebSocket = (token,refreshToken) => {
     const [wsStreamKey, setWsStreamKey] = useState(`${process.env.REACT_APP_DEFAULT_STREAM_KEY}`);
     const [wsIsLive, setWsIsLive] = useState(false);
     const [chatColor,setChatColor] = useState('');
+    const [viewerCount,setViewrCount] = useState(0);
 
     const MAX_MESSAGES = 100;
 
@@ -25,6 +26,10 @@ const useWebSocket = (token,refreshToken) => {
             connectHeaders: {
                 Authorization: `${token}`,
                 RefreshToken : `${refreshToken}`,
+                RoomId: 1
+            },
+            disconnectHeaders: {
+                RoomId: 1
             },
             onConnect: () => {
                 console.log('세션 연결 시도');
@@ -60,6 +65,7 @@ const useWebSocket = (token,refreshToken) => {
                 });
 
                 client.current.publish({ destination: '/pub/session', body: authMessage });
+                requestViewerCount();
             },
             onStompError: (frame) => {
                 console.error('STOMP error: ' + frame.headers['message']);
@@ -78,6 +84,51 @@ const useWebSocket = (token,refreshToken) => {
             }
         };
     }, []);
+
+    useEffect(() => { // 새로고침할 때 세션이 비정상적으로 종료되는 것 처리
+        const handleBeforeUnload = () => {
+            if (client.current) {
+                client.current.deactivate({
+                    disconnectHeaders: {
+                        RoomId: 1
+                    },
+                    onDisconnect: () => {
+                        console.log('Disconnected cleanly');
+                    }
+                });
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, []);
+
+    useEffect(()=>{
+
+        /**
+         * 10초에 한번 시청자 수 요청
+         * 시청자 수가 바뀔 때 마다 갱신도 가능 (적용은 x) -> 서버에서도 처리해야함 
+         */
+        const getViewerCountInterval = setInterval(()=>{
+            requestViewerCount();
+        },10000); 
+
+        return () => clearInterval(getViewerCountInterval);
+
+    },[]);
+
+    const requestViewerCount = () =>{
+        console.log('시청자 수 요청');
+        const requestViewerCountMessage = JSON.stringify({
+            type: 'REQUEST_VIEWERCOUNT',
+            messenger: 'front-server',
+            message: 1
+        })
+        client.current.publish({destination: '/pub/session',body: requestViewerCountMessage})
+    };
 
     const handleMessage = (data) =>{
         const { type, messenger, message } = data;
@@ -183,7 +234,9 @@ const useWebSocket = (token,refreshToken) => {
                 }
                 return updatedMessages;
             });
-        } 
+        } else if (type === 'RESPONSE_VIEWERCOUNT'){
+            setViewrCount(message);
+        }
     };
 
     const sendMessage = (userNickname, message) => {
@@ -212,8 +265,7 @@ const useWebSocket = (token,refreshToken) => {
         }
     };
 
-
-    return { messages, sendMessage, isAvailableChat, userNickname, requestStreamKey, wsIsLive, wsStreamKey };
+    return { messages, sendMessage, isAvailableChat, userNickname, requestStreamKey, wsIsLive, wsStreamKey,viewerCount };
 };
 
 export default useWebSocket;
