@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
 import HLSPlayer from '../components/HLSPlayer';
-import useWebSocket from '../hooks/useWebSocket';
 
-const LiveScreen = () => {
-    const { requestStreamKey, wsIsLive, wsStreamKey } = useWebSocket('');
+const LiveScreen = ({ requestStreamKey, wsIsLive, wsStreamKey }) => {
 
     useEffect(() => {
         requestStreamKey();
@@ -22,7 +20,6 @@ const LiveScreen = () => {
                     src = {`${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_MEDIA_SERVER_ADDRESS}/hls/${wsStreamKey}.m3u8`}
                 />
             )}
-
         </div>
     );
 };
