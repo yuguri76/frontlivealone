@@ -1,4 +1,7 @@
 .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
 }
@@ -7,16 +10,21 @@
     font-size: 2rem;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .step {
+    width: 100%;
+    max-width: 800px;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 .image {
     max-width: 100%;
     height: auto;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .startButton {
