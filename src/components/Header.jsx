@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axiosInstance from '../axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
-import logo from '../assets/logo.png'
+import logo from '../assets/images/header_logo.png'
 import styles from '../styles/Header.module.css';
 
 function Header() {
@@ -48,22 +48,22 @@ function Header() {
   };
 
   return (
-    <header>
-      <div className={styles.header}>
-        <img src={logo} alt="나혼자산다 로고" className={styles.logo} onClick={handleLogoClick} />
-        {isLoggedIn ? (
-          <>
-            <div className={styles.welcomeMessage}>{nickName}님 환영합니다!</div>
-            <div className={styles.buttons}>
-              <button className={styles.button} onClick={handleMyInfoClick}>마이페이지</button>
-              <button className={styles.button} onClick={handleLogoutClick}>로그아웃</button>
-            </div>
-          </>
-        ) : (
-          <button className={styles.button} onClick={handleLoginClick}>로그인</button>
-        )}
-      </div>
-    </header>
+      <header>
+        <div className={styles.header}>
+          <img src={logo} alt="나혼자산다 로고" className={styles.logo} onClick={handleLogoClick} />
+          {isLoggedIn ? (
+              <div className={styles.buttons}>
+                <div className={styles.welcomeMessage}>
+                  <span className={styles.userName}>{nickName}</span>님 환영합니다!
+                </div>
+                <button className={styles.button} onClick={handleMyInfoClick}>마이페이지</button>
+                <button className={styles.button} onClick={handleLogoutClick}>로그아웃</button>
+              </div>
+          ) : (
+              <button className={styles.button} onClick={handleLoginClick}>로그인</button>
+          )}
+        </div>
+      </header>
   );
 }
 

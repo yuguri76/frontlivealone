@@ -1,41 +1,41 @@
 .completeContainer {
-    background-color: #f0f8ff;
+    background-color: rgba(237, 246, 246, 0.87);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column; /* 요소들을 수직 방향으로 정렬 */
+    text-align: center; /* 텍스트와 이미지들을 중앙 정렬 */
 }
 
-.messageContainer {
-    background-color: #b7defa;
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 60%;
-    max-width: 1200px;
+.truck {
+    width: 1100px;
+    height: auto;
+    margin: -200px 0 20px 0; /* 위쪽 마진을 -100px로 설정하여 이미지를 위로 이동 */
 }
 
 h1 {
-    font-size: 5rem;
-    margin-bottom: 20px;
+    font-size: 3rem !important;
+    margin: 20px 0;  /* 위아래 마진을 조정하여 간격 확보 */
+    color: #105258; /* 글자색 변경 */
 }
 
-img {
-    width: 500px;
-    height: auto;
-    margin: 20px 0;
+p {
+    font-size: 1.5rem; /* 글씨 크기 확대 */
+    color: #105258; /* 글자색 변경 */
+    margin: 10px 0 50px 0 !important; /* 위쪽 마진 10px, 아래쪽 마진 50px으로 설정 */
 }
 
 .returnButton {
-    background-color: #007bff;
+    background-color: #105258;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
+    margin-top: 20px; /* 버튼에 여유 공간 추가 */
 }
 
 .returnButton:hover {
-    background-color: #0056b3;
+    background-color: #409fab;
 }
