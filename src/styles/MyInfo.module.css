@@ -23,17 +23,17 @@ body {
 
 .infoContainer {
   display: flex;
-  gap: 50px;
   width: 100%;
+  gap: 20px;
   flex-direction: column;
-  color: dodgerblue;
 }
 
 .nameContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  color: #015866;
+  padding: 0 30px;
 }
 
 .nameContainer > .nameBox {
@@ -43,11 +43,16 @@ body {
   font-weight: 900;
 }
 
+.nameBox .nameBoxName {
+  font-size: 40px;
+}
+
 .nameBox > .nameBoxAdmin {
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 500;
   color: black;
   opacity: 0.4;
+  padding-top: 15px;
 }
 
 .nameBoxButtonContainer {
@@ -56,15 +61,33 @@ body {
 }
 
 .nameBoxButtonContainer>button {
-  border: none;
-  border-radius: 10px;
-  padding: 10px;
-  background-color: dodgerblue;
+  border: 1px solid #015866;
+  border-radius: 40px;
+  padding: 10px 20px;
+  background-color: white;
+  color: #015866;
+  font-weight: 700;
+  transition: all 0.5s ease-in;
+}
+
+.nameBoxButtonContainer > button:hover {
+  background-color: #015866;
   color: white;
 }
 
 .infoContainer .nameBox>h1 {
   font-size: 30px;
+}
+
+.infoBoxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  background-color: #D9E7E8;
+  padding: 50px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 20px #666666;
+  color: #015866;
 }
 
 .infoBox {
@@ -77,17 +100,17 @@ body {
   width: 15%;
   text-align: center;
   font-size: 20px;
+  font-weight: 900;
 }
 
 .infoBox>input {
   width: 100%;
   margin-right: 50px;
-  border: none;
-  border-radius: 10px;
-  height: 50px;
-  color: dodgerblue;
-  font-size: 20px;
-  padding: 10px;
+  border: 1px solid #015866;
+  border-radius: 40px;
+  color: #015866;
+  font-size: 15px;
+  padding: 10px 20px;
 }
 
 .infoBox > span {
@@ -96,19 +119,46 @@ body {
 }
 
 .infoBtn {
-  padding: 11px 20px;
+  padding: 5px 30px;
   margin: 0 auto;
   border: none;
-  border-radius: 10px;
-  background-color: dodgerblue;
+  border-radius: 40px;
+  background-color: #105258;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
 }
 
-.line {
-  width: 100%;
-  height: 2px;
-  background-color: dodgerblue;
+.infoBox .addressFromBox input[type="text"] {
+  border: 1px solid #015866;
+  border-radius: 40px;
+  padding: 5px;
+  margin-right: 10px;
+  color: #015866;
+}
+
+.infoBox .addressFromBox input[type="button"] {
+  background-color: #015866;
+  color: white;
+  border-radius: 40px;
+  padding: 5px 20px;
+  margin-bottom: 10px;
+  transition: all 0.5s ease-in;
+}
+
+.infoBox .addressFromBox input[type="button"]:hover {
+  cursor: pointer;
+}
+
+.infoBox .addressFromBox button {
+  background-color: #015866;
+  border: none;
+  border-radius: 40px;
+  padding: 5px 20px;
+  color: white;
+}
+
+.infoBox .addressFromBox button:hover {
+  cursor: pointer;
 }
 
 .actContainer {
@@ -120,6 +170,7 @@ body {
   border-radius: 20px;
   font-size: 20px;
   justify-items: center;
+  box-shadow: 5px 5px 20px #666666;
 }
 
 .actContainer .actName {
@@ -129,17 +180,24 @@ body {
 }
 
 .actName>span {
-  color: dodgerblue;
-  font-weight: 900;
+  color: #015866;
+  font-weight: 700;
+  border-bottom: 1px solid #015866;
 }
 
 .actName>button {
-  background-color: dodgerblue;
-  border: none;
-  border-radius: 10px;
-  padding: 7px;
-  color: white;
+  background-color: transparent;
+  border: 1px solid #015866;
+  border-radius: 40px;
+  padding: 4px 17px;
+  color: #015866;
   font-size: 13px;
+  transition: all 0.5s ease-in;
+}
+
+.actName > button:hover {
+  background-color: #105258;
+  color: white;
 }
 
 .actContentContainer {
@@ -152,20 +210,21 @@ body {
 .actContentContainer .actContent {
   display: flex;
   flex-direction: column;
-  background-color: #F5FBFF;
-  gap: 10px;
+  background-color: #EEF4F4;
+  gap: 20px;
   padding: 30px;
   max-width: 200px;
-  color: #424141;
   text-align: center;
   overflow: auto;
   border-radius: 10px;
-  color: #1a89f0;
+  color: #105258;
 }
 
 .actContent .actContentState {
-  color: #db4242;
   font-weight: 700;
+  border-radius: 40px;
+  background-color: rgba(16, 82, 88, 0.4);
+  color: white;
 }
 
 .actContent .actContentTitle{
@@ -175,35 +234,6 @@ body {
 .actContent .actContentTime, .orderContent .orderContentTime {
   color: black;
   opacity: 0.4;
-}
-
-.actContentContainer .orderContent, .actContentContainer .deliveryContent {
-  display: flex;
-  flex-direction: column;
-  background-color: #F5FBFF;
-  padding: 30px;
-  align-items: center;
-  justify-content: center;
-  color: #1a89f0;
-  min-width: 200px;
-  max-width: 200px;
-}
-
-.orderContent {
-  gap: 10px;
-}
-
-.deliveryContent {
-  gap: 30px;
-}
-
-.orderContent .orderContentName {
-  font-weight: 900;
-}
-
-.deliveryContent .deliveryState {
-  color: green;
-  font-weight: 800;
 }
 
 .addressFromBox input {
