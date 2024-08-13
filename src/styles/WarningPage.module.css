@@ -1,20 +1,38 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 70vh;
-    font-family: Arial, sans-serif;
-  }
-  
-  .logo {
-    width: 300px;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .message {
-    font-size: 2rem;
-    color: #333;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.icon {
+  width: 200px;
+  height: auto;
+}
+
+.message {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.message::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #005865;
+  position: absolute;
+  bottom: -20px;
+}
+
+.subMessage {
+  font-size: 1rem;
+  color: #005865;
+  line-height: 1.5;
+}
