@@ -24,7 +24,8 @@
 .video-js .vjs-tech {
     object-fit: cover; /* 비디오가 플레이어 컨테이너를 완전히 덮도록 */
     height: 100%; /* 비디오 높이를 컨테이너 높이에 맞춤 */
-    border-radius: 10px; /* 컨테이너의 모서리 둥글기와 일치 */
+    border-radius: 10px !important; /* 컨테이너의 모서리 둥글기와 일치 */
+    margin-top: 5px;
 }
 
 .product-info-wrapper {
@@ -114,6 +115,12 @@
     flex: 1; /* 가능한 공간을 가득 채움 */
     max-width: 40%; /* 최대 너비 설정 */
     overflow-y: auto; /* 콘텐츠가 넘칠 경우 스크롤 가능 */
+}
+.player-container{
+    background-color: #ffffff;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 768px) {
