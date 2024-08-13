@@ -15,8 +15,8 @@
   display: flex;
   flex-direction: column;
   padding: 5px; /* Padding 제거 */
-  margin: 15px;
-  background-color: white;
+  margin: 8px;
+  background-color: #020715;
   border-radius: 10px;
   
 }
@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  margin: 1px;
+  margin: 5px;
 }
 
 .message {
@@ -42,11 +42,11 @@
   word-break: break-all;
   overflow-wrap: break-all;
   white-space: break-all;
-  color:black;
+  color:white;
 }
 
 .chatFooter {
-  padding: 10px;
+  padding: 5px;
   background-color: white;
   align-items: center;
   box-sizing: border-box;
@@ -54,7 +54,7 @@
   bottom: 0;
   border-radius: 10px;
   
-  margin: 0px 15px 15px 15px;
+  margin: 0px 8px 8px 8px;
 }
 
 .chatFooter input {
@@ -63,7 +63,7 @@
   border: none;
   border-radius: 4px;
   border: 1px solid black;
-  margin-right: 10px;
+  margin-right: 5px;
   box-sizing: border-box;
   width: 100%;
   
