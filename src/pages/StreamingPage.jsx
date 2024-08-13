@@ -6,6 +6,7 @@ import ProductionInfoForStreaming from '../components/ProductionInfoForStreaming
 import LiveScreen from '../components/LiveScreen';
 import axiosInstance from '../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
+import liveIcon from '../assets/images/live_icon.png';
 
 function StreamingPage() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function StreamingPage() {
   const productPrice = useSelector((state) => state.product.price);
   const productQuantity = useSelector((state) => state.product.quantity);
   const broadcastId = useSelector((state) => state.broadcast.id);
+  const broadcastTitle =  useSelector((state) => state.broadcast.title);
   const userId = useSelector((state) => state.user.id); // Redux store에서 user id를 가져온다고 가정
   console.log(userId);
 
@@ -88,6 +90,9 @@ function StreamingPage() {
           <LiveScreen />
           <div className="product-info-wrapper">
             <div className="product-info">
+              <div className="stream-title">
+                <img src={liveIcon} alt="Icon" className="icon-image"/> {broadcastTitle}
+              </div>
               <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
             </div>
             <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>

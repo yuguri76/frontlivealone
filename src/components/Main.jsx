@@ -4,7 +4,7 @@ import styles from '../styles/Main.module.css';
 import axiosInstance from '../axiosInstance';
 import { useDispatch } from 'react-redux';
 import {
-  setBroadcastId,
+  setBroadcastId, setReduxBroadcastTitle,
   setProductId,
   setProductName, setProductPrice,
   setProductQuantity
@@ -56,6 +56,7 @@ const Main = () => {
       console.log(response.data.data);
 
       dispatch(setBroadcastId(response.data.data.broadcast_id));
+      dispatch(setReduxBroadcastTitle(broadcastTitle));
       dispatch(setProductId(response.data.data.product_id));
       dispatch(setProductName(response.data.data.product_name));
       dispatch(setProductQuantity(response.data.data.product_quantity));

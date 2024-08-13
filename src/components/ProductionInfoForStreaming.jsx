@@ -27,11 +27,9 @@ const ProductionInfoForStreaming = ({ onProductInfo }) => {
 
     return (
         <div>
-            <span>상품명: {name}</span>
+            <span> - {name}</span> <span>| 가격: {price}</span>
             <br />
-            <span>가격: {price}</span>
-            <br />
-            <span>상품소개: {introduction}</span>
+            <span> - {introduction}</span>
         </div>
     );
 };
