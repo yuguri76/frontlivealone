@@ -23,7 +23,7 @@ h1 {
 p {
     font-size: 1.5rem; /* 글씨 크기 확대 */
     color: #105258; /* 글자색 변경 */
-    margin: 10px 0 50px 0 !important; /* 위쪽 마진 10px, 아래쪽 마진 50px으로 설정 */
+    margin: 10px 0 20px 0 !important; /* 위쪽 마진 10px, 아래쪽 마진 50px으로 설정 */
 }
 
 .returnButton {

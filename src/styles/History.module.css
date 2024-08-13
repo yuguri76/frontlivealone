@@ -1,9 +1,10 @@
 .historyContainer {
   background-color: transparent;
-  margin: 20px 100px 0 100px;
+  margin: 20px 100px 100px 100px;
   padding: 50px;
   border-radius: 20px;
   box-shadow: 10px 10px 20px #666666;
+  height: 70vh;
 }
 
 .historyNameContainer {

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import MainPage from './pages/MainPage';
@@ -13,7 +13,7 @@ import PaymentPage from './pages/PaymentPage';
 import StreamerPage from './pages/StreamerPage';
 import StreamingPage from './pages/StreamingPage';
 import Header from './components/Header';
-import OAuth2RedirectHandler from './components/Oauth2RedirectHandler'
+import OAuth2RedirectHandler from './components/Oauth2RedirectHandler';
 import RegisterAdminPage from "./pages/RegisterAdminPage";
 import ReservationPage from './pages/ReservationPage';
 import AdminPage from "./pages/AdminPage";
@@ -21,12 +21,15 @@ import BroadcastDetailPage from "./pages/BroadcastDetailPage";
 import ConsumerList from './components/ConsumerList';
 import WarningPage from './pages/WarningPage';
 import GuidePage from './pages/GuidePage';
-
+import Footer from './components/Footer';
 
 function App() {
+  const location = useLocation();
+  const hideFooterPaths = ['/login', '/reservation', '/payment', '/completepayment'];
+  const showFooter = !hideFooterPaths.includes(location.pathname);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={HTML5Backend}>
         <div className="App">
           <Header />
           <Routes>
@@ -49,8 +52,9 @@ function App() {
             <Route path="/*" element={<WarningPage />} />
             <Route path="/guide" element={<GuidePage />} />
           </Routes>
+          {showFooter && <Footer />} {/* Footer를 조건부로 렌더링 */}
         </div>
-    </DndProvider>
+      </DndProvider>
   );
 }
 
