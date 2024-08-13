@@ -62,6 +62,9 @@ const broadcastSlice = createSlice({
         setBroadcastId(state, action) {
             state.id = action.payload;
         },
+        setReduxBroadcastTitle(state, action) {
+            state.title = action.payload;
+        },
     }
 });
 
@@ -77,7 +80,7 @@ const orderSlice= createSlice({
 
 export const { setNickname, setUsername, setId, setEmail} = userSlice.actions;
 export const { setProductId, setProductName, setProductPrice, setProductQuantity } = productSlice.actions;
-export const { setBroadcastId } = broadcastSlice.actions;
+export const { setBroadcastId, setReduxBroadcastTitle } = broadcastSlice.actions;
 export const { setOrderId } = orderSlice.actions;
 
 const store = configureStore({
