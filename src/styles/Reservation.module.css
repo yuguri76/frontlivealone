@@ -42,7 +42,7 @@
 }
 
 .available {
-    background-color: #007BFF;
+    background-color: #005865;
     color: white;
     border: none;
     border-radius: 30px;
@@ -59,4 +59,12 @@
     cursor: pointer;
     padding: 10px 40px;
     font-size: 1rem;
+}
+
+.availableText {
+    color: #005865;
+}
+
+.unavailableText {
+    color: black;
 }

@@ -79,7 +79,7 @@ const Reservation = () => {
             <div className={styles.timeslots}>
                 {timeslots.map((slot, index) => (
                     <div key={index} className={styles.timeslot}>
-                        <span>{formatTime(slot.time)}</span>
+                        <span className={slot.reserved ? styles.unavailableText : styles.availableText}>{formatTime(slot.time)}</span>
                         <button className={slot.reserved ? styles.unavailable : styles.available} onClick={() => handleReservation(slot)}>
                             {slot.reserved === true ? '마감' : '예약'}
                         </button>
