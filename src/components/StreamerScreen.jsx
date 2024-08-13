@@ -6,7 +6,7 @@ import liveIcon from '../assets/images/live_icon.png';
 const StreamerScreen = ({ wsIsLive, wsStreamKey }) => {
     return (
         <div className={styles.streamingContainer}>
-            <div className={styles.screenWrapper}>
+            <div>
                 <LiveScreen
                     wsIsLive={wsIsLive}
                     wsStreamKey={wsStreamKey}

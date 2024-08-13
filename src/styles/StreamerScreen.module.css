@@ -1,23 +1,16 @@
 .streamingContainer {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-}
-
-.screenWrapper {
-    background-color: #000000;
-    border-radius: 10px;
-    display: flex;
+    padding-top: 0px;
 }
 
 .liveIndicator {
-    margin-top: 10px;
+    margin-top: 14px;
     display: flex;
     justify-content: center;
     align-items: center;
