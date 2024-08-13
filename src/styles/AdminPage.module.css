@@ -1,3 +1,11 @@
+body {
+  background-color: #EEF4F4;
+}
+
+.adminContainer {
+  color: #015866;
+}
+
 .adminContainer {
   display: flex;
   flex-direction: column;
@@ -11,30 +19,38 @@
   font-size: 20px;
 }
 
-.adminButtonContainer {
-  display: flex;
-  gap: 300px;
-  margin: 50px 0;
+.adminMenuContainer > span {
+  font-weight: 900;
 }
 
-button {
-  border: none;
-  border-radius: 10px;
+.adminButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+  margin: 40px 100px;
+  width: 60%;
+}
+
+.adminButtonContainer > button {
+  border: 1px solid #015866;
+  border-radius: 30px;
+  width: 160px;
   padding: 10px;
-  background-color: #666666;
-  color: white;
+  background-color: transparent;
+  color: #015866;
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 500;
   transition: all 0.5s ease; /* 배경 색상 변화에 애니메이션 추가 */
 }
 
 .adminButtonContainer > button:hover {
-  background-color: dodgerblue;
+  background-color: #015866;
+  color: white;
 }
 
 .adminInfoContainer {
   display: flex;
-  height: 500px;
+  height: 700px;
 }
 
 .itemsContainer {
@@ -46,6 +62,9 @@ button {
 .itemContainer {
   display: flex;
   gap: 30px;
+  border-bottom: 1px solid #015866;
+  padding: 10px;
+  font-weight: 600;
 }
 
 .itemContainer:hover {
@@ -59,6 +78,10 @@ button {
   padding: 0 15px 10px 15px;
 }
 
+.itemListTitle {
+  font-weight: 900;
+}
+
 .pageContainer {
   margin-top: 30px;
 }
@@ -68,8 +91,9 @@ button {
   font-weight: 900;
 }
 
-.select {
-  background-color: dodgerblue;
+.adminButtonContainer .select {
+  background-color: #015866;
+  color: white;
 }
 
 .hide {

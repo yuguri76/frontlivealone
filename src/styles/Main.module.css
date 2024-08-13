@@ -1,149 +1,275 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
-  padding: 20px;
 }
-
+.Main_mainContainer,
+.Main_siteIntro,
+.ImageSlider_sliderContainer {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .siteIntro {
-  background-color: #ADD8E6;
-  padding: 20px;
+  position: relative;
   text-align: center;
   font-size: 18px;
-  margin-bottom: 20px;
-  height: 300px;
+  margin-bottom: 10px;
+  height: 450px;
   display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
   flex-direction: column;
+  color: white;
+  background-color: rgba(16, 82, 88, 0.5); /* 배경색을 반투명하게 설정 */
+}
+
+.siteIntro::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
+  border: 2px solid white;
+  pointer-events: none;
 }
 
 .siteIntro > h3 {
   font-size: 30px;
-  color: #282c34;
+  color: white;
   margin-bottom: 10px;
 }
 
 .siteIntro > p {
   margin-top: 30px;
-  opacity: 0.5;
+  color: white;
 }
 
 .sections {
   display: flex;
   justify-content: space-between;
-  height: 400px;
+  width: 100%;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #008080; /* 청록색으로 변경 */
+  margin-bottom: 10px;
+  text-align: left; /* 왼쪽 정렬 */
+  padding-left: 20px;
+}
+
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 20px;
+}
+
+.sectionWrapper:first-child {
+  flex: 0 0 25%; /* 빠른 서비스 섹션의 너비를 20%로 고정 */
+}
+
+.sectionWrapper:nth-child(2) {
+  flex: 0 0 40%; /* 실시간 방송 섹션의 너비를 45%로 고정 */
+}
+
+.sectionWrapper:last-child {
+  flex: 0 0 33%; /* 바로가기 섹션의 너비를 35%로 고정 */
+}
+
+.sectionWrapper:nth-child(2) .onAirContainer {
+  height: 360px; /* 실시간 방송 섹션의 높이를 300px로 설정 */
+}
+
+.sectionWrapper:last-child .adContainer {
+  height: 360px; /* 바로가기 섹션의 높이를 350px로 설정 */
+}
+
+.streamerSection,
+.onAirContainer,
+.adContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; /* 중앙 정렬 */
+  padding: 20px;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 150%;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.streamerPage,
+.reservationPage
+{
+  background-color: #bfe5e8;
+  padding: 20px;
+  text-align: center; /* 중앙 정렬 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); /* 그림자를 아래로 설정 */
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 150px; /* 높이를 더 길게 설정 */
+  box-sizing: border-box; /* padding을 포함하여 height를 계산 */
+}
+
+.streamerPage:hover,
+.reservationPage:hover {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* hover 시 그림자 더 강하게 아래로 */
+  transform: translateY(-5px); /* hover 시 약간 위로 올라가는 효과 */
+}
+
+.buttonIcon {
+  width: 20px; /* 아이콘의 너비 조정 */
+  height: 20px; /* 아이콘의 높이 조정 */
+  margin-right: 10px; /* 텍스트와 이미지 사이 간격 조정 */
+  vertical-align: middle; /* 텍스트와 아이콘을 수직으로 가운데 정렬 */
+}
+
+.reservationPage,
+.streamerPage {
+  display: flex;
+  align-items: center; /* 이미지와 버튼을 수직 가운데 정렬 */
+  justify-content: space-between; /* 이미지와 버튼을 양 끝으로 정렬 */
+  background-color: rgba(206, 231, 232, 0.82);
+  padding: 10px; /* 패딩을 줄여서 전체 크기를 줄임 */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  width: 100%;
+  padding: 30px;
+}
+
+.streamButton, .reservationButton {
+  display: flex; /* 아이콘과 텍스트를 나란히 배치 */
+  align-items: center; /* 수직 가운데 정렬 */
+  justify-content: center; /* 수평 가운데 정렬 */
+  background-color: #007BFF;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.streamButton, .reservationButton, .watchButton {
+  background-color: #105258;
+  border: none;
+  padding: 10px 20px; /* 버튼 크기를 줄임 */
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-top: 10px; /* 간격 조정 */
+  align-self: center; /* 버튼을 중앙 정렬 */
 }
 
 .streamerSection {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  justify-content: space-between;
+  gap: 10px;
 }
 
-.streamerPage {
-  background-color: #FFDAB9;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin-right: 10px;
-  position: relative;
+
+.pageIcon {
+  width: 120px; /* 이미지 크기 */
+  height: 120px;
+  margin-right: 5px; /* 이미지와 버튼 사이의 간격 줄임 */
 }
 
-.streamButton {
-  background-color: #FFA500;
+
+.reservationButton, .streamButton {
+  background-color: #105258;
   border: none;
-  padding: 20px 40px;
+  padding: 8px 20px; /* 버튼 패딩 줄임 */
   color: white;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 15px;
-  bottom: 20px;
+  border-radius: 5px;
 }
 
-.reservationPage {
-  background-color: #E6E6FA;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-  position: relative;
-}
-
-.reservationButton {
-  background-color: #9370DB;
-  border: none;
-  padding: 20px 40px;
-  color: white;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 15px;
-  bottom: 20px;
-}
-
-.streamerText {
-  font-size: 36px;
-  margin-bottom: 20px;
+.streamerText, .reservationText {
+  font-size: 18px; /* 텍스트 크기 조정 */
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #333;
 }
 
 .onAir {
-  background-color: #FFB6C1;
-  flex: 1;
+  background-color: #000000; /* 기존의 배경색을 삭제하거나 주석 처리할 수 있습니다 */
+  background-image: url("../assets/images/on_air.png"); /* 임포트한 이미지를 배경으로 설정 */
+  background-size: cover; /* 배경 이미지를 컨테이너에 맞게 조정 */
+  background-position: center; /* 배경 이미지의 위치를 중앙으로 설정 */
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* 중앙 정렬 */
   padding: 20px;
-  margin-right: 10px;
-  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .onAirText {
   font-size: 36px;
   font-weight: bold;
   color: red;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  margin-bottom: 20px;
+  text-align: left; /* 왼쪽 정렬로 변경 */
+  width: 100%; /* 텍스트가 왼쪽으로 정렬되도록 */
+}
+
+.broadcastStatus {
+  font-size: 18px; /* 텍스트 크기 */
+  color: white; /* 텍스트 색상 */
+  margin-top: 10px; /* 위 요소와의 간격 */
+  text-align: center; /* 중앙 정렬 */
 }
 
 .discountText {
-  font-size: 36px;
-  margin-bottom: 10px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-80%);
+  font-size: 30px; /* 방송 이름 크기 */
+  margin-top: 50px;
+  margin-bottom: 20px; /* 10px 추가 (기존 값 + 10px) */
+  color: white;
+  text-align: center; /* 중앙 정렬 */
+  width: 100%; /* 부모 요소의 너비를 차지하도록 설정 */
+}
+
+.broadcastStatus {
+  font-size: 18px; /* 텍스트 크기 */
+  color: white; /* 텍스트 색상 */
+  margin-bottom: 0px; /* 10px 추가 (기존 값 + 10px) */
+  text-align: center; /* 중앙 정렬 */
 }
 
 .watchButton {
-  background-color: #FF4500;
-
+  background-color: red;
   border: none;
-  padding: 20px 40px;
+  padding: 10px 20px; /* 버튼 크기 */
   color: white;
   cursor: pointer;
   font-size: 16px;
-  border-radius: 15px;
-  position: absolute;
-  bottom: 100px;
+  border-radius: 15px; /* 더 둥글게 변경 (기존 값 5px에서 10px로) */
+  margin-top: 20px; /* 10px 추가 (기존 값 + 10px) */
+  align-self: center; /* 버튼을 중앙 정렬 */
 }
+
 
 .ad {
   background-color: #FFFFFF;
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
+  width: 100%;
+  height: 100%;
   background-image: url("../assets/images/sparta_advertisement.png");
   background-size: cover;
   background-position: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
 }

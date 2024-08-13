@@ -20,6 +20,8 @@ import AdminPage from "./pages/AdminPage";
 import BroadcastDetailPage from "./pages/BroadcastDetailPage";
 import ConsumerList from './components/ConsumerList';
 import WarningPage from './pages/WarningPage';
+import GuidePage from './pages/GuidePage';
+
 
 function App() {
 
@@ -45,6 +47,7 @@ function App() {
             <Route path="/reservation" element={<ReservationPage />} />
             <Route path="/admin/broadcast/:broadcastId/consumer" element={<ConsumerList />} />
             <Route path="/*" element={<WarningPage />} />
+            <Route path="/guide" element={<GuidePage />} />
           </Routes>
         </div>
     </DndProvider>
