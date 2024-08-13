@@ -6,10 +6,22 @@ const ProductionInfo = ({ product }) => {
         <div className={styles.container}>
             <h2 className={styles.title}>상품 정보</h2>
             <div className={styles.content}>
-                <p>상품 이름: {product.name}</p>
-                <p>상품 가격: {product.price}</p>
-                <p>재고 수량: {product.quantity}</p>
-                <p>광고 문구: {product.introduction}</p>
+                <div className={styles.infoRow}>
+                    <label>상품 이름:</label>
+                    <span>{product.name}</span>
+                </div>
+                <div className={styles.infoRow}>
+                    <label>상품 가격:</label>
+                    <span>{product.price}</span>
+                </div>
+                <div className={styles.infoRow}>
+                    <label>재고 수량:</label>
+                    <span>{product.quantity}</span>
+                </div>
+                <div className={styles.infoRow}>
+                    <label>광고 문구:</label>
+                    <span>{product.introduction}</span>
+                </div>
             </div>
         </div>
     );
