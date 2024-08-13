@@ -67,7 +67,22 @@ const AddressForm = ({ onSubmit, className }) => {
     };
 
     return (
-        <div className={className}>
+        <div className={`${className} addressFormContainer`}>
+            <input
+                type="button"
+                onClick={handlePostcodeSearch}
+                value="우편번호 찾기"
+                style={{
+                    padding: '10px',
+                    backgroundColor: '#387379',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    width: '60%',
+                    marginTop: '5px'
+                }}
+            /><br/>
             <input
                 type="text"
                 id="sample4_postcode"
@@ -75,11 +90,7 @@ const AddressForm = ({ onSubmit, className }) => {
                 value={postcode}
                 readOnly
             />
-            <input
-                type="button"
-                onClick={handlePostcodeSearch}
-                value="우편번호 찾기"
-            /><br />
+
             <input
                 type="text"
                 id="sample4_roadAddress"
@@ -109,7 +120,16 @@ const AddressForm = ({ onSubmit, className }) => {
                 value={extraAddress}
                 readOnly
             />
-            <button onClick={handleSubmit}>확인</button>
+            <button
+                onClick={handleSubmit}
+                className="customButton"
+                style={{
+                    display: 'block',
+                    margin: '10px auto'
+                }}
+            >
+                확인
+            </button>
         </div>
     );
 };
