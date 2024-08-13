@@ -54,7 +54,7 @@ const MyInfo = () => {
 
         if (response.data.data.role === "ADMIN") {
           setAdminButtonValue("관리자 페이지");
-          setAdminText('관리자');
+          setAdminText('(관리자)');
         } else {
           setAdminButtonValue("관리자 신청하기");
           setAdminText('');
@@ -182,7 +182,7 @@ const MyInfo = () => {
         <div className={styles.infoContainer}>
           <div className={styles.nameContainer}>
             <div className={styles.nameBox}>
-              <span>{name}</span>
+              <span className={styles.nameBoxName}>{name}</span>
               <span className={styles.nameBoxAdmin}>{adminText}</span>
             </div>
             <div className={styles.nameBoxButtonContainer}>
@@ -193,26 +193,36 @@ const MyInfo = () => {
               </button>
             </div>
           </div>
-          <div className={styles.infoBox}>
-            <h3>닉네임</h3>
-            <input type="text" className={classNames({ [styles.hide]: hideInput })} value={nickname} onChange={handlerUsernameInputChange} />
-            <span className={classNames({ [styles.hide]: hideInputValue })}>{nickname}</span>
+          <div className={styles.infoBoxContainer}>
+            <div className={styles.infoBox}>
+              <h3>닉네임</h3>
+              <input type="text"
+                     className={classNames({[styles.hide]: hideInput})}
+                     value={nickname} onChange={handlerUsernameInputChange}/>
+              <span className={classNames(
+                  {[styles.hide]: hideInputValue})}>{nickname}</span>
+            </div>
+            <div className={styles.infoBox}>
+              <h3>생년월일</h3>
+              <input type="date" value={birth_day}
+                     className={classNames({[styles.hide]: hideInput})}
+                     onChange={handlerBirthdateInputChange}/>
+              <span className={classNames(
+                  {[styles.hide]: hideInputValue})}>{birth_day}</span>
+            </div>
+            <div className={styles.infoBox}>
+              <h3>주소<br/>(기본 배송지)</h3>
+              <AddressForm onSubmit={handleAddressSubmit}
+                           className={classNames(styles.addressFromBox,
+                               {[styles.hide]: hideInput})}/>
+              <span className={classNames(
+                  {[styles.hide]: hideInputValue})}>{address}</span>
+            </div>
           </div>
-          <div className={styles.infoBox}>
-            <h3>생년월일</h3>
-            <input type="date" value={birth_day}
-                   className={classNames({ [styles.hide]: hideInput })}
-                   onChange={handlerBirthdateInputChange} />
-            <span className={classNames({ [styles.hide]: hideInputValue })}>{birth_day}</span>
-          </div>
-          <div className={styles.infoBox}>
-            <h3>주소<br />(기본 배송지)</h3>
-            <AddressForm onSubmit={handleAddressSubmit} className={classNames(styles.addressFromBox , { [styles.hide]: hideInput })}/>
-            <span className={classNames({ [styles.hide]: hideInputValue })}>{address}</span>
-          </div>
-          <button className={classNames(styles.infoBtn, { [styles.hide]: hideSubmitButton })} onClick={sendProfileInfo}>확인</button>
+          <button className={classNames(styles.infoBtn,
+              {[styles.hide]: hideSubmitButton})} onClick={sendProfileInfo}>수정
+          </button>
         </div>
-        <div className={styles.line}></div>
         <div className={styles.actContainer}>
           <div className={styles.actBox}>
             <div className={styles.actName}>
@@ -244,8 +254,8 @@ const MyInfo = () => {
                   const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
                   const [createdTime, _] = rawCreatedTime.split('.');
                   return (
-                      <div className={styles.orderContent} key={index}>
-                        <span className={styles.orderContentName}>{content.product_name}</span>
+                      <div className={styles.actContent} key={index}>
+                        <span className={styles.actContentTitle}>{content.product_name}</span>
                         <span>{content.quantity} 개</span>
                         <span>{content.amount} 원</span>
                         <span>{content.payment_method}</span>
@@ -265,9 +275,9 @@ const MyInfo = () => {
             <div className={styles.actContentContainer}>
               {
                 deliverys.slice(0, 5).map((content, index) => (
-                    <div className={styles.deliveryContent} key={index}>
-                      <span className={styles.deliveryState}>{content.order_status}</span>
-                      <span>{content.product_name}</span>
+                    <div className={styles.actContent} key={index}>
+                      <span className={styles.actContentState}>{content.order_status}</span>
+                      <span className={styles.actContentTitle}>{content.product_name}</span>
                       <span>{content.address}</span>
                     </div>
                 ))
