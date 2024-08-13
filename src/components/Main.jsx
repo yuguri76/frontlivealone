@@ -108,17 +108,19 @@ const Main = () => {
             <div className={styles.sectionTitle}>실시간 방송</div>
             <div className={styles.onAirContainer}>
               <div className={styles.onAir}>
-                <div className={styles.discountText}>{broadcastTitle || "현재 진행중인 방송이 없습니다."}</div>
-                {broadcastTitle && broadcastTitle !== "현재 진행중인 방송이 없습니다." && (
-                    <div className={styles.broadcastStatus}>
-                      방송이 현재 진행중입니다
-                    </div>
-                )}
-                {broadcastTitle && broadcastTitle !== "현재 진행중인 방송이 없습니다." && (
-                    <button className={styles.watchButton} onClick={handleStreamingClick}>
-                      보러가기
-                    </button>
-                )}
+                <div className={styles.discountText}>
+                  {broadcastTitle || "관리자"}
+                </div>
+                <div className={styles.broadcastStatus}>
+                  방송이 현재 진행중입니다
+                  <div className={styles.bethestar}>
+                    지금 바로 방송의 주인공이 되어보세요!
+                  </div>
+                </div>
+                <button className={styles.watchButton} onClick={handleStreamingClick}>
+                  보러가기
+                </button>
+
               </div>
             </div>
           </div>
@@ -127,9 +129,9 @@ const Main = () => {
             <div className={styles.sectionTitle}>바로가기</div>
             <div className={styles.adContainer}>
               <div className={styles.ad} onClick={handleAdClick}>
+              </div>
+            </div>
           </div>
-        </div>
-        </div>
         </div>
       </div>
   );

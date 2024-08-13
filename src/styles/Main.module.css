@@ -231,6 +231,13 @@
   text-align: center; /* 중앙 정렬 */
 }
 
+.bethestar {
+  font-size: 18px; /* 텍스트 크기 */
+  color: white; /* 텍스트 색상 */
+  margin-top: 10px; /* 위 요소와의 간격 */
+  text-align: center; /* 중앙 정렬 */
+}
+
 .discountText {
   font-size: 30px; /* 방송 이름 크기 */
   margin-top: 50px;
