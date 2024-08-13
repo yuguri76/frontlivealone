@@ -136,7 +136,7 @@ function AdminPage() {
                      onClick={handleBroadcastClick}>
                   <span>{index + 1}.</span>
                   <div className={styles.itemListContent}>
-                    <span>{broadcast.title}</span>
+                    <span className={styles.itemListTitle}>{broadcast.title}</span>
                     <span>{broadcast.streamer}</span>
                     <span>{broadcast.date}</span>
                   </div>
