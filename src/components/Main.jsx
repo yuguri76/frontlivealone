@@ -109,18 +109,19 @@ const Main = () => {
             <div className={styles.onAirContainer}>
               <div className={styles.onAir}>
                 <div className={styles.discountText}>
-                  {broadcastTitle || "관리자"}
+                  {broadcastTitle && broadcastTitle !== "현재 진행중인 방송이 없습니다." ? broadcastTitle : "관리자"}
                 </div>
                 <div className={styles.broadcastStatus}>
                   방송이 현재 진행중입니다
-                  <div className={styles.bethestar}>
-                    지금 바로 방송의 주인공이 되어보세요!
-                  </div>
                 </div>
+                {broadcastTitle === "관리자" && (
+                    <div className={styles.bethestar}>
+                      지금 바로 방송의 주인공이 되어보세요!
+                    </div>
+                )}
                 <button className={styles.watchButton} onClick={handleStreamingClick}>
                   보러가기
                 </button>
-
               </div>
             </div>
           </div>
