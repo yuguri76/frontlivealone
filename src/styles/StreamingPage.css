@@ -41,9 +41,9 @@
 
 .product-info {
     background-color: #f8f9fa;
-    padding: 10px;
+    padding: 20px;
     border-radius: 10px;
-    margin-left: 50px;
+    margin-left: 30px;
     font-size: 16px;
     color: #005865;
     box-shadow: none;
@@ -57,7 +57,7 @@
     color: #005865;
     display: flex;
     align-items: center;
-    margin-bottom: 5px; /* 제목과 상품 정보 사이의 간격 조정 */
+    margin-bottom: 15px; /* 제목과 상품 정보 사이의 간격 조정 */
 }
 
 /* 이모티콘 스타일 */

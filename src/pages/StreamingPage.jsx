@@ -98,10 +98,10 @@ function StreamingPage() {
         />
         <div className="product-info-wrapper">
           <div className="product-info">
-              <div className="stream-title">
-                  <img src={liveIcon} alt="Icon" className="icon-image"/> {broadcastTitle}
-              </div>
-            <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
+            <div className="stream-title">
+              <img src={liveIcon} alt="Icon" className="icon-image"/> {broadcastTitle}
+            </div>
+            <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)}/>
           </div>
           <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
         </div>
