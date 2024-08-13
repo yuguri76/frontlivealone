@@ -6,7 +6,7 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
   const [message, setMessage] = useState('');
   const [inputCount, setInputCount] = useState(0);
   const [sendAvailable,setSendAvailable] = useState(true);
-  const throtteleTime = 1000;
+  const throtteleTime = 600;
   const maxByteLength = 150;
 
 
