@@ -22,7 +22,7 @@ const Footer = () => {
                 <div className={styles.footerLinks}>
                     <a href="/">HOME</a>
                     <a href="/streaming">BROADCAST</a>
-                    <a href="/shop">MY PAGE</a>
+                    <a href="WarningPage">가이드(브로셔)</a>
                     <a href="WarningPage">고객의 소리(제출폼링크)</a>
                     <a href="https://nbcamp2024.slack.com/team/U06K01GG031">고객센터</a>
                 </div>
