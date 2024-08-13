@@ -1,22 +1,52 @@
 .container {
-    background-color: #b7defa;
+    background-color: #e0ecef;
     padding: 30px;
-    border-radius: 50px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 96%;
-    font-size: 2rem;
-    margin-right: 30px;;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Noto Sans', sans-serif;
+    color: #005865;
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 20px;
+    color: #005865;
+    font-weight: bold;
+    text-align: left;
+    width: 100%;
 }
 
 .content {
-    font-size: 1.5rem;
-    line-height: 1.5;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.infoRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #005865;
+    padding-bottom: 8px;
+}
+
+.infoRow label {
+    font-size: 1rem;
+    color: #005865;
+    font-weight: bold;
+    width: 40%;
+}
+
+.infoRow span {
+    font-size: 1rem;
+    color: #005865;
+    width: 60%;
+    text-align: right;
 }

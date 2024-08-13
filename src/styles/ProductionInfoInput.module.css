@@ -1,38 +1,98 @@
 .productionInfo {
-    background-color: #b7defa;
+    background-color: #ffffff;
     padding: 30px;
-    border-radius: 50px;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 96%;
-    font-size: 2rem;
-    margin-right: 30px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Noto Sans', sans-serif;
+    color: #005865;
+}
+
+.productionInfo h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #005865;
+    text-align: left;
+    width: 100%;
 }
 
 .inputGroup {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    gap: 15px;
-    width: 70%;
+    gap: 30px;
 }
 
-.inputGroup input {
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
+.inputRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inputRow label {
     font-size: 1rem;
+    color: #005865;
+    width: 35%;
+    font-weight: bold;
+}
+
+.inputRow input {
+    width: 60%;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid #005865;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: border-color 0.3s ease;
+}
+
+.inputRow input:focus {
+    border-color: #005865;
+    outline: none;
+}
+
+.textAreaRow {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.textAreaRow label {
+    font-size: 1rem;
+    color: #005865;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.textAreaRow textarea {
+    height: 240px;
+    padding: 8px;
+    border: 1px solid #005865;
+    border-radius: 5px;
+    resize: none;
+    overflow: auto;
+    width: 100%;
 }
 
 .submitButton {
     margin-top: 30px;
-    padding: 10px 50px;
+    padding: 10px 0;
+    width: 50%; /* Adjusted width to make it narrower */
     cursor: pointer;
     border: none;
-    border-radius: 20px;
-    background-color: #007bff;
+    border-radius: 25px;
+    background-color: #005865;
     color: white;
-    font-size: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    align-self: center; /* Center align the button */
+}
+
+.submitButton:hover {
+    background-color: #004050;
 }

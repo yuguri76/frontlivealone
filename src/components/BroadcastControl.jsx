@@ -46,17 +46,20 @@ const BroadcastControl = ({ product, isSettingCompleted, isBroadcastStart, onBro
     };
 
     return (
-        <div className={styles.control}>
-            <div className={styles.controlItem}>
-                <label>방송 제목</label>
-                <input type="text" placeholder="방송 제목" disabled={!isSettingCompleted || isBroadcastStart} value={title} onChange={(e) => setTitle(e.target.value)} />
+        <div className={styles.container}>
+            <div className={styles.control}>
+                <div className={styles.controlItem}>
+                    <label>* 방송 제목</label>
+                    <input type="text" placeholder="방송 제목" disabled={!isSettingCompleted || isBroadcastStart} value={title} onChange={(e) => setTitle(e.target.value)} />
+                </div>
             </div>
             <div className={styles.buttons}>
                 <button className={styles.startButton} disabled={!isSettingCompleted || isBroadcastStart} onClick={handleBroadcastStart}>방송 시작</button>
                 <button className={styles.stopButton} disabled={!isBroadcastStart} onClick={handleBroadcastClose}>방송 중단</button>
             </div>
         </div>
-    );
+    );   
+    
 };
 
 export default BroadcastControl;
