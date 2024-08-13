@@ -64,7 +64,6 @@ const BroadcastHistory = () => {
         <div className={styles.historyNameContainer}>
           <span>방송 내역</span>
         </div>
-        <div className={styles.line}></div>
         <div className={styles.historyContentContainer}>
           {
             broadcasts.map((content, index) => (

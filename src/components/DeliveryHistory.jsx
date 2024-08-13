@@ -70,8 +70,8 @@ const DeliveryHistory = () => {
           {
             deliverys.map((content, index) => (
                 <div className={styles.historyContent} key={index}>
-                  <span className={styles.historyDeliveryState}>{content.order_status}</span>
-                  <span>{content.product_name}</span>
+                  <span className={styles.historyContentState}>{content.order_status}</span>
+                  <span className={styles.historyContentTitle}>{content.product_name}</span>
                   <span>{content.address}</span>
                 </div>
             ))
