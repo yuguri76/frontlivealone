@@ -88,9 +88,6 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
 
   return (
     <div className={styles.chatBox}>
-      <header className={styles.chatHeader}>
-        <h2>채팅방에 오신 것을 환영합니다</h2>
-      </header>
       <div className={styles.chatBody}>
         <ChatList messages={messages} />
       </div>
@@ -108,20 +105,21 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
         <button onClick={sendMessageHandler} disabled={!isAvailableChat}>
           전송
         </button>
-      </footer>
-      <div className={styles.charCount}>
+        <br/>
+        <div className={styles.charCount}>
         {inputCount}/{maxByteLength} bytes
-      </div>
+        </div>
+      </footer>
     </div>
   );
 }
 
-const Chats = React.memo(({ userNickname, message }) => {
+const Chats = React.memo(({ userNickname, message,getColor }) => {
   return (
     <div className={styles.chatWindow}>
       <div className={styles.message}>
-        <span className={styles.nickname}>{userNickname}</span>
-        <span className={styles.texts}>: {message}</span>
+        <span className={styles.nickname} style={{ color: getColor}}>{userNickname}</span>
+        <span className={styles.texts}> {message}</span>
       </div>
     </div>
   );
@@ -156,10 +154,16 @@ function ChatList({ messages }) {
       width={400}
       itemData={messages}
       ref={chatWindowRef}
+      style={{ 
+        scrollbarWidth: 'none', /* Firefox */
+        msOverflowStyle: 'none', /* IE 및 Edge */
+        overflowX: 'hidden', 
+        overflowY: 'scroll' /* 스크롤 기능은 유지하되 스크롤바는 숨김 */
+      }}
     >
       {({ index, style }) => (
         <div style={style}>
-          <Chats userNickname={messages[index].nickname} message={messages[index].text} />
+          <Chats userNickname={messages[index].nickname} message={messages[index].text} getColor={messages[index].color} />
         </div>
       )}
     </List>
