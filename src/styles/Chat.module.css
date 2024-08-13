@@ -65,8 +65,8 @@
   border: 1px solid black;
   margin-right: 10px;
   box-sizing: border-box;
-  width: 300px;
-  display: inline-block;
+  width: 100%;
+  
 }
 
 .chatFooter button {
@@ -77,12 +77,12 @@
   cursor: pointer;
   color: white;
   box-sizing: border-box;
-  width: 60px;
-  display: inline-block;
+  width: 20%;
+  float:right;
+  margin: 2px;
 }
 
 .chatFooter button:hover {
-  margin: 5px;
   background-color: #45a049;
 }
 
