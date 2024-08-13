@@ -24,14 +24,14 @@ function GuidePage() {
             <h1 className={styles.title}>스트리밍을 위한 스트림랩 설치 및 세팅 가이드</h1>
 
             <div className={styles.step}>
-                <h2>1. 스트림랩 설치</h2>
-                <p><a href="https://streamlabs.com/ko-kr" target="_blank" rel="noopener noreferrer">https://streamlabs.com/ko-kr</a></p>
+                <h2>STEP 1. 스트림랩 설치</h2>
+                <p><a href="https://streamlabs.com/ko-kr" target="_blank" rel="noopener noreferrer">스트림랩 다운로드 받으러 가기</a></p>
                 <p>로그인 필요없이 바로 다운로드 및 실행</p>
                 <img src={streamlab1} alt="Step 1" className={styles.image} />
             </div>
 
             <div className={styles.step}>
-                <h2>2. 스트림랩 초기 세팅</h2>
+                <h2>STEP 2. 스트림랩 초기 세팅</h2>
                 <img src={streamlab2} alt="Step 2" className={styles.image} />
                 <p>이후 '계속' 클릭</p>
                 <img src={streamlab3} alt="Step 3" className={styles.image} />
@@ -42,7 +42,7 @@ function GuidePage() {
             </div>
 
             <div className={styles.step}>
-                <h2>3. 스트림랩 방송 세팅</h2>
+                <h2>STEP 3. 스트림랩 방송 세팅</h2>
                 <img src={streamlab6} alt="Step 4" className={styles.image} />
                 <img src={streamlab7} alt="Step 4" className={styles.image} />
                 <p>URL에 rtmp://mabinogi.store:1935/live 붙여넣기</p>
