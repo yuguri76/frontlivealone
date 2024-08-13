@@ -3,12 +3,14 @@
   flex-direction: column;
   gap: 50px;
   padding: 30px;
+  color: #015866;
 }
 
 .adminMenuContainer {
   display: flex;
   gap: 20px;
   font-size: 20px;
+  font-weight: 900;
 }
 
 .adminMenuContainer > span:hover {
@@ -44,10 +46,11 @@
 .consumerListBox > table > thead > tr > th {
   font-size: 20px;
   font-weight: 900;
+  border-bottom: 1px solid #015866;
 }
 
-.consumerListBox > table > tbody > tr {
-  border-bottom: 1px solid black;
+.consumerListBox > table > tbody > tr > td {
+  border-bottom: 1px solid #015866;
   font-size: 20px;
 }
 
@@ -62,6 +65,11 @@
   margin-top: 20px;
 }
 
-.select {
+.consumerListPageContainer > span:hover {
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.consumerListPageContainer .select {
   font-weight: 900;
 }
