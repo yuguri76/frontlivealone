@@ -137,7 +137,8 @@ const useWebSocket = (token,refreshToken) => {
         console.log(data);
         if (type === 'CHAT_MESSAGE') {
             setMessages((prevMessages) => {
-                const updatedMessages = [...prevMessages, { nickname: messenger, text: message }];
+                const parsedMessage = JSON.parse(message);
+                const updatedMessages = [...prevMessages, { nickname: messenger, text: parsedMessage.text, color:parsedMessage.color }];
                 if (updatedMessages.length > MAX_MESSAGES) {
                     updatedMessages.shift();
                 }
@@ -224,11 +225,15 @@ const useWebSocket = (token,refreshToken) => {
             messageInput.placeholder = '채팅 입력 불가';
             setAvailableChat(false);
         } else if (type === 'RESPONSE_CHAT_INIT') {
-            const initMessages = JSON.parse(message).map(({ init_nickname, init_text }) => ({
+      
+            const parsedMessage = JSON.parse(message);  
+   
+            const initMessages = parsedMessage.map(({init_nickname,init_text}) => ({
                 nickname: init_nickname,
-                text: init_text,
+                text: JSON.parse(init_text).text,
+                color: JSON.parse(init_text).color 
             }));
-
+        
             setMessages((prevMessages) => {
                 const updatedMessages = [...initMessages, ...prevMessages];
                 if (updatedMessages.length > MAX_MESSAGES) {
@@ -243,12 +248,16 @@ const useWebSocket = (token,refreshToken) => {
 
     const sendMessage = (userNickname, message) => {
         if (client.current && isAvailableChat) {
+            const messageJson = JSON.stringify({
+                text: message,
+                color: chatColor
+            })
             client.current.publish({
                 destination: '/pub/send',
                 body: JSON.stringify({
                     type: 'CHAT_MESSAGE',
                     messenger: userNickname,
-                    message: message
+                    message: messageJson
                 })
             });
         }
