@@ -1,10 +1,11 @@
 import React from 'react';
 import HLSPlayer from '../components/HLSPlayer';
+import styles from '../styles/LiveScreen.module.css'
 
 const LiveScreen = ({ wsIsLive, wsStreamKey, width=720 }) => {
 
     return (
-        <div>
+        <div className={styles.container}>
             {wsIsLive ? (
                 <HLSPlayer
                     key = {wsIsLive}
