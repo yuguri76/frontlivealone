@@ -1,46 +1,47 @@
 .historyContainer {
-  background-color: white;
+  background-color: transparent;
   margin: 20px 100px 0 100px;
   padding: 50px;
   border-radius: 20px;
+  box-shadow: 10px 10px 20px #666666;
+}
+
+.historyNameContainer {
+  margin-bottom: 30px;
 }
 
 .historyNameContainer > span {
   font-size: 20px;
   font-weight: 700;
-  color: dodgerblue;
-}
-
-.line {
-  width: 100%;
-  height: 1px;
-  background-color: #d4d4d4;
-  margin: 30px 0px;
+  color: #105258;
+  border-bottom: 1px solid #105258;
+  padding-bottom: 10px;
 }
 
 .historyContentContainer {
-  height: 500px;
   display: flex;
+  flex-direction: column;
   gap: 30px;
 }
 
 .historyContent {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 50px;
-  width: 300px;
+  justify-content: space-around;
+  color: #105258;
   padding: 30px;
-  border: 1px solid rgba(80, 118, 230, 0.5);
   border-radius: 10px;
   text-align: center;
-  color: #1a89f0;
+  background-color: #D9E7E8;
+  box-shadow: 5px 5px 8px #666666;
 }
 
 .historyContent .historyContentState {
-  color: #db4242;
   font-weight: 700;
+  background-color: rgba(1, 88, 102, 0.5);
+  padding: 10px;
+  border-radius: 40px;
+  color: white;
 }
 
 .historyContent .historyContentTitle, .historyContentName {
@@ -57,7 +58,7 @@
   gap: 30px;
   margin-top: 50px;
   justify-content: center;
-  color: dodgerblue;
+  color: #105258;
 }
 
 .pageContainer span:hover {
@@ -66,9 +67,4 @@
 
 .pageSelect {
   font-weight: 900;
-}
-
-.historyDeliveryState {
-  color: green;
-  font-weight: 800;
 }
