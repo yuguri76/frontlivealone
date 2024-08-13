@@ -1,11 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FixedSizeList as List } from 'react-window';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { VariableSizeList as List } from 'react-window';
 import styles from '../../styles/Chat.module.css';
 
 function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }) {
   const [message, setMessage] = useState('');
   const [inputCount, setInputCount] = useState(0);
-  const maxByteLength = 63;
+  const [sendAvailable,setSendAvailable] = useState(true);
+  const throtteleTime = 600;
+  const maxByteLength = 150;
+
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -15,9 +18,17 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
 
   const sendMessageHandler = () => {
     if (message.trim() && isAvailableChat) {
+
+      if(!sendAvailable){
+        console.log('메시지를 너무 빨리 보냈음'); // 채팅창이든 알람이든 뭔가 띄우는 로직 
+        return;
+      }
+
       sendMessage(userNickname, message.trim());
       setMessage(''); // 메시지 전송 후 입력 칸 비우기
       setInputCount(0); // 글자 수 초기화
+      setSendAvailable(false);
+      setTimeout(()=>setSendAvailable(true),throtteleTime);
     }
   };
 
@@ -74,6 +85,7 @@ function ChatContainer ({ messages, sendMessage, isAvailableChat, userNickname }
     }
   };
 
+
   return (
     <div className={styles.chatBox}>
       <header className={styles.chatHeader}>
@@ -126,11 +138,21 @@ function ChatList({ messages }) {
     scrollToBottom();
   }, [messages]); // messages 상태가 업데이트될 때마다 실행
 
+  const getItemSize = useCallback((index) => {
+    const message = messages[index];
+    if (!message) {
+      return 50; // 기본 높이 반환
+    }
+    const text = message.text || '';
+    const lines = Math.ceil(text.length / 40);
+    return lines * 25 + 20; // 기본 높이 + 줄 수에 따른 추가 높이
+  }, [messages]);
+
   return (
     <List
       height={635}
       itemCount={messages.length}
-      itemSize={50}
+      itemSize={getItemSize}
       width={400}
       itemData={messages}
       ref={chatWindowRef}
