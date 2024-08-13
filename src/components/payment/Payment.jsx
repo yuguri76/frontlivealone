@@ -257,58 +257,99 @@ const Payment = () => {
                 {isTimerActive && (
                     <Timer initialTime={600} onExpire={handleTimeExpired}/>
                 )}
-                <div className={styles.formGroup}>
-                    <label>주문 수량</label>
-                    <input
-                        type="text"
-                        placeholder="주문 수량 입력"
-                        value={orderQuantity}
-                        onChange={(e) => setOrderQuantity(e.target.value)}
-                    />
-                    <button className={styles.completeButton}
-                            onClick={handleOrderComplete}>완료
-                    </button>
+                {/* 1. 상품 정보 섹션 */}
+                <div className={styles.sectionContainer}>
+                    <h2 className={styles.sectionTitle}>1. 상품 정보</h2>
+                    <div className={`${styles.formGroup} ${styles.horizontal}`}>
+                        <label>주문 수량</label>
+                        <input
+                            type="text"
+                            placeholder="주문 수량 입력"
+                            value={orderQuantity}
+                            onChange={(e) => setOrderQuantity(e.target.value)}
+                            style={{ marginLeft: '0' }} /* 중앙 정렬을 위해 여백을 제거 */
+                        />
+                        <button className={styles.completeButton} onClick={handleOrderComplete}>완료</button>
+                    </div>
+                    <div className={styles.productInfo}>
+                        <h4>상품명 : {itemName}</h4>
+                        <h4>총 가격 : {amount * orderQuantity}</h4>
+                    </div>
                 </div>
-                <button className={styles.defaultAddressButton}
-                        onClick={() => setHideInputAddress(false)}>새 배송 주소지 입력
-                </button>
-                <div className={classNames(styles.formGroup,
-                    {[styles.hide]: hideInputAddress})}>
-                    <label>새 배송 주소지 입력</label>
-                    <AddressForm onSubmit={handleAddressSubmit}/>
+
+                {/* 2. 배송 정보 섹션 */}
+                <div className={styles.sectionContainer}>
+                    <h2 className={styles.sectionTitle}>2. 배송 정보</h2>
+                    <div className={`${styles.formGroup} ${styles.horizontal}`} style={{ margin: '18px' }}>
+                        <label>배송 주소</label>
+                        <input
+                            type="text"
+                            placeholder="아래에서 선택해주세요"
+                            value={shippingAddress}
+                            readOnly
+                        />
+                        <button
+                            className={styles.completeButton}
+                            style={{ visibility: 'hidden' }}
+                            aria-hidden="true"
+                        >
+                            투명 버튼
+                        </button>
+                    </div>
+                    <div className={styles.buttonContainer}>
+                        <button className={styles.defaultAddressButton}
+                                onClick={() => setHideInputAddress(false)}>새 배송 주소지 입력
+                        </button>
+                        <button className={styles.defaultAddressButton} onClick={getDefaultAddress}>기본 배송지로 설정</button>
+                    </div>
+                    <div
+                        className={classNames(styles.formGroup, {[styles.hide]: hideInputAddress, [styles.show]: !hideInputAddress})}
+                        style={{ marginBottom: '50px' }} /* 필요한 만큼 간격 설정 */
+                    >
+                        <label>새 배송 주소지 입력</label>
+                        <AddressForm onSubmit={handleAddressSubmit} className={styles.addressFormContainer} />
+                    </div>
+                    <div className={`${styles.formGroup} ${styles.horizontal}`}>
+                        <label>배송 요청사항</label>
+                        <input
+                            type="text"
+                            placeholder="배송 요청 사항"
+                            value={deliveryRequest}
+                            onChange={(e) => setDeliveryRequest(e.target.value)}
+                            style={{ marginLeft: '0' }} /* 중앙 정렬을 위해 여백을 제거 */
+                        />
+                        <button
+                            className={styles.completeButton}
+                            style={{ visibility: 'hidden' }}
+                            aria-hidden="true"
+                        >
+                            투명 버튼
+                        </button>
+                    </div>
                 </div>
-                <button className={styles.defaultAddressButton}
-                        onClick={getDefaultAddress}>기본 배송지로 설정
-                </button>
-                <div className={styles.formGroup}>
-                    <label>배송 주소</label>
-                    <input type="text" value={shippingAddress} readOnly/>
+
+                {/* 3. 결제 섹션 */}
+                <div className={styles.sectionContainer}>
+                    <h2 className={styles.sectionTitle}>3. 결제</h2>
+                    <p
+                        className={styles.sectionTitle}
+                        style={{ fontSize: '16px' }} /* 글자 크기를 조정하세요 */
+                    >
+                        카카오페이, 토스페이를 지원합니다.
+                    </p>
+                    <div className={styles.paymentMethods}>
+                        <img
+                            src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"
+                            alt="Kakao Pay"
+                            onClick={handleKakaoPayment}
+                        />
+                        <img
+                            src="https://velog.velcdn.com/images/ysy9976/post/07de8ce3-5fc5-41af-b865-4ee89a773bab/image.png"
+                            alt="Toss"
+                            onClick={handleTossPayment}
+                        />
+                    </div>
                 </div>
-                <div className={styles.formGroup}>
-                    <label>배송 요청사항</label>
-                    <input
-                        type="text"
-                        placeholder="배송 요청 사항"
-                        value={deliveryRequest}
-                        onChange={(e) => setDeliveryRequest(e.target.value)}
-                    />
-                </div>
-                <h4>상품명 : {itemName} 총 가격 : {amount * orderQuantity}</h4>
-                <div className={styles.paymentMethods}>
-                    <img
-                        src="https://velog.velcdn.com/images/ysy9976/post/4171da19-0932-4edb-82fc-c9b787100bd8/image.png"
-                        alt="Kakao Pay"
-                        onClick={handleKakaoPayment}
-                    />
-                    <img
-                        src="https://velog.velcdn.com/images/ysy9976/post/07de8ce3-5fc5-41af-b865-4ee89a773bab/image.png"
-                        alt="Toss"
-                        onClick={handleTossPayment}
-                    />
-                </div>
-                <button className={styles.submitButton}
-                        onClick={handleCompletePayment}>완료
-                </button>
             </div>
         </div>
     );

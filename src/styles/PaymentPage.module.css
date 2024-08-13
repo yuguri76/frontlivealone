@@ -1,23 +1,17 @@
 .pageContainer {
-    background-color: #f0f8ff;
+    background-color: rgba(237, 246, 246, 0.87); /* 페이지 배경색 */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 시작 부분에서 요소들을 정렬 */
     height: 100vh;
     margin: 0;
+    padding-top: 20px; /* 페이지 상단 여백 추가 */
 }
 
 .paymentContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #b7defa;
-    border-radius: 8px;
-    width: 60%;
-    margin: 0 auto;
+    width: 80%;
     max-width: 1000px;
-    height: 100vh;
+    margin: 0 auto;
 }
 
 h1 {
@@ -26,26 +20,67 @@ h1 {
     text-align: center;
 }
 
-.formGroup {
-    width: 70%;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column; /* 변경: 세로 정렬로 변경 */
-    align-items: flex-start; /* 변경: 라벨을 왼쪽에 정렬 */
+.shippingAddressLabel {
+    margin-right: 30px !important; /* 배송 주소 라벨에만 적용되는 마진 */
 }
 
-.paymentInfoGroup {
+.sectionContainer {
+    background-color: rgba(237, 246, 246, 0.87);
+    padding: 30px;
     margin-bottom: 40px;
+    border-radius: 8px;
+    width: 70%;
+    border: 2px solid #187079;
+    margin-left: 150px;
+}
+
+.sectionTitle {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+
+.addressFormContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 자식 요소들을 수직으로 중앙 정렬 */
+    margin-top: 20px;
+    width: 100%;
+}
+
+.formGroup {
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.formGroup.horizontal {
+    flex-direction: row; /* 가로로 정렬 */
+    align-items: center; /* 세로 축 정렬 */
+    justify-content: space-between; /* 각 요소를 수평으로 띄움 */
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+    width: 100%;
+    margin-top: 10px; /* 폼이 열릴 때 여유 공간을 제공 */
 }
 
 .formGroup label {
     font-weight: bold;
     text-align: left;
-    margin-bottom: 8px; /* 변경: 라벨과 입력 필드 사이의 간격 조절 */
+    margin-bottom: 0;
+    margin-right: 30px;
 }
 
 .formGroup input {
-    width: 100%; /* 변경: 입력 필드의 너비를 formGroup에 맞추기 */
+    width: 60%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -53,67 +88,92 @@ h1 {
 
 .formGroup button {
     padding: 8px 12px;
-    background-color: #4d79ff;
+    background-color: #105258;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px; /* 변경: 버튼 위에 간격 추가 */
-    align-self: flex-end; /* 버튼을 오른쪽 끝으로 정렬 */
+    margin-top: 0px;
+    margin-left: 10px; /* 버튼과 입력창 사이 간격 */
+    align-self: flex-end;
+}
+
+.defaultAddressContainer {
+    display: flex;
+    justify-content: center; /* 버튼들을 중앙 정렬 */
+    gap: 20px; /* 버튼 간 간격 설정 */
+    margin-bottom: 20px;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* 버튼 간 간격 설정 */
+    margin-bottom: 20px;
 }
 
 .defaultAddressButton {
     padding: 10px;
-    background-color: #4d79ff;
+    background-color: #105258;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-bottom: 20px;
     width: 30%;
     text-align: center;
 }
 
 .paymentMethods {
     display: flex;
-    gap: 20px;
+    gap: 60px;
     margin-top: 20px;
     justify-content: center;
 }
 
 .paymentMethods img {
-    width: 80px;
+    width: 100px;
     cursor: pointer;
 }
 
-.submitButton {
-    display: block;
-    width: 30%;
-    padding: 10px;
-    background-color: #4d79ff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+/* 상품명과 총 가격을 수직으로 배치 */
+.productInfo {
+    text-align: center;
+    margin-top: 10px; /* 상단과 간격 추가 */
 }
 
-.formRow {
+/* 상품명과 총 가격 중앙 정렬 */
+.sectionContainer h4 {
+    text-align: center;
+    margin: 5px 0; /* 위아래 간격 설정 */
+}
+
+.addressFormContainer .formGroup {
+    width: 80%; /* 폼 그룹의 너비를 설정하여 중앙에 정렬되도록 함 */
+}
+
+.addressFormContainer input {
+    width: 100%; /* 입력창을 컨테이너 너비에 맞게 확장 */
+    margin-top: 5px /* 상단 여백 추가 */
+}
+
+.addressFormContainer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center; /* 중앙 정렬 */
     width: 100%;
 }
 
-.formRow .formGroup {
-    flex: 1;
-    margin-right: 10px;
+.addressFormContainer input[type="text"] {
+    width: 60%; /* 입력창이 전체 너비를 차지하도록 설정 */
 }
 
-.formRow .formGroup:last-child {
-    margin-right: 0;
+.addressFormContainer input[type="button"] {
+    width: 60%;
 }
 
-.hide {
-    display: none;
+.addressFormContainer button {
+    width: 100px; /* 확인 버튼의 크기를 적절히 설정 */
+    align-items: center;
+    margin-top: 10px; /* 버튼 위에 약간의 여백 추가 */
 }
+
