@@ -34,9 +34,11 @@ const RegisterAdmin = () => {
 
   return (
       <div className={styles.adminRegisterContainer}>
-            <span>관리자 암호: </span>
-            <input value={password} type="text" onChange={handleInputChange}/>
-            <button onClick={hadleSubmitClick}>확인</button>
+        <div className={styles.registerInputBox}>
+          <span>관리자 암호를 입력해주세요. </span>
+          <input value={password} type="text" onChange={handleInputChange}/>
+          <button onClick={hadleSubmitClick}>관리자 등록</button>
+        </div>
       </div>
   );
 };
