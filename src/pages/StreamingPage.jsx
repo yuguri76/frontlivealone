@@ -7,6 +7,7 @@ import LiveScreen from '../components/LiveScreen';
 import axiosInstance from '../axiosInstance';
 import { useSelector, useDispatch } from 'react-redux';
 import useWebSocket from '../hooks/useWebSocket';
+import liveIcon from '../assets/images/live_icon.png';
 
 function StreamingPage() {
   const navigate = useNavigate();
@@ -96,7 +97,10 @@ function StreamingPage() {
         />
         <div className="product-info-wrapper">
           <div className="product-info">
-            <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
+            <div className="stream-title">
+              <img src={liveIcon} alt="Icon" className="icon-image"/> {localStorage.getItem("title")}
+            </div>
+            <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)}/>
           </div>
           <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
         </div>
