@@ -72,7 +72,6 @@ const useWebSocket = (token,refreshToken) => {
                 });
 
                 client.current.publish({ destination: '/pub/session', body: authMessage });
-                requestViewerCount();
             },
             onStompError: (frame) => {
                 console.error('STOMP error: ' + frame.headers['message']);
