@@ -22,8 +22,8 @@ const Footer = () => {
                 <div className={styles.footerLinks}>
                     <a href="/">HOME</a>
                     <a href="/streaming">BROADCAST</a>
-                    <a href="WarningPage">가이드(브로셔)</a>
-                    <a href="WarningPage">고객의 소리(제출폼링크)</a>
+                    <a href="https://teamsparta.notion.site/Live-Alone-c40404bae9a04e8cb8232ffc166ccd7b">가이드(브로셔)</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScTssw30askXUjdUT8oikZ5rnpyK79QbLYkINmgRWTHIk-BSg/viewform?usp=sf_link">고객의 소리(제출폼링크)</a>
                     <a href="https://nbcamp2024.slack.com/team/U06K01GG031">고객센터</a>
                 </div>
                 <div className={styles.footerInfoCustom}>
