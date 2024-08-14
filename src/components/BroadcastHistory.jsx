@@ -76,12 +76,15 @@ const BroadcastHistory = () => {
           {
             broadcasts.map((content, index) => (
                 <div className={styles.historyContent} key={index}>
-                  <span className={styles.historyContentState}>{content.status}</span>
+                  <span
+                      className={styles.historyContentState}>{content.status}</span>
                   <span
                       className={styles.historyContentTitle}>{content.title}</span>
                   <span>상품명: {content.product_name}</span>
+                  <span>총 매출: {content.total_sale_price} 원</span>
                   <span
-                      className={styles.historyContentTime}>{content.air_time.replace('T', ' ')}</span>
+                      className={styles.historyContentTime}>{content.air_time.replace(
+                      'T', ' ')}</span>
                 </div>
             ))
           }
