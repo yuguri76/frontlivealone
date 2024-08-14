@@ -1,0 +1,75 @@
+.footer {
+    background-color: #021a1e;
+    color: #fff;
+    padding: 20px 0; /* 상하 패딩을 줄여서 전체 높이를 낮춤 */
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2; /* 줄 간 간격을 줄임 */
+    font-family: 'Arial', sans-serif;
+    gap: 5px;
+}
+
+.footerContainer {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footerLinks {
+    margin-bottom: 20px; /* HOME 줄 아래 간격을 더 넓게 */
+}
+
+.footerLinks a {
+    color: #fff;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.footerInfoCustom {
+    margin-bottom: 10px; /* 주소와 이용약관 사이 간격을 더 넓게 */
+}
+
+.footerInfoCustom h3 {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+.footerInfoCustom p{
+    margin: 0; /* 각 문단 사이의 간격을 줄임 */
+    font-size: 12px;
+    color: #ccc;
+    line-height: 0; /* 줄 간 간격을 줄임 */
+}
+
+.footerLegal {
+    margin-top: 20px; /* 주소와 이용약관 사이 간격을 더 넓게 */
+}
+
+.footerLegal a {
+    color: #fff;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.footerCopy {
+    margin-top: 5px; /* 상단 마진을 줄여서 전체 높이를 낮춤 */
+    font-size: 12px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footerIcons {
+    margin-bottom: 15px; /* 아이콘 아래의 간격을 줄임 */
+}
+
+.footerIconImage {
+    width: 50px;  /* 이미지 너비 */
+    height: 50px;  /* 이미지 높이 */
+    margin: 0 10px;
+    vertical-align: middle;
+}
