@@ -148,7 +148,7 @@ function ChatList({ messages }) {
 
   return (
     <List
-      height={635}
+      height={535}
       itemCount={messages.length}
       itemSize={getItemSize}
       width={400}
