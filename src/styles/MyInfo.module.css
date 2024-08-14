@@ -213,7 +213,7 @@ body {
   background-color: #EEF4F4;
   gap: 20px;
   padding: 30px;
-  max-width: 200px;
+  width: 200px;
   text-align: center;
   overflow: auto;
   border-radius: 10px;

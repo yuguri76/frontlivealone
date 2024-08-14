@@ -7,6 +7,7 @@ import classNames from "classnames";
 function AdminPage() {
       const navigate = useNavigate();
 
+      const [page, setPage] = useState(1);
       const [totalPage, setTotalPage] = useState(0);
       const [broadcasts, setBroadcasts] = useState([]);
       const [hideBroadcasts, setHideBroadcasts] = useState(true);
@@ -14,6 +15,7 @@ function AdminPage() {
       const [hideUsers, setHideUsers] = useState(true);
       const [selectBroadcastButton, setSelectBroadcastButton] = useState(false);
       const [selectUserButton, setSelectUserButton] = useState(false);
+      const [cursor, setCursor] = useState(1);
 
       useEffect(() => {
             getRole();
@@ -27,6 +29,9 @@ function AdminPage() {
 
         if (isNaN(page)) {
           page = 1;
+          setPage(page);
+        } else {
+          setPage(page);
         }
 
         try {
@@ -100,15 +105,13 @@ function AdminPage() {
 
   const handleBroadcastPageClick = async (event) => {
     let page = parseInt(event.target.innerHTML, 10);
-    console.log(event.target.innerHTML);
-    console.log(page);
+    setCursor(page);
     handleBroadcastButtonClick(page);
   };
 
   const handleUserPageClick = async (event) => {
     let page = parseInt(event.target.innerHTML, 10);
-    console.log(event.target.innerHTML);
-    console.log(page);
+    setCursor(page);
     handleUserButtonClick(page);
   };
 
@@ -134,7 +137,7 @@ function AdminPage() {
                 <div key={index} data-id={broadcast.id}
                      className={styles.itemContainer}
                      onClick={handleBroadcastClick}>
-                  <span>{index + 1}.</span>
+                  <span>{(page - 1) * 10 + (index + 1)}.</span>
                   <div className={styles.itemListContent}>
                     <span className={styles.itemListTitle}>{broadcast.title}</span>
                     <span>{broadcast.streamer}</span>
@@ -161,7 +164,8 @@ function AdminPage() {
 
         <div className={classNames(styles.pageContainer, {[styles.hide]: hideBroadcasts})}>
           {Array.from({length: totalPage}, (_, index) => (
-              <a key={index} onClick={handleBroadcastPageClick}>
+              <a key={index} onClick={handleBroadcastPageClick}
+              className={classNames({[styles.pageSelect]: cursor == index + 1})}>
                 {index + 1}
               </a>
           ))}
@@ -169,7 +173,8 @@ function AdminPage() {
 
         <div className={classNames(styles.pageContainer, {[styles.hide]: hideUsers})}>
           {Array.from({length: totalPage}, (_, index) => (
-              <a key={index} onClick={handleUserPageClick}>
+              <a key={index} onClick={handleUserPageClick}
+                 className={classNames({[styles.pageSelect]: cursor == index + 1})}>
                 {index + 1}
               </a>
           ))}

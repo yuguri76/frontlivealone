@@ -2,9 +2,11 @@ import React, {useEffect, useState} from 'react';
 import styles from '../styles/History.module.css';
 import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
+import {useParams} from "react-router-dom";
 
 const DeliveryHistory = () => {
-
+  const { userId: paramUserId } = useParams();
+  const [userId, setUserId] = useState(paramUserId);
   const [deliverys, setDeliverys] = useState([]);
 
   const [selectPageOne, setSelectPageOne] = useState(true);
@@ -14,9 +16,14 @@ const DeliveryHistory = () => {
   const [selectPageFive, setSelectPageFive] = useState(false);
 
   useEffect(() => {
+    if (!userId) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setUserId(user.id);
+    }
+
     const getDeliverys = async () => {
       try {
-        const response = await axiosInstance.get('/user/delivery', {
+        const response = await axiosInstance.get(`/user/${userId}/delivery`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
           }});
@@ -48,7 +55,7 @@ const DeliveryHistory = () => {
     }
 
     try {
-      const response = await axiosInstance.get(`/user/delivery?page=${page}`, {
+      const response = await axiosInstance.get(`/user/${userId}/delivery?page=${page}`, {
         headers: {
           Authorization: localStorage.getItem('accessToken')
         }});
@@ -89,7 +96,6 @@ const DeliveryHistory = () => {
           <span className={classNames({[styles.pageSelect]: selectPageFive})}
                 onClick={handlePageClick}>5</span>
         </div>
-        >
       </div>
   );
 }
