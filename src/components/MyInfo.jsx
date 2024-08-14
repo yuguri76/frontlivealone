@@ -66,7 +66,7 @@ const MyInfo = () => {
 
     const getBroadcasts = async () => {
       try {
-        const response = await axiosInstance.get('/user/broadcast', {
+        const response = await axiosInstance.get(`/user/${userId}/broadcast`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
           }
@@ -94,7 +94,7 @@ const MyInfo = () => {
 
     const getDelivery = async () => {
       try {
-        const response = await axiosInstance.get('/user/delivery', {
+        const response = await axiosInstance.get(`/user/${userId}/delivery`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
           }
@@ -166,7 +166,7 @@ const MyInfo = () => {
   }
 
   const handleBroadcastHistoryClick = () => {
-    navigate('/broadcastHistory');
+    navigate(`/user/${userId}/broadcast`);
   }
 
   const handlePaymentHistoryClick = () => {
@@ -174,7 +174,7 @@ const MyInfo = () => {
   }
 
   const handleDeliveryHistoryClick = () => {
-    navigate('/deliveryHistory');
+    navigate(`/user/${userId}/delivery`);
   }
 
   return (

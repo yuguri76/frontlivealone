@@ -213,7 +213,7 @@ body {
   background-color: #EEF4F4;
   gap: 20px;
   padding: 30px;
-  max-width: 200px;
+  width: 200px;
   text-align: center;
   overflow: auto;
   border-radius: 10px;
@@ -236,20 +236,21 @@ body {
   opacity: 0.4;
 }
 
+.addressFromBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  text-align: center;
+}
+
 .addressFromBox input {
   border: none;
+  width: 100%;
 }
 
 .addressFromBox input[type="button"] {
-  background-color: dodgerblue;
-  padding: 10px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
-}
-
-.addressFromBox button {
-  background-color: dodgerblue;
+  border-radius: 40px;
 }
 
 .hide {

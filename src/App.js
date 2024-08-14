@@ -35,9 +35,9 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/broadcasthistory" element={<BroadcastHistoryPage />} />
+            <Route path="/user/:userId/broadcast" element={<BroadcastHistoryPage />} />
             <Route path="/completepayment" element={<CompletePaymentPage />} />
-            <Route path="/deliveryhistory" element={<DeliveryHistoryPage />} />
+            <Route path="/user/:userId/delivery" element={<DeliveryHistoryPage />} />
             <Route path="/user/:userId" element={<MyInfoPage />} />
             <Route path="/paymenthistory" element={<PaymentHistoryPage />} />
             <Route path="/payment" element={<PaymentPage />} />

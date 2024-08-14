@@ -10,7 +10,7 @@ const RegisterAdmin = () => {
 
   const hadleSubmitClick = async () => {
     try {
-      await axiosInstance.put('/admin', {
+      await axiosInstance.put('/register/admin', {
         password
       }, {
         headers: {

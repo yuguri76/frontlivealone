@@ -3,6 +3,7 @@
   margin: 20px 100px 100px 100px;
   padding: 50px;
   border-radius: 20px;
+  height: 810px;
   box-shadow: 10px 10px 20px #666666;
   height: 70vh;
 }
@@ -23,6 +24,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
+  height: 86%;
 }
 
 .historyContent {
@@ -37,12 +39,18 @@
   box-shadow: 5px 5px 8px #666666;
 }
 
+.historyContent > span {
+  width: 33%;
+  text-align: center;
+}
+
 .historyContent .historyContentState {
   font-weight: 700;
   background-color: rgba(1, 88, 102, 0.5);
   padding: 10px;
   border-radius: 40px;
   color: white;
+  width: 100px;
 }
 
 .historyContent .historyContentTitle, .historyContentName {

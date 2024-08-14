@@ -76,6 +76,11 @@ body {
   width: 700px;
   justify-content: space-between;
   padding: 0 15px 10px 15px;
+  text-align: center;
+}
+
+.itemListContent > span {
+  width: 33%;
 }
 
 .itemListTitle {
@@ -83,6 +88,8 @@ body {
 }
 
 .pageContainer {
+  display: flex;
+  gap: 20px;
   margin-top: 30px;
 }
 
@@ -98,4 +105,8 @@ body {
 
 .hide {
   display: none;
+}
+
+.pageSelect {
+  font-weight: 900;
 }

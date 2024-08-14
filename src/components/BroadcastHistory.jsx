@@ -2,9 +2,12 @@ import React, {useEffect, useState} from 'react';
 import axiosInstance from '../axiosInstance';
 import styles from '../styles/History.module.css';
 import classNames from "classnames";
+import {useParams} from "react-router-dom";
 
 const BroadcastHistory = () => {
   const [broadcasts, setBroadcasts] = useState([]);
+  const { userId: paramUserId } = useParams();
+  const [userId, setUserId] = useState(paramUserId);
 
   const [selectPageOne, setSelectPageOne] = useState(true);
   const [selectPageTwo, setSelectPageTwo] = useState(false);
@@ -13,9 +16,14 @@ const BroadcastHistory = () => {
   const [selectPageFive, setSelectPageFive] = useState(false);
 
   useEffect(() => {
+    if (!userId) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      setUserId(user.id);
+    }
+
     const getBroadcasts = async () => {
       try {
-        const response = await axiosInstance.get('/user/broadcast', {
+        const response = await axiosInstance.get(`/user/${userId}/broadcast`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
           }});
@@ -47,7 +55,7 @@ const BroadcastHistory = () => {
     }
 
     try {
-      const response = await axiosInstance.get(`/user/broadcast?page=${page}`, {
+      const response = await axiosInstance.get(`/user/${userId}/broadcast?page=${page}`, {
         headers: {
           Authorization: localStorage.getItem('accessToken')
         }});
