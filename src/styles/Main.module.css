@@ -1,6 +1,7 @@
 .mainContainer {
   display: flex;
   flex-direction: column;
+  height: 98vh;
 }
 .Main_mainContainer,
 .Main_siteIntro,
@@ -8,6 +9,7 @@
   margin: 0 !important;
   padding: 0 !important;
 }
+
 .siteIntro {
   position: relative;
   text-align: center;
