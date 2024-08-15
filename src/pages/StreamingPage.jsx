@@ -23,7 +23,7 @@ function StreamingPage() {
   console.log(userId);
 
   // 웹소켓 훅을 한 번만 호출
-  const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname,viewerCount } = useWebSocket('');
+  const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname} = useWebSocket('');
 
   useEffect(() => {
     console.log(`Product ID from Redux: ${productId}`); // Redux에서 가져온 productId를 로그로 출력
@@ -99,9 +99,6 @@ function StreamingPage() {
             <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)} />
           </div>
           <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
-        </div>
-        <div>
-          시청자 수 : {viewerCount}
         </div>
       </div>
       <div className="chatbox-container">
