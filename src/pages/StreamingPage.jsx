@@ -47,6 +47,10 @@ function StreamingPage() {
   }, [productId, dispatch]);
 
   const handleBuyClick = async (event) => {
+    if(wsIsLive == false) {
+      alert("관리자 기본 방송 중엔 판매중인 상품이 없어서 구매하기 기능 사용이 불가능합니다")
+      return;
+    }
     console.log('product id: ' + productId);
     console.log('broadcast id: ' + broadcastId);
     console.log('product name: ' + productName);
