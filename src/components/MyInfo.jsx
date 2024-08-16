@@ -83,6 +83,10 @@ const MyInfo = () => {
         const response = await axiosInstance.get(`/payment/user/${userId}/completed`, {
           headers: {
             Authorization: localStorage.getItem('accessToken')
+          },
+          params: {
+            page: 0,
+            size: 5 // 5개의 항목만 가져옴
           }
         });
 
@@ -91,6 +95,7 @@ const MyInfo = () => {
         console.error('Error fetching payments:', error);
       }
     };
+
 
     const getDelivery = async () => {
       try {

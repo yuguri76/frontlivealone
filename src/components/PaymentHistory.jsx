@@ -68,8 +68,8 @@ const PaymentHistory = () => {
                     <span key={index}
                           className={classNames({ [styles.pageSelect]: currentPage === index })} // 현재 페이지에 해당하는 번호에 스타일 적용
                           onClick={() => handleClick(index)}>
-            {index + 1} {/* 페이지 번호 표시 */}
-          </span>
+                        {index + 1} {/* 페이지 번호 표시 */}
+                    </span>
                 ))}
             </div>
         </div>
