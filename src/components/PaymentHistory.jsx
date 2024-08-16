@@ -50,7 +50,6 @@ const PaymentHistory = () => {
           <span className={classNames({[styles.pageSelect]: cursor === 4})}
                 onClick={handleClick(4)}>5</span>
         </div>
-        >
       </div>
   );
 }
