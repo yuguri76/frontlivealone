@@ -59,6 +59,9 @@ function AdminPage() {
 
     if (isNaN(page)) {
       page = 1;
+      setPage(page);
+    } else {
+      setPage(page);
     }
 
     try {
