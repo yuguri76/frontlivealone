@@ -72,7 +72,7 @@ const MyInfo = () => {
           }
         });
 
-        setBroadcasts(response.data.data);
+        setBroadcasts(response.data.data.content);
       } catch (error) {
         console.error('Error fetching broadcasts:', error);
       }
@@ -86,7 +86,7 @@ const MyInfo = () => {
           }
         });
 
-        setPayments(response.data.data);
+        setPayments(response.data.data.content);
       } catch (error) {
         console.error('Error fetching payments:', error);
       }
@@ -100,7 +100,7 @@ const MyInfo = () => {
           }
         });
 
-        setDeliverys(response.data.data);
+        setDeliverys(response.data.data.content);
       } catch (error) {
         console.error('Error fetching deliverys:', error);
       }

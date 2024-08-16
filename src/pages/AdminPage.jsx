@@ -59,6 +59,9 @@ function AdminPage() {
 
     if (isNaN(page)) {
       page = 1;
+      setPage(page);
+    } else {
+      setPage(page);
     }
 
     try {
@@ -152,7 +155,7 @@ function AdminPage() {
             {users.map((user, index) => (
                 <div key={index} data-id={user.id}
                      className={styles.itemContainer} onClick={handleUserClick}>
-                  <span>{index + 1}.</span>
+                  <span>{(page - 1) * 10 + (index + 1)}.</span>
                   <div className={styles.itemListContent}>
                     <span>{user.name}</span>
                     <span>{user.role}</span>

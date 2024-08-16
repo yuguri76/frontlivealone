@@ -9,11 +9,10 @@ const DeliveryHistory = () => {
   const [userId, setUserId] = useState(paramUserId);
   const [deliverys, setDeliverys] = useState([]);
 
-  const [selectPageOne, setSelectPageOne] = useState(true);
-  const [selectPageTwo, setSelectPageTwo] = useState(false);
-  const [selectPageThree, setSelectPageThree] = useState(false);
-  const [selectPageFour, setSelectPageFour] = useState(false);
-  const [selectPageFive, setSelectPageFive] = useState(false);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  const [cursor, setCursor] = useState(1);
+
 
   useEffect(() => {
     if (!userId) {
@@ -21,49 +20,38 @@ const DeliveryHistory = () => {
       setUserId(user.id);
     }
 
-    const getDeliverys = async () => {
-      try {
-        const response = await axiosInstance.get(`/user/${userId}/delivery`, {
-          headers: {
-            Authorization: localStorage.getItem('accessToken')
-          }});
-
-        setDeliverys(response.data.data);
-      } catch (error) {
-        console.error('Error fetching deliverys:', error);
-      }
-    };
-
     getDeliverys();
   }, []);
 
-  const handlePageClick = async (event) => {
-    let page = parseInt(event.target.textContent);
-
-    setSelectPageOne(false);
-    setSelectPageTwo(false);
-    setSelectPageThree(false);
-    setSelectPageFour(false);
-    setSelectPageFive(false);
-
-    switch (page) {
-      case 1: setSelectPageOne(true); break;
-      case 2: setSelectPageTwo(true); break;
-      case 3: setSelectPageThree(true); break;
-      case 4: setSelectPageFour(true); break;
-      case 5: setSelectPageFive(true); break;
+  const getDeliverys = async (page) => {
+    if (isNaN(page)) {
+      page = 1;
+      setPage(page);
+    } else {
+      setPage(page);
     }
 
     try {
-      const response = await axiosInstance.get(`/user/${userId}/delivery?page=${page}`, {
+      const response = await axiosInstance.get(`/user/${userId}/delivery`, {
         headers: {
           Authorization: localStorage.getItem('accessToken')
-        }});
+        },
+        params: {
+          "page": page
+        }
+      });
 
-      setDeliverys(response.data.data);
-    } catch(error) {
+      setTotalPage(response.data.data.total_pages);
+      setDeliverys(response.data.data.content);
+    } catch (error) {
       console.error('Error fetching deliverys:', error);
     }
+  };
+
+  const handlePageClick = async (event) => {
+    let page = parseInt(event.target.innerHTML, 10);
+    setCursor(page);
+    getDeliverys(page);
   }
 
 
@@ -85,16 +73,12 @@ const DeliveryHistory = () => {
           }
         </div>
         <div className={styles.pageContainer}>
-          <span className={classNames({[styles.pageSelect]: selectPageOne})}
-                onClick={handlePageClick}>1</span>
-          <span className={classNames({[styles.pageSelect]: selectPageTwo})}
-                onClick={handlePageClick}>2</span>
-          <span className={classNames({[styles.pageSelect]: selectPageThree})}
-                onClick={handlePageClick}>3</span>
-          <span className={classNames({[styles.pageSelect]: selectPageFour})}
-                onClick={handlePageClick}>4</span>
-          <span className={classNames({[styles.pageSelect]: selectPageFive})}
-                onClick={handlePageClick}>5</span>
+          {Array.from({length: totalPage}, (_, index) => (
+              <a key={index} onClick={handlePageClick}
+                 className={classNames({[styles.pageSelect]: cursor == index + 1})}>
+                {index + 1}
+              </a>
+          ))}
         </div>
       </div>
   );
