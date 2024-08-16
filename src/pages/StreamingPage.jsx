@@ -88,7 +88,7 @@ function StreamingPage() {
   };
 
   if (amount === null) {
-    return <div>Loading...</div>; // 금액을 불러오는 동안 로딩 화면을 표시
+    return <div>Loading... 화면이 안 보이면 새로고침 해주세요 </div>; // 금액을 불러오는 동안 로딩 화면을 표시
   }
 
   return (
