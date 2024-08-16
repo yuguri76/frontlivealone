@@ -69,7 +69,7 @@
   color: #105258;
 }
 
-.pageContainer span:hover {
+.pageContainer a:hover {
   cursor: pointer;
 }
 
