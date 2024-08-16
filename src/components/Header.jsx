@@ -45,6 +45,7 @@ function Header() {
 
     localStorage.clear();
     setIsLoggedIn(false);
+    navigate('/');
   };
 
   return (

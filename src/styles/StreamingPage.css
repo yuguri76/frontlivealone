@@ -26,7 +26,6 @@
 .video-js .vjs-tech {
     object-fit: cover; /* Ensure video covers the container */
     height: 100%; /* Ensure video height matches container height */
-    border-radius: 10px 10px 0 0; /* Match the corner radius of the top */
     margin-top: 0px; /* Remove any top margin */
     padding-top: 0px !important; /* Ensure no padding at the top */
 }

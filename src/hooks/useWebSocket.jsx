@@ -45,7 +45,12 @@ const useWebSocket = (token,refreshToken) => {
                     const data = JSON.parse(message.body);
                     handleMessage(data);
                 });
-                
+
+                client.current.subscribe('/queue/viewer',(message) =>{
+                    const data = JSON.parse(message.body);
+                    handleRequestViewerCount(data);
+                })
+
                 client.current.subscribe('/user/queue/reply', (message) => {
                     const data = JSON.parse(message.body);
                     handleSessionMessage(data);
@@ -67,7 +72,7 @@ const useWebSocket = (token,refreshToken) => {
                 });
 
                 client.current.publish({ destination: '/pub/session', body: authMessage });
-                requestViewerCount();
+                //requestViewerCount();
             },
             onStompError: (frame) => {
                 console.error('STOMP error: ' + frame.headers['message']);
@@ -108,29 +113,29 @@ const useWebSocket = (token,refreshToken) => {
         };
     }, []);
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        /**
-         * 10초에 한번 시청자 수 요청
-         * 시청자 수가 바뀔 때 마다 갱신도 가능 (적용은 x) -> 서버에서도 처리해야함 
-         */
-        const getViewerCountInterval = setInterval(()=>{
-            requestViewerCount();
-        },10000); 
+    //     /**
+    //      * 10초에 한번 시청자 수 요청
+    //      * 시청자 수가 바뀔 때 마다 갱신도 가능 (적용은 x) -> 서버에서도 처리해야함 
+    //      */
+    //     const getViewerCountInterval = setInterval(()=>{
+    //         requestViewerCount();
+    //     },10000); 
 
-        return () => clearInterval(getViewerCountInterval);
+    //     return () => clearInterval(getViewerCountInterval);
 
-    },[]);
+    // },[]);
 
-    const requestViewerCount = () =>{
-        console.log('시청자 수 요청');
-        const requestViewerCountMessage = JSON.stringify({
-            type: 'REQUEST_VIEWERCOUNT',
-            messenger: 'front-server',
-            message: 1
-        })
-        client.current.publish({destination: '/pub/session',body: requestViewerCountMessage})
-    };
+    // const requestViewerCount = () =>{
+    //     console.log('시청자 수 요청');
+    //     const requestViewerCountMessage = JSON.stringify({
+    //         type: 'REQUEST_VIEWERCOUNT',
+    //         messenger: 'front-server',
+    //         message: 1
+    //     })
+    //     client.current.publish({destination: '/pub/session',body: requestViewerCountMessage})
+    // };
 
     const handleMessage = (data) =>{
         const { type, messenger, message } = data;
@@ -145,6 +150,16 @@ const useWebSocket = (token,refreshToken) => {
                 return updatedMessages;
             });
         }
+    }
+
+    const handleRequestViewerCount = (data) =>{
+        const {type,messenger,message} = data;
+
+        console.log(data);
+        if (type === 'RESPONSE_VIEWERCOUNT'){
+            setViewrCount(message);
+        }
+
     }
 
     const handleAlert = (data) =>{
@@ -219,6 +234,7 @@ const useWebSocket = (token,refreshToken) => {
                 message: 'Request Initialize'
             });
 
+            
             client.current.publish({ destination: '/pub/session', body: requestInit });
         } else if (type === 'ERROR') {
             const messageInput = document.getElementById('messageInput');
@@ -241,9 +257,7 @@ const useWebSocket = (token,refreshToken) => {
                 }
                 return updatedMessages;
             });
-        } else if (type === 'RESPONSE_VIEWERCOUNT'){
-            setViewrCount(message);
-        }
+        } 
     };
 
     const sendMessage = (userNickname, message) => {

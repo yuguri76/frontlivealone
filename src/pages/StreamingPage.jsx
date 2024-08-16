@@ -24,7 +24,7 @@ function StreamingPage() {
   console.log(userId);
 
   // 웹소켓 훅을 한 번만 호출
-  const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname,viewerCount } = useWebSocket('');
+  const { requestStreamKey, wsIsLive, wsStreamKey, messages, sendMessage, isAvailableChat, userNickname} = useWebSocket('');
 
   useEffect(() => {
     console.log(`Product ID from Redux: ${productId}`); // Redux에서 가져온 productId를 로그로 출력
@@ -47,6 +47,10 @@ function StreamingPage() {
   }, [productId, dispatch]);
 
   const handleBuyClick = async (event) => {
+    if(wsIsLive == false) {
+      alert("관리자 기본 방송 중엔 판매중인 상품이 없어서 구매하기 기능 사용이 불가능합니다")
+      return;
+    }
     console.log('product id: ' + productId);
     console.log('broadcast id: ' + broadcastId);
     console.log('product name: ' + productName);
@@ -84,7 +88,7 @@ function StreamingPage() {
   };
 
   if (amount === null) {
-    return <div>Loading...</div>; // 금액을 불러오는 동안 로딩 화면을 표시
+    return <div>Loading... 화면이 안 보이면 새로고침 해주세요 </div>; // 금액을 불러오는 동안 로딩 화면을 표시
   }
 
   return (
@@ -103,9 +107,6 @@ function StreamingPage() {
             <ProductionInfoForStreaming onProductInfo={(productData) => setAmount(productData.product_price)}/>
           </div>
           <button className="buy-button" onClick={handleBuyClick}>구매 하기</button>
-        </div>
-        <div>
-          시청자 수 : {viewerCount}
         </div>
       </div>
       <div className="chatbox-container">

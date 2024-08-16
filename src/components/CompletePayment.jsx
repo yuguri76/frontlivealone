@@ -4,7 +4,7 @@ import truck from '../assets/images/completepayment.png'
 
 const CompletePayment = () => {
     const handleReturn = () => {
-        window.location.href = 'http://livealone.shop:3000'; // 메인 페이지로 돌아가기
+        window.location.href = 'https://livealone.shop'; // 메인 페이지로 돌아가기
     };
 
     return (
