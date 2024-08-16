@@ -1,58 +1,79 @@
-import React, {useEffect, useState} from 'react';
-import {useLocation, useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from "react-router-dom";
 import styles from '../styles/History.module.css';
 import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
 
 const PaymentHistory = () => {
-  const location = useLocation();
-  const {payments} = location.state;
-  const [cursor, setCursor] = useState(0);
+    const location = useLocation();
+    const { userId } = location.state; // userId를 state에서 받아옴
+    const [payments, setPayments] = useState([]); // 결제 내역 데이터를 저장할 상태
+    const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호를 저장할 상태
+    const [totalPages, setTotalPages] = useState(0); // 총 페이지 수를 저장할 상태
+    const itemsPerPage = 5; // 페이지당 항목 수를 5로 설정
 
-  const handleClick = cursor => event => {
-    setCursor(cursor)
-  }
+    useEffect(() => {
+        // 서버로부터 결제 내역을 가져오는 함수
+        const fetchPayments = async (page) => {
+            try {
+                const response = await axiosInstance.get(`/payment/user/${userId}/completed`, {
+                    params: {
+                        page: page,
+                        size: itemsPerPage // 백엔드와 맞춘 항목 수 설정
+                    }
+                });
+                setPayments(response.data.data.content); // 결제 데이터를 업데이트
+                setCurrentPage(page); // 현재 페이지를 업데이트
+                setTotalPages(response.data.data.totalPages); // 총 페이지 수를 업데이트
+            } catch (error) {
+                console.error("결제 내역을 가져오지 못했습니다.", error); // 오류 처리
+            }
+        };
 
-  return (
-      <div className={styles.historyContainer}>
-        <div className={styles.historyNameContainer}>
-          <span>주문 내역</span>
+        fetchPayments(currentPage); // 초기 데이터 가져오기
+    }, [currentPage, userId]); // currentPage나 userId가 변경될 때마다 실행
+
+    // 페이지 번호 클릭 시 페이지를 변경하는 함수
+    const handleClick = (page) => {
+        setCurrentPage(page);
+    }
+
+    return (
+        <div className={styles.historyContainer}>
+            <div className={styles.historyNameContainer}>
+                <span>주문 내역</span>
+            </div>
+            <div className={styles.line}></div>
+            <div className={styles.historyContentContainer}>
+                {
+                    payments.map((content, index) => {
+                        const { createdAt, productName, quantity, amount, paymentMethod } = content;
+                        const [createdDate, rawCreatedTime] = createdAt.split('T'); // 날짜와 시간을 분리
+                        const [createdTime, _] = rawCreatedTime.split('.'); // 시간에서 밀리초 제거
+                        return (
+                            <div className={styles.historyContent} key={index}>
+                                <span className={styles.historyContentName}>{productName}</span>
+                                <span>{quantity} 개</span>
+                                <span>{amount} 원</span>
+                                <span>{paymentMethod}</span>
+                                <span className={styles.historyContentTime}>{createdDate}</span>
+                                <span className={styles.historyContentTime}>{createdTime}</span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className={styles.pageContainer}>
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <span key={index}
+                          className={classNames({ [styles.pageSelect]: currentPage === index })} // 현재 페이지에 해당하는 번호에 스타일 적용
+                          onClick={() => handleClick(index)}>
+            {index + 1} {/* 페이지 번호 표시 */}
+          </span>
+                ))}
+            </div>
         </div>
-        <div className={styles.line}></div>
-        <div className={styles.historyContentContainer}>
-          {
-            payments.slice(cursor * 5, cursor * 5 + 5).map((content, index) => {
-              const {created_at} = content;
-              const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
-              const [createdTime, _] = rawCreatedTime.split('.');
-              return (
-                  <div className={styles.historyContent} key={index}>
-                    <span className={styles.historyContentName}>{content.product_name}</span>
-                    <span>{content.quantity} 개</span>
-                    <span>{content.amount} 원</span>
-                    <span>{content.payment_method}</span>
-                    <span className={styles.historyContentTime}>{createdDate}</span>
-                    <span className={styles.historyContentTime}>{createdTime}</span>
-                  </div>
-              )
-            })
-          }
-        </div>
-        <div className={styles.pageContainer}>
-          <span className={classNames({[styles.pageSelect]: cursor === 0})}
-                onClick={handleClick(0)}>1</span>
-          <span className={classNames({[styles.pageSelect]: cursor === 1})}
-                onClick={handleClick(1)}>2</span>
-          <span className={classNames({[styles.pageSelect]: cursor === 2})}
-                onClick={handleClick(2)}>3</span>
-          <span className={classNames({[styles.pageSelect]: cursor === 3})}
-                onClick={handleClick(3)}>4</span>
-          <span className={classNames({[styles.pageSelect]: cursor === 4})}
-                onClick={handleClick(4)}>5</span>
-        </div>
-        >
-      </div>
-  );
+    );
 }
 
 export default PaymentHistory;
