@@ -4,6 +4,7 @@ import axiosInstance from '../axiosInstance';
 import styles from '../styles/MyInfo.module.css';
 import classNames from 'classnames';
 import AddressForm from "./AddressForm";
+import {create} from "axios";
 
 const MyInfo = () => {
   const navigate = useNavigate();
@@ -257,16 +258,14 @@ const MyInfo = () => {
               {
                 payments.map((content, index) => {
                   const {created_at, product_name, quantity, amount, payment_method} = content;
-                  const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
-                  const [createdTime, _] = rawCreatedTime.split('.');
                   return (
                       <div className={styles.actContent} key={index}>
                         <span className={styles.actContentTitle}>{product_name}</span>
                         <span>{quantity} 개</span>
                         <span>{amount} 원</span>
+                        <span>총 {quantity * amount} 원</span>
                         <span>{payment_method}</span>
-                        <span className={classNames(styles.orderContentTime)}>{createdDate ? createdDate : 'N/A'}</span>
-                        <span className={classNames(styles.orderContentTime)}>{createdTime ? createdTime : 'N/A'}</span>
+                        <span className={styles.actContentTime}>{created_at ? created_at.replace('T', '') : 'N/A'}</span>
                       </div>
                   )
                 })

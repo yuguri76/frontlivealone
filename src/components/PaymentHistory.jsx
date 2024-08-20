@@ -50,16 +50,14 @@ const PaymentHistory = () => {
                 {
                     payments.map((content, index) => {
                         const {created_at, product_name, quantity, amount, payment_method} = content;
-                        const [createdDate, rawCreatedTime] = created_at.split('T'); // 날짜와 시간을 분리
-                        const [createdTime, _] = rawCreatedTime.split('.'); // 시간에서 밀리초 제거
                         return (
                             <div className={styles.historyContent} key={index}>
                                 <span className={styles.historyContentName}>{product_name}</span>
                                 <span>{quantity} 개</span>
                                 <span>{amount} 원</span>
+                                <span>총 {quantity * amount} 원</span>
                                 <span>{payment_method}</span>
-                                <span className={styles.historyContentTime}>{createdDate}</span>
-                                <span className={styles.historyContentTime}>{createdTime}</span>
+                                <span className={styles.historyContentTime}>{created_at ? created_at.replace('T', '') : 'N/A'}</span>
                             </div>
                         )
                     })
