@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from '../styles/History.module.css';
 import axiosInstance from '../axiosInstance';
 import classNames from "classnames";
 
 const PaymentHistory = () => {
-    const location = useLocation();
-    const { userId } = location.state; // userId를 state에서 받아옴
+    const { userId } = useParams();
     const [payments, setPayments] = useState([]); // 결제 내역 데이터를 저장할 상태
     const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호를 저장할 상태
     const [totalPages, setTotalPages] = useState(0); // 총 페이지 수를 저장할 상태
@@ -17,14 +16,17 @@ const PaymentHistory = () => {
         const fetchPayments = async (page) => {
             try {
                 const response = await axiosInstance.get(`/payment/user/${userId}/completed`, {
+                    headers: {
+                        Authorization: localStorage.getItem('accessToken')
+                    },
                     params: {
                         page: page,
                         size: itemsPerPage // 백엔드와 맞춘 항목 수 설정
                     }
                 });
-                setPayments(response.data.data.content); // 결제 데이터를 업데이트
+                setPayments(response.data.data.contents); // 결제 데이터를 업데이트
                 setCurrentPage(page); // 현재 페이지를 업데이트
-                setTotalPages(response.data.data.totalPages); // 총 페이지 수를 업데이트
+                setTotalPages(response.data.data.total_pages); // 총 페이지 수를 업데이트
             } catch (error) {
                 console.error("결제 내역을 가져오지 못했습니다.", error); // 오류 처리
             }
@@ -47,15 +49,15 @@ const PaymentHistory = () => {
             <div className={styles.historyContentContainer}>
                 {
                     payments.map((content, index) => {
-                        const { createdAt, productName, quantity, amount, paymentMethod } = content;
-                        const [createdDate, rawCreatedTime] = createdAt.split('T'); // 날짜와 시간을 분리
+                        const {created_at, product_name, quantity, amount, payment_method} = content;
+                        const [createdDate, rawCreatedTime] = created_at.split('T'); // 날짜와 시간을 분리
                         const [createdTime, _] = rawCreatedTime.split('.'); // 시간에서 밀리초 제거
                         return (
                             <div className={styles.historyContent} key={index}>
-                                <span className={styles.historyContentName}>{productName}</span>
+                                <span className={styles.historyContentName}>{product_name}</span>
                                 <span>{quantity} 개</span>
                                 <span>{amount} 원</span>
-                                <span>{paymentMethod}</span>
+                                <span>{payment_method}</span>
                                 <span className={styles.historyContentTime}>{createdDate}</span>
                                 <span className={styles.historyContentTime}>{createdTime}</span>
                             </div>
