@@ -57,7 +57,7 @@ const PaymentHistory = () => {
                                 <span>{amount} 원</span>
                                 <span>총 {quantity * amount} 원</span>
                                 <span>{payment_method}</span>
-                                <span className={styles.historyContentTime}>{created_at ? created_at.replace('T', '') : 'N/A'}</span>
+                                <span className={styles.historyContentTime}>{created_at ? created_at.replace('T', ' ') : 'N/A'}</span>
                             </div>
                         )
                     })
