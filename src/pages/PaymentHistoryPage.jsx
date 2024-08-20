@@ -7,6 +7,6 @@ function PaymentHistoryPage() {
         <PaymentHistory />
       </div>
     );
-  }
-  
-  export default PaymentHistoryPage;
+}
+
+export default PaymentHistoryPage;

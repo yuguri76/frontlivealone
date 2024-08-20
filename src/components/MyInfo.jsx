@@ -86,11 +86,11 @@ const MyInfo = () => {
           },
           params: {
             page: 0,
-            size: 5 // 5개의 항목만 가져옴
+            size: 5
           }
         });
 
-        setPayments(response.data.data.content);
+        setPayments(response.data.data.contents);
       } catch (error) {
         console.error('Error fetching payments:', error);
       }
@@ -175,7 +175,7 @@ const MyInfo = () => {
   }
 
   const handlePaymentHistoryClick = () => {
-    navigate('/paymentHistory', { state: { payments }});
+    navigate(`/user/${userId}/paymentHistory`, { state: { userId, payments }});
   }
 
   const handleDeliveryHistoryClick = () => {
@@ -255,18 +255,16 @@ const MyInfo = () => {
             </div>
             <div className={styles.actContentContainer}>
               {
-                payments.slice(0, 5).map((content, index) => {
-                  const {created_at} = content;
-                  const [createdDate, rawCreatedTime] = created_at.split('T') // ['YYYY-MM-DD', 'HH:MM:SS.ms']
-                  const [createdTime, _] = rawCreatedTime.split('.');
+                payments.map((content, index) => {
+                  const {created_at, product_name, quantity, amount, payment_method} = content;
                   return (
                       <div className={styles.actContent} key={index}>
-                        <span className={styles.actContentTitle}>{content.product_name}</span>
-                        <span>{content.quantity} 개</span>
-                        <span>{content.amount} 원</span>
-                        <span>{content.payment_method}</span>
-                        <span className={classNames(styles.orderContentTime)}>{createdDate ? createdDate : 'N/A'}</span>
-                        <span className={classNames(styles.orderContentTime)}>{createdTime ? createdTime : 'N/A'}</span>
+                        <span className={styles.actContentTitle}>{product_name}</span>
+                        <span>{quantity} 개</span>
+                        <span>{amount} 원</span>
+                        <span>총 {quantity * amount} 원</span>
+                        <span>{payment_method}</span>
+                        <span className={styles.actContentTime}>{created_at ? created_at.replace('T', ' ') : 'N/A'}</span>
                       </div>
                   )
                 })
