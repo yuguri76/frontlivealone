@@ -86,7 +86,7 @@ const MyInfo = () => {
           },
           params: {
             page: 0,
-            size: 5 // 5개의 항목만 가져옴
+            size: 5 // TODO 5개의 항목만 가져옴
           }
         });
 
@@ -175,7 +175,7 @@ const MyInfo = () => {
   }
 
   const handlePaymentHistoryClick = () => {
-    navigate('/paymentHistory', { state: { payments }});
+    navigate('/paymentHistory', { state: { userId, payments }});
   }
 
   const handleDeliveryHistoryClick = () => {
